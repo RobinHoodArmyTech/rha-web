@@ -1,36 +1,190 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Robin Hood Army — Web Platform
+
+A monorepo web platform for [Robin Hood Army](https://robinhoodarmy.com) built with **Next.js 16 App Router**. It hosts two distinct applications in a single codebase:
+
+| App | Local URL | Production Domain |
+|-----|-----------|-------------------|
+| **Main Site** | `localhost:3000/sites/main` | `robinhoodarmy.com` |
+| **Check-In App** | `localhost:3000/sites/checkin` | `checkin.robinhoodarmy.com` |
+
+---
+
+## About
+
+### Main Site (`sites/main`)
+The public-facing website for Robin Hood Army. Contains:
+- **Home** — Hero slider, The Problem, The Idea, What We've Been Up To, Our Journey, How You Can Help, Our Culture, Press mentions
+- **About** — Mission, Stats, FAQs, Volunteer testimonials (Robin Speak)
+- **Academy** — Course catalogue with badge system (Cadet → Ninja → Gladiator → Centurion)
+
+### Check-In App (`sites/checkin`)
+A volunteer check-in portal where Robins log their drives and track badge progress. Contains:
+- **Home** — Live drive stats, recent check-in photos, city highlights, active volunteers
+- **Check-In Now** — Upload a drive selfie, select city, add notes
+- **Dashboard** — Personal drive history and impact stats
+- **My Profile** — Account and badge progress
+- **Contact Us** — Support contact form
+- **Privacy Policy** — Data handling policy
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 16 (App Router, Turbopack) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Animations | Framer Motion |
+| UI Primitives | Radix UI (Dialog, Accordion, Dropdown) |
+| Icons | Lucide React |
+| Theme | next-themes (dark / light) |
+| Font | Geist (Sans + Mono) |
+
+---
+
+## Project Structure
+
+```
+robin-hood-army/
+├── middleware.ts                  # Thin entry point — delegates to src/middleware/
+├── next.config.ts
+├── public/
+└── src/
+    ├── app/
+    │   ├── layout.tsx             # Root layout (ThemeProvider)
+    │   ├── page.tsx               # Dev redirect → /sites/main
+    │   ├── sites/
+    │   │   ├── main/              # Main site pages (URL: /sites/main/*)
+    │   │   │   ├── layout.tsx     # Wraps with main AppShell (Navbar + Footer)
+    │   │   │   ├── page.tsx       # Home page
+    │   │   │   ├── about/
+    │   │   │   └── academy/
+    │   │   └── checkin/           # Check-in app pages (URL: /sites/checkin/*)
+    │   │       ├── layout.tsx     # Wraps with CheckinAppShell (CheckinNavbar)
+    │   │       ├── page.tsx       # Home page
+    │   │       ├── submit/        # Drive check-in form
+    │   │       ├── dashboard/
+    │   │       ├── profile/
+    │   │       ├── contact/
+    │   │       └── privacy/
+    │   └── api/v1/
+    │       ├── auth/route.ts      # Auth endpoints (login / register / logout)
+    │       └── checkin/route.ts   # Check-in endpoints (list / submit)
+    │
+    ├── domains/
+    │   ├── main/
+    │   │   ├── components/
+    │   │   │   ├── AppShell.tsx   # Main layout shell
+    │   │   │   ├── Navbar.tsx     # Main navbar (with theme toggle)
+    │   │   │   ├── Footer.tsx
+    │   │   │   └── auth/          # AuthModal, LoginForm, RegisterForm
+    │   │   └── services/
+    │   └── checkin/
+    │       ├── components/
+    │       │   ├── CheckinAppShell.tsx  # Checkin layout shell
+    │       │   ├── CheckinNavbar.tsx    # Checkin navbar (with theme toggle)
+    │       │   ├── BadgeCard.tsx        # Hexagon badge component
+    │       │   └── sections/           # HeroSection, RecentCheckIns,
+    │       │                           # CheckInHighlights, ActiveRobins
+    │       ├── services/
+    │       └── types/
+    │
+    ├── middleware/
+    │   ├── index.ts               # Composes all middleware
+    │   ├── domainResolver.ts      # Routes by hostname (main vs checkin)
+    │   └── authGuard.ts           # Protects /dashboard and /profile routes
+    │
+    ├── core/
+    │   └── config/domains.ts      # Single source of truth for domain config
+    │
+    ├── components/
+    │   └── shared/
+    │       └── ThemeProvider.tsx
+    │
+    └── lib/
+        └── utils.ts               # cn() utility
+```
+
+---
+
+## How Routing Works
+
+### Local Development
+All pages are directly accessible by path:
+```
+localhost:3000/              → redirects to /sites/main
+localhost:3000/sites/main    → Main home
+localhost:3000/sites/checkin → Check-In app home
+```
+
+### Production (Domain-Based)
+The middleware in `middleware.ts` → `src/middleware/domainResolver.ts` rewrites requests based on hostname:
+```
+robinhoodarmy.com/*          → internally routed to /sites/main/*
+checkin.robinhoodarmy.com/*  → internally routed to /sites/checkin/*
+```
+Configure hostnames via environment variables:
+```env
+NEXT_PUBLIC_MAIN_DOMAIN=robinhoodarmy.com
+NEXT_PUBLIC_CHECKIN_DOMAIN=checkin.robinhoodarmy.com
+```
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18+
+- npm
 
+### Install dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Run development server
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Then open:
+- Main site: [http://localhost:3000/sites/main](http://localhost:3000/sites/main)
+- Check-In app: [http://localhost:3000/sites/checkin](http://localhost:3000/sites/checkin)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Build for production
+```bash
+npm run build
+```
 
-## Learn More
+### Start production server
+```bash
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Lint
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Environment Variables
 
-## Deploy on Vercel
+Create a `.env.local` file in the root:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+# Domain configuration (optional — defaults shown below)
+NEXT_PUBLIC_MAIN_DOMAIN=robinhoodarmy.com
+NEXT_PUBLIC_CHECKIN_DOMAIN=checkin.robinhoodarmy.com
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Key Conventions
+
+- **Domain-driven structure** — all business logic lives under `src/domains/`, split by `main` and `checkin`
+- **Route groups are not used** — pages live under `src/app/sites/main` and `src/app/sites/checkin` with explicit paths
+- **Middleware is modular** — `middleware.ts` is a thin entry point; actual logic is in `src/middleware/`
+- **Dark mode** — managed by `next-themes`, toggled in both navbars. Default theme is `dark`
+- **`suppressHydrationWarning`** on `<body>` handles browser extension attribute injection (e.g. Grammarly)
