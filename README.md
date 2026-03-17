@@ -40,6 +40,8 @@ A volunteer check-in portal where Robins log their drives and track badge progre
 | Icons | Lucide React |
 | Theme | next-themes (dark / light) |
 | Font | Geist (Sans + Mono) |
+| Database | PostgreSQL |
+| Query Builder | Knex.js |
 
 ---
 
@@ -93,10 +95,18 @@ robin-hood-army/
     ├── middleware/
     │   ├── index.ts               # Composes all middleware
     │   ├── domainResolver.ts      # Routes by hostname (main vs checkin)
-    │   └── authGuard.ts           # Protects /dashboard and /profile routes
+    │   ├── authGuard.ts           # Protects /dashboard and /profile routes
+    │   └── apiMiddlewares.ts      # withApiHandler (error handling) + withApiAuth (auth)
     │
     ├── core/
-    │   └── config/domains.ts      # Single source of truth for domain config
+    │   ├── config/
+    │   │   ├── domains.ts         # Single source of truth for domain config
+    │   │   └── constants.ts       # Shared constants (frontend + backend)
+    │   ├── apiResponse.ts         # ApiResponse helper + ApiError class
+    │   └── db/
+    │       ├── index.ts           # Singleton Knex instance
+    │       ├── knexfile.ts        # Knex configuration
+    │       └── migrations/        # Knex migration files
     │
     ├── components/
     │   └── shared/
@@ -137,10 +147,19 @@ NEXT_PUBLIC_CHECKIN_DOMAIN=checkin.robinhoodarmy.com
 ### Prerequisites
 - Node.js 18+
 - npm
+- PostgreSQL
 
 ### Install dependencies
 ```bash
 npm install
+```
+
+### Set up the database
+1. Create a PostgreSQL database
+2. Add `DATABASE_URL` to `.env` (see [Environment Variables](#environment-variables))
+3. Run migrations:
+```bash
+npm run db:migrate
 ```
 
 ### Run development server
@@ -171,12 +190,15 @@ npm run lint
 
 ## Environment Variables
 
-Create a `.env.local` file in the root:
+Create a `.env` file in the root:
 
 ```env
 # Domain configuration (optional — defaults shown below)
 NEXT_PUBLIC_MAIN_DOMAIN=robinhoodarmy.com
 NEXT_PUBLIC_CHECKIN_DOMAIN=checkin.robinhoodarmy.com
+
+# Database
+DATABASE_URL=postgres://user:password@localhost:5432/rha_dev
 ```
 
 ---
@@ -186,5 +208,8 @@ NEXT_PUBLIC_CHECKIN_DOMAIN=checkin.robinhoodarmy.com
 - **Domain-driven structure** — all business logic lives under `src/domains/`, split by `main` and `checkin`
 - **Route groups are not used** — pages live under `src/app/sites/main` and `src/app/sites/checkin` with explicit paths
 - **Middleware is modular** — `middleware.ts` is a thin entry point; actual logic is in `src/middleware/`
+- **API middlewares** — `withApiHandler` for error handling, `withApiAuth` for authentication. Composable — `withApiAuth` builds on top of `withApiHandler`
+- **API responses** — use `ApiResponse.success(data)` for success, `throw new ApiError(status, message)` for errors
+- **Database** — singleton Knex instance in `src/core/db/`. Import `db` in any API handler
 - **Dark mode** — managed by `next-themes`, toggled in both navbars. Default theme is `dark`
 - **`suppressHydrationWarning`** on `<body>` handles browser extension attribute injection (e.g. Grammarly)

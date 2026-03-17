@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { AUTH_COOKIE } from "@/core/config/constants";
 
 /**
  * Protects checkin sub-routes that require authentication.
@@ -7,7 +8,6 @@ import { NextRequest, NextResponse } from "next/server";
  */
 
 const PROTECTED_PATHS = ["/sites/checkin/dashboard", "/sites/checkin/profile"];
-const AUTH_COOKIE = "rha-auth-token";
 
 export function authGuard(request: NextRequest): NextResponse | null {
   const { pathname } = request.nextUrl;
