@@ -42,6 +42,7 @@ A volunteer check-in portal where Robins log their drives and track badge progre
 | Font | Geist (Sans + Mono) |
 | Database | PostgreSQL |
 | Query Builder | Knex.js |
+| Validation | Zod |
 
 ---
 
@@ -50,6 +51,7 @@ A volunteer check-in portal where Robins log their drives and track badge progre
 ```
 robin-hood-army/
 ├── middleware.ts                  # Thin entry point — delegates to src/middleware/
+├── knexfile.ts                   # Knex database configuration
 ├── next.config.ts
 ├── public/
 └── src/
@@ -70,9 +72,9 @@ robin-hood-army/
     │   │       ├── profile/
     │   │       ├── contact/
     │   │       └── privacy/
-    │   └── api/v1/
-    │       ├── auth/route.ts      # Auth endpoints (login / register / logout)
-    │       └── checkin/route.ts   # Check-in endpoints (list / submit)
+    │   └── api/v1/               # API routes (file-system based)
+    │       ├── auth/              # Auth endpoints (login / signup / logout)
+    │       └── checkin/           # Check-in endpoints (list / submit)
     │
     ├── domains/
     │   ├── main/
@@ -103,9 +105,9 @@ robin-hood-army/
     │   │   ├── domains.ts         # Single source of truth for domain config
     │   │   └── constants.ts       # Shared constants (frontend + backend)
     │   ├── apiResponse.ts         # ApiResponse helper + ApiError class
+    │   ├── validators/            # Zod schemas (shared frontend + backend)
     │   └── db/
     │       ├── index.ts           # Singleton Knex instance
-    │       ├── knexfile.ts        # Knex configuration
     │       └── migrations/        # Knex migration files
     │
     ├── components/
@@ -210,6 +212,7 @@ DATABASE_URL=postgres://user:password@localhost:5432/rha_dev
 - **Middleware is modular** — `middleware.ts` is a thin entry point; actual logic is in `src/middleware/`
 - **API middlewares** — `withApiHandler` for error handling, `withApiAuth` for authentication. Composable — `withApiAuth` builds on top of `withApiHandler`
 - **API responses** — use `ApiResponse.success(data)` for success, `throw new ApiError(status, message)` for errors
-- **Database** — singleton Knex instance in `src/core/db/`. Import `db` in any API handler
+- **Validation** — Zod schemas in `src/core/validators/`, shared between frontend and backend
+- **Database** — singleton Knex instance in `src/core/db/`. Import `db` in any API handler. Config in `knexfile.ts` at root
 - **Dark mode** — managed by `next-themes`, toggled in both navbars. Default theme is `dark`
 - **`suppressHydrationWarning`** on `<body>` handles browser extension attribute injection (e.g. Grammarly)
