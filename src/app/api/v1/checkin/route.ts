@@ -1,19 +1,16 @@
-import { NextRequest, NextResponse } from "next/server";
+import { withApiHandler, withApiAuth } from "@/middleware/apiMiddlewares";
+import { ApiResponse, ApiError } from "@/core/apiResponse";
 
 /**
- * GET  /api/v1/checkin  — list recent check-ins (stub)
- * POST /api/v1/checkin  — submit a new check-in (stub)
+ * GET  /api/v1/checkin  — list recent check-ins (public)
+ * POST /api/v1/checkin  — submit a new check-in (authenticated)
  */
-export async function GET() {
+export const GET = withApiHandler(async () => {
   // TODO: fetch paginated check-ins from DB
-  return NextResponse.json({ success: true, data: [] });
-}
+  return ApiResponse.success([]);
+});
 
-export async function POST(request: NextRequest) {
+export const POST = withApiAuth(async () => {
   // TODO: parse multipart form-data, upload photo to storage, save record
-  const _body = await request.text();
-  return NextResponse.json(
-    { success: false, message: "Check-in submission not yet implemented" },
-    { status: 501 }
-  );
-}
+  throw new ApiError(501, "Check-in submission not yet implemented");
+});
