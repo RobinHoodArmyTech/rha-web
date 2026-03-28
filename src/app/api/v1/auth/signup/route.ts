@@ -1,39 +1,28 @@
 import { withApiHandler } from "@/middleware/apiMiddlewares";
 import { ApiError, ApiResponse } from "@/core/apiResponse";
-import { AUTH_COOKIE } from "@/core/config/constants";
 import { signupSchema } from "@/core/validators/auth";
+import { createSignup } from "@/core/services/backend/auth/signupService";
 
 /**
- * POST /api/v1/auth/signup — user registration (public)
+ * POST /api/v1/auth/signup — collect signup information (public)
  */
 export const POST = withApiHandler(async (request) => {
-  const body = await request.json().catch(() => ({}));
+  const body = await request.json().catch((err) => {
+    console.error("Failed to parse request body:", err);
+    throw new ApiError(400, "Invalid request body");
+  });
   const data = signupSchema.parse(body);
 
-  const { fullName, email, phone, city } = data;
+  const signup = await createSignup(data);
 
-  // TODO: create user in DB and persist hashed password.
-  const token = crypto.randomUUID();
-
-  const response = ApiResponse.success(
-    {
-      user: {
-        fullName,
-        email,
-        phone,
-        city,
-      },
+  return ApiResponse.success({
+    data: {
+      id: signup.id,
+      full_name: signup.full_name,
+      email: signup.email,
+      phone: signup.phone,
+      city: signup.city,
     },
-    201,
-  );
-
-  response.cookies.set(AUTH_COOKIE, token, {
-    httpOnly: false,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
+    message: "Signup successful",
   });
-
-  return response;
 });

@@ -15,10 +15,7 @@ export const POST = withApiHandler(async (request) => {
   // TODO: verify credentials against DB.
   const token = crypto.randomUUID();
 
-  const response = ApiResponse.success(
-    "successfully logged in",
-    200,
-  );
+  const response = ApiResponse.success({ message: "Successfully logged in" });
 
   response.cookies.set(AUTH_COOKIE, token, {
     httpOnly: false,
