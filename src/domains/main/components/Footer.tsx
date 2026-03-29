@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Target, Twitter, Instagram, Facebook, Youtube, Heart } from "lucide-react";
+import { Twitter, Instagram, Facebook, Youtube, Heart } from "lucide-react";
+import Image from "next/image";
 
 const footerLinks = {
   "Quick Links": [
@@ -25,10 +26,10 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Youtube, href: "#", label: "YouTube" },
+  { icon: Instagram, href: "https://www.instagram.com/rha_india/", label: "Instagram" },
+  { icon: Facebook, href: "https://www.facebook.com/robinhoodarmy", label: "Facebook" },
+  { icon: Youtube, href: "https://www.youtube.com/@robinhoodarmy.", label: "YouTube" },
+  { icon: Twitter, href: "https://x.com/rha_india", label: "Twitter" },
 ];
 
 export default function Footer() {
@@ -38,9 +39,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-green-900/40">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#1a6b3c] to-[#22c55e] rounded-lg flex items-center justify-center shadow-lg">
-                <Target className="w-5 h-5 text-white" strokeWidth={2.5} />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative w-10 h-10 rounded-lg overflow-hidden shadow-lg">
+                <Image
+                  src="/main/images/icons/RHA_Icon.png"
+                  alt="Robin Hood Army Logo"
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
               <div className="flex flex-col leading-none">
                 <span className="font-bold text-lg text-[#4ade80]">Robin Hood</span>
@@ -56,6 +63,8 @@ export default function Footer() {
                 <motion.a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   whileHover={{ scale: 1.15, y: -2 }}
                   whileTap={{ scale: 0.95 }}
