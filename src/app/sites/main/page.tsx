@@ -31,12 +31,21 @@ const ideaStats = [
 
 const countries = ['Bahrain', 'Bangladesh', 'Botswana', 'Guinea', 'India', 'Indonesia', 'Malaysia', 'Nepal', 'Nigeria', 'Pakistan', 'Sri Lanka', 'Uganda', 'Zambia']
 
-const countryInstagram = countries.map(name => ({
-  name,
-  handle: `rha_${name.toLowerCase().replace(/\s+/g, '_')}`,
-  flag: `/main/images/flags/${name.toLowerCase().replace(/\s+/g, '')}.svg`,
-  instagram: `https://www.instagram.com/rha_${name.toLowerCase().replace(/\s+/g, '_')}`,
-}))
+const countryInstagram = [
+  { name: "India", flag: "/main/images/flags/india.svg", instagram: "https://www.instagram.com/rha_india" },
+  { name: "Bangladesh", flag: "/main/images/flags/bangladesh.svg", instagram: "https://www.instagram.com/rha_bangladesh" },
+  { name: "Botswana", flag: "/main/images/flags/botswana.svg", instagram: "https://www.instagram.com/rha__botswana" },
+  { name: "Uganda", flag: "/main/images/flags/uganda.svg", instagram: "https://www.instagram.com/rha_uganda" },
+  { name: "Bahrain", flag: "/main/images/flags/bahrain.svg", instagram: "https://www.instagram.com/rha_bahrain" },
+  { name: "Nigeria", flag: "/main/images/flags/nigeria.svg", instagram: "https://www.instagram.com/rha__nigeria" },
+  { name: "Sri Lanka", flag: "/main/images/flags/srilanka.svg", instagram: "https://www.instagram.com/rha_srilanka" },
+  { name: "Nepal", flag: "/main/images/flags/nepal.svg", instagram: "https://www.instagram.com/rha_nepal" },
+  { name: "Malaysia", flag: "/main/images/flags/malaysia.svg", instagram: "https://www.instagram.com/rha_malaysia" },
+  { name: "Pakistan", flag: "/main/images/flags/pakistan.svg", instagram: "https://www.instagram.com/reliefandhopeforall/p/DBJp1_0voXU/" },
+  { name: "Indonesia", flag: "/main/images/flags/indonesia.svg", instagram: "https://www.instagram.com/rha_indonesia" },
+  { name: "Zambia", flag: "/main/images/flags/zambia.svg", instagram: "https://www.instagram.com/rha_zambia" },
+  { name: "Guinea", flag: "/main/images/flags/guinea.svg", instagram: "https://www.instagram.com/rha_guinea" },
+]
 
 const presenceStats = [
   { value: '13', label: 'Countries' },
@@ -182,7 +191,7 @@ export default function MainHomePage() {
             <div className="px-4 sm:px-6 py-6">
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
                 {countryInstagram.map((country) => (
-                  <a key={country.handle} href={country.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-2 py-2 bg-white/5 hover:bg-white/10 rounded-lg transition-all duration-200 group border border-green-700/30 hover:border-green-500/50">
+                  <a key={country.name} href={country.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-2 py-2 bg-white/5 hover:bg-white/10 rounded-lg transition-all duration-200 group border border-green-700/30 hover:border-green-500/50">
                     <div className="relative w-6 h-6 rounded-full overflow-hidden flex-shrink-0"><Image src={country.flag} alt={`${country.name} flag`} fill className="object-cover" /></div>
                     <span className="text-xs font-medium text-gray-300 group-hover:text-white transition-colors">{country.name}</span>
                     <Instagram className="w-3 h-3 text-gray-500 group-hover:text-[#E4405F] ml-auto transition-colors flex-shrink-0" />
