@@ -2,6 +2,7 @@ import { withApiHandler } from "@/middleware/apiMiddlewares";
 import { ApiError, ApiResponse } from "@/core/apiResponse";
 import { signupSchema } from "@/core/validators/auth";
 import { createSignup } from "@/core/services/backend/auth/signupService";
+import { sendSignupEmail } from "@/core/services/backend/email/emailService";
 
 /**
  * POST /api/v1/auth/signup — collect signup information (public)
@@ -14,6 +15,10 @@ export const POST = withApiHandler(async (request) => {
   const data = signupSchema.parse(body);
 
   const signup = await createSignup(data);
+
+  sendSignupEmail(signup.email).catch((err) =>
+    console.error("Failed to send signup email:", err)
+  );
 
   return ApiResponse.success({
     data: {
