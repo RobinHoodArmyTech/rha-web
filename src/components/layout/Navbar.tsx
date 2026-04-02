@@ -37,12 +37,12 @@ export default function Navbar({ onJoinUsClick }: NavbarProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false); // ← Add this line
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     const handleScroll = () => {
-      // Check if scrolled past hero section (usually 100vh)
+      // Check if scrolled past hero section 
       const heroHeight = window.innerHeight;
       setScrolled(window.scrollY > heroHeight * 0.8);
     };
@@ -52,7 +52,7 @@ export default function Navbar({ onJoinUsClick }: NavbarProps) {
 
   return (
     <>
-      {/* Hero Section Spacer - to detect when hero is scrolled past */}
+      {/* Hero Section Spacer */}
       <div className="fixed top-0 left-0 right-0 h-[1px] pointer-events-none z-40" id="navbar-trigger" />
       
       <motion.nav
