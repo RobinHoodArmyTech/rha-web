@@ -1,17 +1,13 @@
 import { db } from "@/core/db";
-import { SignupInput } from "@/core/validators/auth";
+import type { JoinUsValues } from "@/core/validators/joinUsValidation";
 
-export interface SignupRow {
+export interface SignupRow extends JoinUsValues {
   id: number;
-  full_name: string;
-  email: string;
-  phone: string;
-  city: string;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export async function createSignup(data: SignupInput): Promise<SignupRow> {
+export async function createSignup(data: JoinUsValues): Promise<SignupRow> {
   const [row] = await db("signups").insert(data).returning("*");
   return row;
 }

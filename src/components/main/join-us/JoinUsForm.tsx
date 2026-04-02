@@ -70,10 +70,7 @@ export default function JoinUsForm() {
     setStatus("idle");
 
     try {
-      await api.post("/join-us", {
-        ...values,
-        mobileNumber: normalizeMobileNumber(values.mobileNumber),
-      });
+      await api.post("/auth/signup", values);
 
       setStatus("success");
       setMessage("Thanks for your interest! We'll be in touch soon.");

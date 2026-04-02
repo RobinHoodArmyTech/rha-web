@@ -5,12 +5,4 @@ export const loginSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
-export const signupSchema = z.object({
-  full_name: z.string().min(1, "Full name is required"),
-  email: z.email("Invalid email address").transform((v) => v.toLowerCase()),
-  phone: z.string().regex(/^\+?[\d\s\-()]{8,15}$/, "Invalid phone number"),
-  city: z.string().min(1, "City is required"),
-});
-
 export type LoginInput = z.infer<typeof loginSchema>;
-export type SignupInput = z.infer<typeof signupSchema>;
