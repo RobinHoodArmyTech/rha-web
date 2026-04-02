@@ -376,7 +376,7 @@ export default function MainHomePage() {
             <div className="mt-10 text-center">
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
                 <Link
-                  href="/sites/main/signup"
+                  href="/sites/main/join-us"
                   className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#1a4d2e] hover:bg-[#1a6b3c] text-white font-semibold rounded-full transition-all text-sm shadow-md"
                 >
                   <Heart className="w-4 h-4 fill-current" />
@@ -455,7 +455,7 @@ export default function MainHomePage() {
 
       {/* ── Sticky WhatsApp Join Us ── */}
       <a
-        href="/sites/main/signup"
+        href="/sites/main/join-us"
         className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-white dark:bg-[#0f2818] border border-gray-200 dark:border-green-900/40 text-gray-800 dark:text-white text-sm font-semibold px-4 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50 dark:hover:bg-[#1a4d2e] transition-all"
       >
         <svg viewBox="0 0 24 24" className="w-4 h-4 fill-[#25d366]" xmlns="http://www.w3.org/2000/svg">

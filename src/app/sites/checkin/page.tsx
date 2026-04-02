@@ -1,7 +1,7 @@
-import HeroSection from "@/domains/checkin/components/sections/HeroSection";
-import RecentCheckIns from "@/domains/checkin/components/sections/RecentCheckIns";
-import CheckInHighlights from "@/domains/checkin/components/sections/CheckInHighlights";
-import ActiveRobins from "@/domains/checkin/components/sections/ActiveRobins";
+import HeroSection from "@/components/checkin/sections/HeroSection";
+import RecentCheckIns from "@/components/checkin/sections/RecentCheckIns";
+import CheckInHighlights from "@/components/checkin/sections/CheckInHighlights";
+import ActiveRobins from "@/components/checkin/sections/ActiveRobins";
 
 export default function CheckinHomePage() {
   return (

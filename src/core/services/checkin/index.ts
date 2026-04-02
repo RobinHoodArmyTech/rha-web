@@ -3,7 +3,7 @@
  * Replace stubs with real implementation when backend is ready.
  */
 import { api } from "@/core/services/http";
-import type { CheckInRecord, CheckInSubmission } from "@/domains/checkin/types";
+import type { CheckInRecord, CheckInSubmission } from "@/core/types/checkin";
 
 export async function submitCheckIn(_payload: CheckInSubmission): Promise<CheckInRecord> {
   // TODO: multipart/form-data POST to /api/v1/checkin

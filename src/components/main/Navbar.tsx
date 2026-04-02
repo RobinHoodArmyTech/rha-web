@@ -36,7 +36,7 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const isSignupPage = pathname.startsWith("/sites/main/signup");
+  const isJoinUsPage = pathname.startsWith("/sites/main/join-us");
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => setMounted(true));
@@ -55,7 +55,7 @@ export default function Navbar() {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled || isSignupPage
+        scrolled || isJoinUsPage
           ? "bg-white/80 dark:bg-[#0a1a0f]/90 backdrop-blur-md shadow-lg border-b border-green-100 dark:border-green-900/30"
           : "bg-transparent"
       )}
@@ -88,7 +88,7 @@ export default function Navbar() {
                 <DropdownMenu.Root key={item.label}>
                   <DropdownMenu.Trigger asChild>
                 <button className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#1a6b3c] dark:hover:text-[#4ade80] hover:bg-green-50 dark:hover:bg-green-900/20 transition-all duration-200 outline-none">
-                    {isSignupPage ? (
+                    {isJoinUsPage ? (
                       <span className="text-gray-700 dark:text-gray-200">{item.label}</span>
                     ) : (
                       item.label
@@ -150,7 +150,7 @@ export default function Navbar() {
               className="hidden lg:block"
             >
               <Link
-                href="/sites/main/signup"
+                href="/sites/main/join-us"
                 className="inline-flex items-center px-5 py-2 bg-gradient-to-r from-[#1a6b3c] to-[#166534] hover:from-[#22c55e] hover:to-[#16a34a] text-white text-sm font-semibold rounded-full shadow-md hover:shadow-green-400/30 transition-all duration-300"
               >
                 Join Us
@@ -209,7 +209,7 @@ export default function Navbar() {
                 </div>
               ))}
               <Link
-                href="/sites/main/signup"
+                href="/sites/main/join-us"
                 onClick={() => setMobileOpen(false)}
                 className="block w-full mt-2 px-5 py-3 bg-gradient-to-r from-[#1a6b3c] to-[#166534] text-white text-sm font-semibold rounded-full transition-all text-center"
               >
