@@ -25,7 +25,10 @@ export default function CheckinNavbar({ onLoginClick }: CheckinNavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setMounted(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#155e3a] border-b border-green-800/50 shadow-lg">

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CheckinNavbar from "./CheckinNavbar";
-import AuthModal from "@/domains/main/components/auth/AuthModal";
+import AuthModal from "@/components/main/auth/AuthModal";
 
 export default function CheckinAppShell({ children }: { children: React.ReactNode }) {
   const [authOpen, setAuthOpen] = useState(false);

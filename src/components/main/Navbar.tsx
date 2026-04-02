@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -14,10 +15,6 @@ import {
 } from "lucide-react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { cn } from "@/lib/utils";
-
-interface NavbarProps {
-  onJoinUsClick: () => void;
-}
 
 const navItems = [
   { label: "Home", href: "/sites/main" },
@@ -33,17 +30,22 @@ const navItems = [
   { label: "Academy", href: "/sites/main/academy" },
 ];
 
-export default function Navbar({ onJoinUsClick }: NavbarProps) {
+export default function Navbar() {
+  const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isJoinUsPage = pathname.startsWith("/sites/main/join-us");
 
   useEffect(() => {
-    setMounted(true);
+    const frame = window.requestAnimationFrame(() => setMounted(true));
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
@@ -53,7 +55,7 @@ export default function Navbar({ onJoinUsClick }: NavbarProps) {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
+        scrolled || isJoinUsPage
           ? "bg-white/80 dark:bg-[#0a1a0f]/90 backdrop-blur-md shadow-lg border-b border-green-100 dark:border-green-900/30"
           : "bg-transparent"
       )}
@@ -85,8 +87,12 @@ export default function Navbar({ onJoinUsClick }: NavbarProps) {
               item.dropdown ? (
                 <DropdownMenu.Root key={item.label}>
                   <DropdownMenu.Trigger asChild>
-                    <button className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#1a6b3c] dark:hover:text-[#4ade80] hover:bg-green-50 dark:hover:bg-green-900/20 transition-all duration-200 outline-none">
-                      {item.label}
+                <button className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#1a6b3c] dark:hover:text-[#4ade80] hover:bg-green-50 dark:hover:bg-green-900/20 transition-all duration-200 outline-none">
+                    {isJoinUsPage ? (
+                      <span className="text-gray-700 dark:text-gray-200">{item.label}</span>
+                    ) : (
+                      item.label
+                    )}
                       <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" />
                     </button>
                   </DropdownMenu.Trigger>
@@ -138,14 +144,18 @@ export default function Navbar({ onJoinUsClick }: NavbarProps) {
             )}
 
             {/* Join Us button */}
-            <motion.button
-              onClick={onJoinUsClick}
+            <motion.div
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              className="hidden lg:flex items-center px-5 py-2 bg-gradient-to-r from-[#1a6b3c] to-[#166534] hover:from-[#22c55e] hover:to-[#16a34a] text-white text-sm font-semibold rounded-full shadow-md hover:shadow-green-400/30 transition-all duration-300"
+              className="hidden lg:block"
             >
-              Join Us
-            </motion.button>
+              <Link
+                href="/sites/main/join-us"
+                className="inline-flex items-center px-5 py-2 bg-gradient-to-r from-[#1a6b3c] to-[#166534] hover:from-[#22c55e] hover:to-[#16a34a] text-white text-sm font-semibold rounded-full shadow-md hover:shadow-green-400/30 transition-all duration-300"
+              >
+                Join Us
+              </Link>
+            </motion.div>
 
             {/* Mobile menu button */}
             <button
@@ -198,15 +208,13 @@ export default function Navbar({ onJoinUsClick }: NavbarProps) {
                   )}
                 </div>
               ))}
-              <button
-                onClick={() => {
-                  setMobileOpen(false);
-                  onJoinUsClick();
-                }}
-                className="w-full mt-2 px-5 py-3 bg-gradient-to-r from-[#1a6b3c] to-[#166534] text-white text-sm font-semibold rounded-full transition-all"
+              <Link
+                href="/sites/main/join-us"
+                onClick={() => setMobileOpen(false)}
+                className="block w-full mt-2 px-5 py-3 bg-gradient-to-r from-[#1a6b3c] to-[#166534] text-white text-sm font-semibold rounded-full transition-all text-center"
               >
                 Join Us
-              </button>
+              </Link>
             </div>
           </motion.div>
         )}

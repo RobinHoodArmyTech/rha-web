@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle } from "lucide-react";
-import BadgeCard from "@/domains/checkin/components/BadgeCard";
+import BadgeCard from "@/components/checkin/BadgeCard";
 
 const badges = [
   { name: "CADET", drives: 1, icon: "medal" as const, description: "First drive" },
