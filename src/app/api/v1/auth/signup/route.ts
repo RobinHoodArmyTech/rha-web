@@ -1,39 +1,35 @@
 import { withApiHandler } from "@/middleware/apiMiddlewares";
 import { ApiError, ApiResponse } from "@/core/apiResponse";
-import { AUTH_COOKIE } from "@/core/config/constants";
-import { signupSchema } from "@/core/validators/auth";
+import { JoinUsSchema, normalizeMobileNumber } from "@/core/validators/joinUsValidation";
+import { createSignup } from "@/core/services/backend/auth/signupService";
+import { sendSignupEmail } from "@/core/services/backend/email/emailService";
 
 /**
- * POST /api/v1/auth/signup — user registration (public)
+ * POST /api/v1/auth/signup — collect join-us information (public)
  */
 export const POST = withApiHandler(async (request) => {
-  const body = await request.json().catch(() => ({}));
-  const data = signupSchema.parse(body);
-
-  const { fullName, email, phone, city } = data;
-
-  // TODO: create user in DB and persist hashed password.
-  const token = crypto.randomUUID();
-
-  const response = ApiResponse.success(
-    {
-      user: {
-        fullName,
-        email,
-        phone,
-        city,
-      },
-    },
-    201,
-  );
-
-  response.cookies.set(AUTH_COOKIE, token, {
-    httpOnly: false,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
+  const body = await request.json().catch((err) => {
+    console.error("Failed to parse request body:", err);
+    throw new ApiError(400, "Invalid request body");
   });
 
-  return response;
+  const data = JoinUsSchema.parse(body);
+  const normalized = { ...data, mobileNumber: normalizeMobileNumber(data.mobileNumber) };
+
+  const signup = await createSignup(normalized);
+
+  sendSignupEmail(signup.email).catch((err) =>
+    console.error("Failed to send signup email:", err)
+  );
+
+  return ApiResponse.success({
+    data: {
+      id: signup.id,
+      fullName: signup.fullName,
+      email: signup.email,
+      mobileNumber: signup.mobileNumber,
+      city: signup.city,
+    },
+    message: "Signup successful",
+  });
 });

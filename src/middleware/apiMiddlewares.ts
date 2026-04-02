@@ -10,13 +10,20 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { z, ZodError } from "zod";
-import { User } from "@/core/types";
 import { ApiError } from "@/core/apiResponse";
 import { AUTH_COOKIE } from "@/core/config/constants";
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
+
+// TODO: dummy type — will be replaced with a proper User model once auth is implemented
+interface User {
+  id: string;
+  fullName: string;
+  email: string;
+  city: string;
+}
 
 type ApiHandler = (request: NextRequest) => Promise<NextResponse>;
 

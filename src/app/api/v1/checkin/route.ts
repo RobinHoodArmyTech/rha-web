@@ -7,7 +7,7 @@ import { ApiResponse, ApiError } from "@/core/apiResponse";
  */
 export const GET = withApiHandler(async () => {
   // TODO: fetch paginated check-ins from DB
-  return ApiResponse.success([]);
+  return ApiResponse.success({ data: [] });
 });
 
 export const POST = withApiAuth(async () => {
