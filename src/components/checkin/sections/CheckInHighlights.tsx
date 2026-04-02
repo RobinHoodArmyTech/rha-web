@@ -178,7 +178,7 @@ export default function CheckInHighlights() {
                   <div className="flex items-center justify-center gap-1 mb-1">
                     <TrendingUp className="w-4 h-4 text-green-400" />
                     <span className="text-3xl font-black text-white">
-                      {cityData.find((c) => c.city === selectedCity.toUpperCase())?.checkIns ?? Math.floor(Math.random() * 100 + 20)}
+                      {cityData.find((c) => c.city === selectedCity.toUpperCase())?.checkIns ?? 0}
                     </span>
                   </div>
                   <p className="text-green-400/70 text-xs">Check-ins in 60 days</p>
