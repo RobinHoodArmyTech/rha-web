@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AppShell from "@/domains/main/components/AppShell";
+import AppShell from "@/components/main/AppShell";
 
 export const metadata: Metadata = {
   title: "Robin Hood Army – Zero Hunger, One Drive at a Time",
