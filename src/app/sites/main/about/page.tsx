@@ -35,7 +35,7 @@ export default function AboutPage() {
   const [openItem, setOpenItem] = useState<string>("");
 
   return (
-    <main className="pt-20">
+    <main className="pt-16">
       <section className="bg-gradient-to-br from-[#155e3a] via-[#1a6b3c] to-[#0d3d27] py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
