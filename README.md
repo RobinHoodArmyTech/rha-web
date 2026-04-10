@@ -1,12 +1,12 @@
 # Robin Hood Army — Web Platform
 
-A monorepo web platform for [Robin Hood Army](https://robinhoodarmy.com) built with **Next.js 16 App Router**. It hosts two distinct applications in a single codebase:
+A monorepo web platform for [Robin Hood Army](https://robinhoodarmy.com) built with **Next.js 16 App Router**. It hosts three distinct applications in a single codebase:
 
 | App | Local URL | Production Domain |
 |-----|-----------|-------------------|
 | **Main Site** | `localhost:3000/sites/main` | `robinhoodarmy.com` |
 | **Check-In App** | `localhost:3000/sites/checkin` | `checkin.robinhoodarmy.com` |
-
+| **Admin Console** | `localhost:3000/sites/admin` | `admin.robinhoodarmy.com` |
 ---
 
 ## About
@@ -23,8 +23,17 @@ A volunteer check-in portal where Robins log their drives and track badge progre
 - **Check-In Now** — Upload a drive selfie, select city, add notes
 - **Dashboard** — Personal drive history and impact stats
 - **My Profile** — Account and badge progress
+- **City Pages** — City level pages with recent drive images as well as recent badge holder images
 - **Contact Us** — Support contact form
 - **Privacy Policy** — Data handling policy
+
+### Admin Console (`sites/admin`)
+Admin console for managing various data flows (i.e. food count, student enrollment, drives etc)
+- **Home** - Stats and actions list
+- **Academy Central** - Stats and actions list
+- **Food Central** - Stats and actions list
+- **City** - Stats and actions list
+
 
 ---
 
@@ -64,17 +73,22 @@ robin-hood-army/
     │   │   │   ├── page.tsx       # Home page
     │   │   │   ├── about/
     │   │   │   └── academy/
-    │   │   └── checkin/           # Check-in app pages (URL: /sites/checkin/*)
-    │   │       ├── layout.tsx     # Wraps with CheckinAppShell (CheckinNavbar)
-    │   │       ├── page.tsx       # Home page
-    │   │       ├── submit/        # Drive check-in form
-    │   │       ├── dashboard/
-    │   │       ├── profile/
-    │   │       ├── contact/
-    │   │       └── privacy/
-    │   └── api/v1/               # API routes (file-system based)
+    │   │   ├── checkin/           # Check-in app pages (URL: /sites/checkin/*)
+    │   │   │   ├── layout.tsx     # Wraps with CheckinAppShell (CheckinNavbar)
+    │   │   │   ├── page.tsx       # Home page
+    │   │   │   ├── submit/        # Drive check-in form
+    │   │   │   ├── dashboard/
+    │   │   │   ├── profile/
+    │   │   │   ├── contact/
+    │   │   │   └── privacy/
+    │   │   └── admin/             # Admin Console pages (URL: /sites/admin/*)
+    │   │       ├── food/          # Stats and actions for food count
+    │   │       ├── academy/       # Stats and actions for students taught
+    │   │       └── city/          # Stats and actions for city
+    │   └── api/v1/                # API routes (file-system based)
     │       ├── auth/              # Auth endpoints (login / signup / logout)
-    │       └── checkin/           # Check-in endpoints (list / submit)
+    │       ├── checkin/           # Check-in endpoints (list / submit)
+    │       └── admin/             # Admin Console endpoints
     │
     ├── domains/
     │   ├── main/
@@ -128,6 +142,7 @@ All pages are directly accessible by path:
 localhost:3000/              → redirects to /sites/main
 localhost:3000/sites/main    → Main home
 localhost:3000/sites/checkin → Check-In app home
+localhost:3000/sites/admin   → Admin Console
 ```
 
 ### Production (Domain-Based)
@@ -135,11 +150,13 @@ The middleware in `middleware.ts` → `src/middleware/domainResolver.ts` rewrite
 ```
 robinhoodarmy.com/*          → internally routed to /sites/main/*
 checkin.robinhoodarmy.com/*  → internally routed to /sites/checkin/*
+admin.robinhoodarmy.com/*    → internally routed to /sites/admin/*
 ```
 Configure hostnames via environment variables:
 ```env
 NEXT_PUBLIC_MAIN_DOMAIN=robinhoodarmy.com
 NEXT_PUBLIC_CHECKIN_DOMAIN=checkin.robinhoodarmy.com
+NEXT_PRIVATE_ADMIN_CONSOLE_DOMAIN=admin.robinhoodarmy.com
 ```
 
 ---
@@ -172,6 +189,7 @@ npm run dev
 Then open:
 - Main site: [http://localhost:3000/sites/main](http://localhost:3000/sites/main)
 - Check-In app: [http://localhost:3000/sites/checkin](http://localhost:3000/sites/checkin)
+- Admin Console: [http://localhost:3000/sites/admin](http://localhost:3000/sites/admin)
 
 ### Build for production
 ```bash
@@ -198,6 +216,7 @@ Create a `.env` file in the root:
 # Domain configuration (optional — defaults shown below)
 NEXT_PUBLIC_MAIN_DOMAIN=robinhoodarmy.com
 NEXT_PUBLIC_CHECKIN_DOMAIN=checkin.robinhoodarmy.com
+NEXT_PRIVATE_ADMIN_CONSOLE_DOMAIN=admin.robinhoodarmy.com
 
 # Database
 DATABASE_URL=postgres://user:password@localhost:5432/rha_dev
@@ -207,8 +226,8 @@ DATABASE_URL=postgres://user:password@localhost:5432/rha_dev
 
 ## Key Conventions
 
-- **Domain-driven structure** — all business logic lives under `src/domains/`, split by `main` and `checkin`
-- **Route groups are not used** — pages live under `src/app/sites/main` and `src/app/sites/checkin` with explicit paths
+- **Domain-driven structure** — all business logic lives under `src/domains/`, split by `main`, `checkin` and `admin`
+- **Route groups are not used** — pages live under `src/app/sites/main`, `src/app/sites/checkin`and `src/app/sites/admin` with explicit paths
 - **Middleware is modular** — `middleware.ts` is a thin entry point; actual logic is in `src/middleware/`
 - **API middlewares** — `withApiHandler` for error handling, `withApiAuth` for authentication. Composable — `withApiAuth` builds on top of `withApiHandler`
 - **API responses** — use `ApiResponse.success(data)` for success, `throw new ApiError(status, message)` for errors
