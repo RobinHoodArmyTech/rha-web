@@ -15,10 +15,6 @@ import {
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { cn } from "@/lib/utils";
 
-interface NavbarProps {
-  onJoinUsClick: () => void;
-}
-
 const navItems = [
   { label: "Home", href: "/sites/main" },
   {
@@ -33,7 +29,7 @@ const navItems = [
   { label: "Academy", href: "/sites/main/academy" },
 ];
 
-export default function Navbar({ onJoinUsClick }: NavbarProps) {
+export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -152,14 +148,14 @@ export default function Navbar({ onJoinUsClick }: NavbarProps) {
               )}
 
               {/* Join Us button */}
-              <motion.button
-                onClick={onJoinUsClick}
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                className="hidden lg:flex items-center px-4 py-1.5 bg-white text-[#155E3A] hover:bg-[#4ade80] hover:text-[#155E3A] text-sm font-semibold rounded-lg transition-all duration-300 shadow-sm"
-              >
-                Join Us
-              </motion.button>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="hidden lg:block">
+                <Link
+                  href="/sites/main/join-us"
+                  className="inline-flex items-center px-4 py-1.5 bg-white text-[#155E3A] hover:bg-[#4ade80] hover:text-[#155E3A] text-sm font-semibold rounded-lg transition-all duration-300 shadow-sm"
+                >
+                  Join Us
+                </Link>
+              </motion.div>
 
               {/* Mobile menu button */}
               <button
@@ -212,15 +208,13 @@ export default function Navbar({ onJoinUsClick }: NavbarProps) {
                     )}
                   </div>
                 ))}
-                <button
-                  onClick={() => {
-                    setMobileOpen(false);
-                    onJoinUsClick();
-                  }}
-                  className="w-full mt-2 px-5 py-2.5 bg-white text-[#155E3A] hover:bg-[#4ade80] text-sm font-semibold rounded-lg transition-all"
+                <Link
+                  href="/sites/main/join-us"
+                  onClick={() => setMobileOpen(false)}
+                  className="block w-full mt-2 px-5 py-2.5 bg-white text-[#155E3A] hover:bg-[#4ade80] text-sm font-semibold rounded-lg transition-all text-center"
                 >
                   Join Us
-                </button>
+                </Link>
               </div>
             </motion.div>
           )}
