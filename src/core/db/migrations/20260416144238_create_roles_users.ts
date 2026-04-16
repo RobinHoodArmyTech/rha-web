@@ -12,18 +12,31 @@ export async function up(knex: Knex): Promise<void> {
     table.string("userName", 128).notNullable().unique();
     table.string("fullName", 128).notNullable();
     table.string("email", 128).notNullable();
-    table.integer("roleId").unsigned().notNullable();
     table.string("accessKey", 128).notNullable();
     table.integer("cityId").unsigned().nullable();
     table.timestamp("createdAt").defaultTo(knex.fn.now()).notNullable();
 
     // Foreign keys
-    table.foreign("roleId").references("roles.id");
     table.foreign("cityId").references("cities.id");
+  });
+
+  await knex.schema.createTable("user_roles", (table) => {
+    table.increments("id").primary();
+    table.integer("userId").unsigned().notNullable();
+    table.integer("roleId").unsigned().notNullable();
+    table.timestamp("createdAt").defaultTo(knex.fn.now()).notNullable();
+
+    // Unique constraint — one role per user
+    table.unique(["userId", "roleId"]);
+
+    // Foreign keys
+    table.foreign("userId").references("users.id").onDelete("CASCADE");
+    table.foreign("roleId").references("roles.id").onDelete("CASCADE");
   });
 }
 
 export async function down(knex: Knex): Promise<void> {
+  await knex.schema.dropTable("user_roles");
   await knex.schema.dropTable("users");
   await knex.schema.dropTable("roles");
 }
