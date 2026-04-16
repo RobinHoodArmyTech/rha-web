@@ -4,6 +4,7 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable("city_data", (table) => {
     table.increments("id").primary();
     table.integer("cityId").unsigned().notNullable().unique();
+    table.string("cadetWaGroupLink", 256).nullable();
     table.string("foodCadetsLink", 256).nullable();
     table.string("teachCadetsLink", 256).nullable();
     table.string("facebookLink", 256).nullable();

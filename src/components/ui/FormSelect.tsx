@@ -3,18 +3,48 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { cn } from "@/lib/utils";
 import FieldError from "./FieldError";
 
+interface SelectOption {
+  label: string;
+  value: string;
+}
+
+interface SelectGroup {
+  label: string;
+  options: SelectOption[];
+}
+
 interface FormSelectProps {
   placeholder: string;
-  options: string[];
+  options?: string[];
+  groups?: SelectGroup[];
   value: string;
   onValueChange: (v: string) => void;
   icon?: React.ElementType;
   error?: string;
 }
 
+const itemClass = cn(
+  "relative flex cursor-pointer select-none items-center rounded-lg px-3 py-2.5 text-sm text-slate-700 outline-none",
+  "data-[highlighted]:bg-[#f0f7f2] data-[highlighted]:text-[#1a6b3c]",
+  "data-[state=checked]:font-semibold data-[state=checked]:text-[#1a6b3c]",
+  "dark:text-slate-300 dark:data-[highlighted]:bg-green-900/30 dark:data-[highlighted]:text-[#4ade80] dark:data-[state=checked]:text-[#4ade80]",
+);
+
+function SelectItem({ value, children, className }: { value: string; children: React.ReactNode; className?: string }) {
+  return (
+    <SelectPrimitive.Item value={value} className={cn(itemClass, className)}>
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+      <SelectPrimitive.ItemIndicator className="absolute right-3">
+        <Check className="h-3.5 w-3.5 text-[#1a6b3c]" />
+      </SelectPrimitive.ItemIndicator>
+    </SelectPrimitive.Item>
+  );
+}
+
 export default function FormSelect({
   placeholder,
   options,
+  groups,
   value,
   onValueChange,
   icon: Icon,
@@ -44,7 +74,7 @@ export default function FormSelect({
             position="popper"
             sideOffset={4}
             className={cn(
-              "z-50 min-w-[var(--radix-select-trigger-width)] overflow-hidden",
+              "z-50 max-h-80 min-w-[var(--radix-select-trigger-width)] overflow-hidden",
               "rounded-xl border border-slate-200 bg-white shadow-lg shadow-slate-200/60",
               "dark:border-slate-700 dark:bg-[#0f2818] dark:shadow-slate-900/60",
               "data-[state=open]:animate-in data-[state=closed]:animate-out",
@@ -53,22 +83,19 @@ export default function FormSelect({
             )}
           >
             <SelectPrimitive.Viewport className="p-1">
-              {options.map((opt) => (
-                <SelectPrimitive.Item
-                  key={opt}
-                  value={opt}
-                  className={cn(
-                    "relative flex cursor-pointer select-none items-center rounded-lg px-3 py-2.5 text-sm text-slate-700 outline-none",
-                    "data-[highlighted]:bg-[#f0f7f2] data-[highlighted]:text-[#1a6b3c]",
-                    "data-[state=checked]:font-semibold data-[state=checked]:text-[#1a6b3c]",
-                    "dark:text-slate-300 dark:data-[highlighted]:bg-green-900/30 dark:data-[highlighted]:text-[#4ade80] dark:data-[state=checked]:text-[#4ade80]",
-                  )}
-                >
-                  <SelectPrimitive.ItemText>{opt}</SelectPrimitive.ItemText>
-                  <SelectPrimitive.ItemIndicator className="absolute right-3">
-                    <Check className="h-3.5 w-3.5 text-[#1a6b3c]" />
-                  </SelectPrimitive.ItemIndicator>
-                </SelectPrimitive.Item>
+              {options?.map((opt) => (
+                <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+              ))}
+
+              {groups?.map((group) => (
+                <SelectPrimitive.Group key={group.label}>
+                  <SelectPrimitive.Label className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                    {group.label}
+                  </SelectPrimitive.Label>
+                  {group.options.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value} className="pl-6">{opt.label}</SelectItem>
+                  ))}
+                </SelectPrimitive.Group>
               ))}
             </SelectPrimitive.Viewport>
           </SelectPrimitive.Content>

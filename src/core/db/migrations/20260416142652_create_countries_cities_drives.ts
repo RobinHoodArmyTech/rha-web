@@ -14,7 +14,6 @@ export async function up(knex: Knex): Promise<void> {
     table.integer("countryId").unsigned().notNullable();
     table.string("cityName", 255).notNullable().unique();
     table.string("cityEmail", 255).notNullable();
-    table.string("cadetWaGroupLink", 200).notNullable();
     table.timestamp("createdAt").defaultTo(knex.fn.now()).notNullable();
     table.timestamp("updatedAt").defaultTo(knex.fn.now()).notNullable();
 

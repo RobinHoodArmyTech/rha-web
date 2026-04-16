@@ -28,7 +28,7 @@ export const POST = withApiHandler(async (request) => {
       fullName: signup.fullName,
       email: signup.email,
       mobileNumber: signup.mobileNumber,
-      city: signup.city,
+      cityId: signup.cityId,
     },
     message: "Signup successful",
   });
