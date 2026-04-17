@@ -6,16 +6,31 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDown, Target, Heart, Users, Globe, Quote } from "lucide-react";
 import Image from "next/image";
 
-const faqs = [
-  { q: "What is Robin Hood Army?", a: "Robin Hood Army (RHA) is a zero-cost, volunteer-based organization that works to get surplus food from restaurants and other sources to the less fortunate populations in cities across South Asia and Africa. It was started in New Delhi, India, in August 2014." },
-  { q: "How do I become a Robin?", a: "Simply sign up on our website or app, attend a drive in your city, and you are a Robin! We organize drives every weekend in cities across the world. All you need is enthusiasm and a desire to help." },
-  { q: "What happens during a drive?", a: "During a drive, Robins collect leftover food from restaurants, hotels, and catering services, then distribute it to people in need — such as those living on the street, in slums, or in orphanages and old age homes." },
-  { q: "Is there any cost to volunteer?", a: "No! Robin Hood Army is a zero-cost organization. We don't charge volunteers or food donors anything. Everything runs on goodwill and the spirit of giving." },
-  { q: "How do badges work?", a: "When you participate in drives, you earn badges based on the number of drives completed: Cadet (1 drive), Ninja (10 drives), Gladiator (50 drives), and Centurion (100 drives). Check-In after each drive to track your progress." },
-  { q: "Can restaurants/hotels partner with RHA?", a: "Absolutely! We welcome food partners of all sizes. Simply register as a food partner and our local Robin teams will coordinate regular pickups." },
-  { q: "How many cities is RHA active in?", a: "Robin Hood Army is currently active in 230+ cities across 16 countries. We continue to expand with the help of passionate volunteers." },
-  { q: "What is the Academy?", a: "The RHA Academy is our learning platform where Robins can access training materials, leadership guides, and courses to become a better volunteer and chapter leader." },
+const faqs: { q: string; a: string; image?: string }[] = [
+  { q: "What is Robin Hood Army?", a: 'The Robin Hood Army is a zero-funds volunteer organization that works to get surplus food from restaurants and communities to serve the less fortunate. Our \u201cRobins\u201d are largely students and young working professionals \u2013 everyone does this in their free time. The lesser fortunate sections of society we serve include homeless families, orphanages, patients from public hospitals and old age homes.' },
+  { q: "How did it start?", a: "Modeled on the Re-Food program in Portugal, the Robin Hood Army started on the streets of Delhi, India in August 2014." },
+  { q: "So, where are you now?", a: "At last count, we have served 183 M people across 406 cities in 12 countries. Still 1% Done." },
+  { q: "What about the funds?", a: "We have just one rule – we are a zero funds organization. The Robin Hood Army has no revenue, employees, nor office space – if you want to help, all we need is your time. By the way, our balance sheet from last year:", image: "/main/images/_drafts/Balance Sheet.jpg" },
+  { q: "Wait, I don’t get it. How do you grow without money?", a: "Simple – we are in the business of spreading smiles. We share our experiences on social media. Facebook, Instagram and WhatsApp are our tools to grow. Along the way, our extremely passionate Robins and kind members of the press community have helped drive our mission to the world." },
+  { q: "I like this. How can I help?", a: "Easy – we need just 3 hours of your week on a regular basis. You can join our team of Robins or contribute food in your city – you’ll find everything you need to know." },
+  { q: "Do you provide certificate to volunteers??", a: "Naa – we want our team to serve less fortunate people, not build their own polished resumes 🙂. Citizens First → Mission Next → Robins Last." },
+  { q: "How can I donate?", a: "Thanks for wanting to support us – the Robin Hood Army DOES NOT accept money. We have grown through contributions in kind and partnerships." },
+  { q: "Wait, so do you have any rules?", a: "Three specifically – we do not collect money, we are a-political, and we serve all religions. If anyone claims to being those using the name of RHA, please drop us a note here. Also irritating legal disclaimer: RHA is a zero funds platform with no employees, office space, and insurance hence cannot assume liability. Any personal risk is borne by our Robins individually." },
+  { q: "I’m with the press and want to know more! How do I get in touch?", a: "Thanks for the interest – hopefully this will help us spread our reach to more Robins, more cities, and more people. Do write to us at info@robinhoodarmy.com." },
+  { q: "I don’t see my question here - help!", a: "Drop us an email at info@robinhoodarmy.com and let’s talk." },
 ];
+
+function renderAnswer(text: string) {
+  const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
+  const parts = text.split(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g);
+  return parts.map((part, i) =>
+    emailPattern.test(part) ? (
+      <a key={i} href={`mailto:${part}`} className="text-[#16a34a] hover:underline font-medium">{part}</a>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+}
 
 const testimonials = [
   { id: 1, name: "Aditi Mehta", role: "Centurion · Mumbai", quote: "Being part of Robin Hood Army has changed my perspective on food waste entirely. Seeing the smiles on people's faces when we deliver food is worth more than anything.", imageUrl: "https://picsum.photos/seed/t1/200/200" },
@@ -83,28 +98,59 @@ export default function AboutPage() {
       </section>
 
       <section id="faqs" className="py-20 bg-gray-50 dark:bg-[#060f09]">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-            <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#16a34a] mb-3">FAQ&apos;s</span>
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white">Frequently Asked Questions</h2>
-          </motion.div>
-          <AccordionPrimitive.Root type="single" collapsible value={openItem} onValueChange={setOpenItem} className="space-y-3">
-            {faqs.map((faq, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
-                <AccordionPrimitive.Item value={`item-${i}`} className="bg-white dark:bg-[#0f2818] border border-gray-100 dark:border-green-900/30 rounded-2xl overflow-hidden hover:border-[#22c55e]/40 transition-colors">
-                  <AccordionPrimitive.Trigger className="w-full px-6 py-4 flex items-center justify-between text-left group">
-                    <span className="font-semibold text-gray-900 dark:text-white text-sm pr-4">{faq.q}</span>
-                    <ChevronDown className="w-4 h-4 text-[#1a6b3c] dark:text-[#4ade80] flex-shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-180" />
-                  </AccordionPrimitive.Trigger>
-                  <AccordionPrimitive.Content className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
-                    <div className="px-6 pb-4">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-green-900/20 pt-3">{faq.a}</p>
-                    </div>
-                  </AccordionPrimitive.Content>
-                </AccordionPrimitive.Item>
-              </motion.div>
-            ))}
-          </AccordionPrimitive.Root>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+
+            {/* Left: Any Questions */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="lg:sticky lg:top-24"
+            >
+              <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#16a34a] mb-3">FAQ&apos;s</span>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl  font-black text-gray-900 dark:text-white mb-6 leading-tight">Any Questions?</h2>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                We&apos;ve compiled answers to the most common questions about who we are, how we work, and how you can get involved.
+              </p>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+                Can&apos;t find what you&apos;re looking for? Drop us a line at{" "}
+                <a href="mailto:info@robinhoodarmy.com" className="text-[#16a34a] hover:underline font-medium">
+                  info@robinhoodarmy.com
+                </a>
+              </p>
+            </motion.div>
+
+            {/* Right: FAQ Accordion */}
+            <div>
+              <AccordionPrimitive.Root type="single" collapsible value={openItem} onValueChange={setOpenItem} className="space-y-3">
+                {faqs.map((faq, i) => (
+                  <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
+                    <AccordionPrimitive.Item value={`item-${i}`} className="bg-white dark:bg-[#0f2818] border border-gray-100 dark:border-green-900/30 rounded-2xl overflow-hidden hover:border-[#22c55e]/40 transition-colors">
+                      <AccordionPrimitive.Trigger className="w-full px-6 py-4 flex items-center justify-between text-left group">
+                        <span className="font-semibold text-gray-900 dark:text-white text-sm pr-4">{faq.q}</span>
+                        <ChevronDown className="w-4 h-4 text-[#1a6b3c] dark:text-[#4ade80] flex-shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-180" />
+                      </AccordionPrimitive.Trigger>
+                      <AccordionPrimitive.Content className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
+                        <div className="px-6 pb-4 border-t border-gray-100 dark:border-green-900/20 pt-3">
+                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                            {renderAnswer(faq.a)}
+                          </p>
+                          {faq.image && (
+                            <div className="mt-4 rounded-xl overflow-hidden border border-gray-100 dark:border-green-900/20">
+                              <Image src={faq.image} alt="RHA Non-Financial Statement" width={800} height={500} className="w-full h-auto" />
+                            </div>
+                          )}
+                        </div>
+                      </AccordionPrimitive.Content>
+                    </AccordionPrimitive.Item>
+                  </motion.div>
+                ))}
+              </AccordionPrimitive.Root>
+            </div>
+
+          </div>
         </div>
       </section>
 
