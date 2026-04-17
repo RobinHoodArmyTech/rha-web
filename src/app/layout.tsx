@@ -14,8 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Robin Hood Army",
-  description: "Robin Hood Army – Zero Hunger, One Drive at a Time",
+  title: {
+    template: "%s - Robin Hood Army",
+    default: "Robin Hood Army",
+  },
+  description: "Zero Hunger, One Drive at a Time",
 };
 
 export default function RootLayout({
