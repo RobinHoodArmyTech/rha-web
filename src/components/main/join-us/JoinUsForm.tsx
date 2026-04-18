@@ -42,7 +42,7 @@ export default function JoinUsForm() {
   const clientErrors = useMemo(() => getFieldErrors(values), [values]);
 
   function visibleError(field: keyof JoinUsValues): string | undefined {
-    if (submitted || touched[field]) return clientErrors[field];
+    if (submitted || touched[field] || values[field]) return clientErrors[field];
     return undefined;
   }
 
@@ -131,7 +131,8 @@ export default function JoinUsForm() {
           value={values.mobileNumber}
           onChange={(e) => set("mobileNumber", e.target.value)}
           onBlur={() => {
-            set("mobileNumber", normalizeMobileNumber(values.mobileNumber));
+            const normalized = normalizeMobileNumber(values.mobileNumber);
+            if (normalized) set("mobileNumber", normalized);
             touch("mobileNumber");
           }}
           error={visibleError("mobileNumber")}
