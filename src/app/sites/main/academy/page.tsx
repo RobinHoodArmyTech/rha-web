@@ -1,116 +1,623 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { BookOpen, Play, Award, Users, Clock, Star, ChevronRight, Lock, CheckCircle } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { BookOpen, Users, School, Heart, Mail, Download, MapPin, Shield, ChevronLeft, ChevronRight, Eye } from "lucide-react";
 
-const courses = [
-  { id: 1, title: "Robin Fundamentals", description: "Learn the core principles of RHA drives, food safety, and volunteer best practices.", duration: "45 min", lessons: 6, level: "Beginner", badge: "Cadet", imageUrl: "https://picsum.photos/seed/course1/400/250", free: true, rating: 4.9, students: 12400 },
-  { id: 2, title: "Drive Leadership 101", description: "Step up as a drive leader. Master coordination, team management, and community outreach.", duration: "1.5 hrs", lessons: 10, level: "Intermediate", badge: "Ninja", imageUrl: "https://picsum.photos/seed/course2/400/250", free: false, rating: 4.8, students: 5600 },
-  { id: 3, title: "City Chapter Building", description: "Start and grow a Robin Hood Army chapter in your city. Recruit, train, and inspire volunteers.", duration: "2 hrs", lessons: 12, level: "Advanced", badge: "Gladiator", imageUrl: "https://picsum.photos/seed/course3/400/250", free: false, rating: 4.9, students: 2800 },
-  { id: 4, title: "Food Safety & Hygiene", description: "Essential training on safe food handling, storage, and distribution practices.", duration: "30 min", lessons: 5, level: "Beginner", badge: "Cadet", imageUrl: "https://picsum.photos/seed/course4/400/250", free: true, rating: 4.7, students: 9800 },
-  { id: 5, title: "Community Impact Stories", description: "Real stories from Centurions who have transformed communities through consistent service.", duration: "1 hr", lessons: 8, level: "All Levels", badge: "Centurion", imageUrl: "https://picsum.photos/seed/course5/400/250", free: false, rating: 5.0, students: 3200 },
-  { id: 6, title: "Media & Storytelling", description: "Document and share your drives effectively on social media to inspire more volunteers.", duration: "1 hr", lessons: 7, level: "Intermediate", badge: "Ninja", imageUrl: "https://picsum.photos/seed/course6/400/250", free: false, rating: 4.6, students: 4100 },
+const slides = [
+  {
+    src: "/main/images/_drafts/academyslide1.jpg",
+    alt: "Academy children with energy and focus",
+    caption: "Our very own Robin Hood Academy",
+  },
+  {
+    src: "/main/images/_drafts/academyslide2.jpg",
+    alt: "Children going to school",
+    caption: "While meals provide energy and focus",
+  },
+  {
+    src: "/main/images/_drafts/academyslide3.jpg",
+    alt: "RHA Academy teaching session",
+    caption: "Going to school will make our champs truly independent",
+  },
+  {
+    src: "/main/images/_drafts/academyslide4.jpg",
+    alt: "Robin Hood Academy",
+    caption: "Introducing the RHA's engine to drive education",
+  },
 ];
 
-const levelColors: Record<string, string> = {
-  "Beginner": "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400",
-  "Intermediate": "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400",
-  "Advanced": "bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-400",
-  "All Levels": "bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-400",
-};
+const pillars = [
+  {
+    icon: BookOpen,
+    title: "Standardised Curriculum",
+    description:
+      "A three-level curriculum delivered consistently across all academy cities, supported by internally developed teacher guides to ensure quality learning.",
+  },
+  {
+    icon: School,
+    title: "#MissionAdmission",
+    description:
+      "Our flagship initiative focused on enrolling academy graduates into government schools — documenting best practices for successful student placement.",
+  },
+  {
+    icon: Users,
+    title: "Weekend Classes & Excursions",
+    description:
+      "Regular weekend sessions combined with educational excursions that make learning engaging, accessible, and joyful for every child.",
+  },
+  {
+    icon: Heart,
+    title: "Patience & Compassion",
+    description:
+      "Every Robin who teaches brings not just knowledge, but the values of patience and compassion that create lasting impact in a child's life.",
+  },
+];
+
+const values = [
+  {
+    icon: Shield,
+    title: "Equal Care",
+    description:
+      "We respect each student's well-being and shall never resort to physical punishment.",
+  },
+  {
+    icon: School,
+    title: "Equal Opportunity",
+    description:
+      "Each student has the opportunity to learn, without discrimination.",
+  },
+  {
+    icon: Heart,
+    title: "Compassion First",
+    description:
+      "We lead with empathy — understanding each child's unique background and journey.",
+  },
+  {
+    icon: MapPin,
+    title: "Community Rooted",
+    description:
+      "Academy sessions are built around and within the communities we serve.",
+  },
+];
+
+const gallery = [
+  { src: "/main/images/_drafts/academyslide1.jpg", alt: "Academy session with children" },
+  { src: "/main/images/_drafts/academyslide2.jpg", alt: "Robin volunteering with kids" },
+  { src: "/main/images/_drafts/academyslide3.jpg", alt: "Outdoor teaching session" },
+  { src: "/main/images/_drafts/academyslide4.jpg", alt: "Children at an excursion" },
+];
 
 export default function AcademyPage() {
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [paused, setPaused] = useState(false);
+
+  const goTo = useCallback((index: number) => {
+    setDirection(index > current ? 1 : -1);
+    setCurrent(index);
+  }, [current]);
+
+  const prev = useCallback(() => {
+    setDirection(-1);
+    setCurrent((c) => (c - 1 + slides.length) % slides.length);
+  }, []);
+
+  const next = useCallback(() => {
+    setDirection(1);
+    setCurrent((c) => (c + 1) % slides.length);
+  }, []);
+
+  useEffect(() => {
+    if (paused) return;
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [paused, next]);
+
+  const slideVariants = {
+    enter: (d: number) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (d: number) => ({ x: d > 0 ? "-100%" : "100%", opacity: 0 }),
+  };
+
   return (
-    <main className="pt-16">
-      <section className="bg-gradient-to-br from-[#155e3a] via-[#1a6b3c] to-[#0d3d27] py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-400/20 border border-green-400/30 rounded-full text-green-300 text-xs font-semibold uppercase tracking-widest mb-6">
-              <BookOpen className="w-3.5 h-3.5" /> RHA Academy
-            </span>
-            <h1 className="text-4xl sm:text-5xl font-black text-white mb-4 leading-tight">
-              Level up your{" "}
-              <span className="bg-gradient-to-r from-[#4ade80] to-[#22c55e] bg-clip-text text-transparent">Robin skills</span>
-            </h1>
-            <p className="text-gray-300 text-lg max-w-xl mx-auto mb-8">Free and premium courses designed to make you a better volunteer, leader, and changemaker.</p>
-            <div className="flex flex-wrap justify-center gap-8">
-              {[{ value: "20+", label: "Courses" }, { value: "50K+", label: "Learners" }, { value: "Free", label: "Starter Courses" }].map((s) => (
-                <div key={s.label}>
-                  <div className="text-2xl font-black text-white">{s.value}</div>
-                  <div className="text-green-300 text-xs">{s.label}</div>
+    <main>
+
+      {/* ── Hero Carousel ────────────────────────────────────────────── */}
+      <section
+        className="relative w-full bg-black"
+        style={{ paddingTop: "4rem" }}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {/* Main slide — fills the remaining viewport below the fixed 4rem navbar */}
+        <div
+          className="relative overflow-hidden"
+          style={{ height: "calc(100vh - 4rem)" }}
+        >
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={current}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.55, ease: [0.45, 0, 0.55, 1] }}
+              className="absolute inset-0 flex items-center justify-center"
+            >
+              <Image
+                src={slides[current].src}
+                alt={slides[current].alt}
+                fill
+                className="object-cover"
+                sizes="100vw"
+                priority={current === 0}
+              />
+              {/* Caption bar at bottom */}
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25, duration: 0.4 }}
+                className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent px-6 pb-10 pt-20 text-center"
+              >
+                <p className="text-white font-black text-2xl sm:text-3xl lg:text-4xl max-w-3xl mx-auto leading-snug drop-shadow-lg">
+                  {slides[current].caption}
+                </p>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Arrow buttons */}
+          <button
+            onClick={prev}
+            aria-label="Previous slide"
+            className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 hover:bg-black/65 border border-white/20 flex items-center justify-center text-white transition-colors backdrop-blur-sm"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={next}
+            aria-label="Next slide"
+            className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 hover:bg-black/65 border border-white/20 flex items-center justify-center text-white transition-colors backdrop-blur-sm"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+
+          {/* Progress dots */}
+          <div className="absolute bottom-4 right-5 flex gap-1.5 z-10">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${i === current ? "w-6 bg-[#22c55e]" : "w-1.5 bg-white/50 hover:bg-white/80"}`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── The Idea ─────────────────────────────────────────────────── */}
+      <section className="relative py-24 overflow-hidden">
+        {/* Background photo */}
+        <Image
+          src="/main/images/_drafts/academy-img.jpeg"
+          alt="Academy background"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        {/* Dark green overlay */}
+        <div className="absolute inset-0 bg-[#0d3d27]/88" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section heading */}
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-16 tracking-tight"
+          >
+            The Idea
+          </motion.h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
+
+            {/* ── Left: Why we are ── */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-green-300 mb-8">
+                Who we are?
+              </p>
+
+              <div className="space-y-7">
+                {/* Point 1 */}
+                <div className="flex gap-4 items-start">
+                  <div className="mt-1 w-8 h-8 flex-shrink-0 rounded-full bg-green-400/15 border border-green-400/30 flex items-center justify-center">
+                    <BookOpen className="w-4 h-4 text-green-300" />
+                  </div>
+                  <p className="text-white/90 leading-relaxed text-[15px]">
+                    The Robin Hood Academy empowers <span className="text-green-300 font-semibold">7,328+ street children</span> with
+                    basic primary education. Our Robins conduct regular weekend classes and excursions with a standardized curriculum to introduce and drive the spirit of learning.
+                  </p>
                 </div>
-              ))}
-            </div>
+
+                {/* Point 2 */}
+                <div className="flex gap-4 items-start">
+                  <div className="mt-1 w-8 h-8 flex-shrink-0 rounded-full bg-green-400/15 border border-green-400/30 flex items-center justify-center">
+                    <School className="w-4 h-4 text-green-300" />
+                  </div>
+                  <p className="text-white/90 leading-relaxed text-[15px]">
+                    The purpose of the Academy is to be a <span className="text-green-300 font-semibold">bridge between the street and schools</span> —
+                    to give our children the tools and knowledge to go to school.
+                  </p>
+                </div>
+              </div>
+
+              {/* Our Vision */}
+              <div className="mt-10">
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-green-300 mb-4">
+                  Our Vision
+                </p>
+                <div className="pl-5 border-l-2 border-green-400/50">
+                  <p className="text-green-200 italic text-lg leading-snug font-medium">
+                    &ldquo;Creating access to education is the purest form of nation building. Every child on the streets of our cities should have the opportunity to access a better life.&rdquo;
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* ── Right: Stats ── */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+            >
+              {/* Stat 1 — full width */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="sm:col-span-2 bg-white/8 border border-white/15 rounded-2xl px-8 py-7 backdrop-blur-sm"
+              >
+                <p className="text-5xl font-black text-white mb-1">
+                  +<span>7,099</span>
+                </p>
+                <p className="text-green-300 text-sm font-semibold uppercase tracking-wide">Academy Students</p>
+              </motion.div>
+
+              {/* Stat 2 */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="bg-white/8 border border-white/15 rounded-2xl px-8 py-7 backdrop-blur-sm"
+              >
+                <p className="text-5xl font-black text-white mb-1">
+                  +<span>203</span>
+                </p>
+                <p className="text-green-300 text-sm font-semibold uppercase tracking-wide">Cities</p>
+              </motion.div>
+
+              {/* Stat 3 */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="bg-white/8 border border-white/15 rounded-2xl px-8 py-7 backdrop-blur-sm"
+              >
+                <p className="text-5xl font-black text-white mb-1">
+                  +<span>12,499</span>
+                </p>
+                <p className="text-green-300 text-sm font-semibold uppercase tracking-wide">
+                  Academy Graduates now enrolled in school
+                </p>
+              </motion.div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ──────────────────────────────────────────────────────── */}
+      <section className="bg-gradient-to-r from-[#dcfce7] via-[#f0fdf4] to-[#d1fae5] dark:from-[#0a2614] dark:via-[#0d3320] dark:to-[#0a2614] py-14 px-4 sm:px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left"
+        >
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white leading-snug">
+            Like the idea?{" "} <br/>
+            <span className="bg-gradient-to-r from-[#16a34a] to-[#22c55e] bg-clip-text text-transparent">
+              Join the Robin Hood Academy.
+            </span>
+          </h2>
+          <Link
+            href="/sites/main/join-us"
+            className="flex-shrink-0 inline-flex items-center gap-2 bg-[#16a34a] hover:bg-[#15803d] active:bg-[#166534] text-white font-bold text-sm px-7 py-3.5 rounded-xl transition-colors shadow-lg shadow-green-700/25"
+          >
+            Join Us
+          </Link>
+        </motion.div>
+      </section>
+
+      {/* ── Programme Pillars ─────────────────────────────────────────── */}
+      <section className="py-20 bg-gray-50 dark:bg-[#060f09]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#16a34a] mb-3">
+              How It Works
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white">
+              The Academy Programme
+            </h2>
+          </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {pillars.map((pillar, i) => (
+              <motion.div
+                key={pillar.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -6 }}
+                className="bg-white dark:bg-[#0f2818] border border-gray-100 dark:border-green-900/30 rounded-2xl p-6 hover:border-[#22c55e]/40 hover:shadow-xl hover:shadow-green-900/5 transition-all"
+              >
+                <div className="w-11 h-11 bg-green-100 dark:bg-green-900/40 rounded-xl flex items-center justify-center mb-4">
+                  <pillar.icon className="w-5 h-5 text-[#1a6b3c] dark:text-[#4ade80]" />
+                </div>
+                <h3 className="font-bold text-gray-900 dark:text-white text-base mb-2">
+                  {pillar.title}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  {pillar.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+            {/* ── What We've Been Up To ────────────────────────────────────── */}
+      <section className="py-20 bg-white dark:bg-[#0a1a0f]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#16a34a] mb-3">
+              Our Reach
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white">
+              What We&apos;ve Been Up To
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="rounded-3xl overflow-hidden shadow-xl shadow-green-900/10 border border-gray-100 dark:border-green-900/20"
+          >
+            <Image
+              src="/main/images/_drafts/RHA Map -Academy.jpg"
+              alt="RHA Academy city map"
+              width={1200}
+              height={800}
+              className="w-full h-auto"
+              sizes="(max-width: 1200px) 100vw, 1200px"
+            />
           </motion.div>
         </div>
       </section>
 
-      <section className="py-20 bg-gray-50 dark:bg-[#060f09]">
+      {/* ── Our Values ────────────────────────────────────────────────── */}
+      <section className="py-20 bg-white dark:bg-[#0a1a0f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#16a34a]">All Courses</span>
-              <h2 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white mt-1">Start learning today</h2>
-            </div>
-            <div className="flex gap-2">
-              {["All", "Free", "Beginner", "Advanced"].map((filter) => (
-                <button key={filter} className="px-4 py-1.5 text-xs font-semibold rounded-full border border-gray-200 dark:border-green-800/40 text-gray-600 dark:text-gray-400 hover:border-[#22c55e] hover:text-[#1a6b3c] dark:hover:text-[#4ade80] transition-all first:bg-[#1a6b3c] first:text-white first:border-[#1a6b3c]">
-                  {filter}
-                </button>
-              ))}
-            </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#16a34a] mb-3">
+              Our Values
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white">
+              What we stand for
+            </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {courses.map((course, i) => (
-              <motion.div key={course.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} whileHover={{ y: -5 }} className="bg-white dark:bg-[#0f2818] rounded-2xl border border-gray-100 dark:border-green-900/30 overflow-hidden hover:border-[#22c55e]/40 hover:shadow-xl hover:shadow-green-500/5 transition-all group">
-                <div className="relative h-44 overflow-hidden">
-                  <Image src={course.imageUrl} alt={course.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
-                      <Play className="w-5 h-5 text-[#1a6b3c] fill-current ml-0.5" />
-                    </div>
-                  </div>
-                  <div className="absolute top-3 left-3 flex gap-2">
-                    {course.free ? (
-                      <span className="px-2.5 py-1 bg-green-500 text-white text-[10px] font-bold rounded-full">FREE</span>
-                    ) : (
-                      <span className="px-2.5 py-1 bg-black/50 text-white text-[10px] font-bold rounded-full flex items-center gap-1"><Lock className="w-2.5 h-2.5" /> Premium</span>
-                    )}
-                    <span className={`px-2.5 py-1 text-[10px] font-bold rounded-full ${levelColors[course.level]}`}>{course.level}</span>
-                  </div>
-                  <div className="absolute bottom-3 right-3">
-                    <span className="px-2.5 py-1 bg-[#1a6b3c] text-green-200 text-[10px] font-bold rounded-full flex items-center gap-1"><Award className="w-2.5 h-2.5" /> {course.badge} Badge</span>
-                  </div>
+          {/* Values banner image */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="rounded-3xl overflow-hidden mb-12 shadow-lg"
+          >
+            <Image
+              src="/main/images/_drafts/RHA Academy - Our Values.png"
+              alt="RHA Academy Values"
+              width={1200}
+              height={400}
+              className="w-full h-auto"
+              sizes="100vw"
+            />
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((v, i) => (
+              <motion.div
+                key={v.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="flex gap-4 items-start p-5 bg-gray-50 dark:bg-[#0f2818] border border-gray-100 dark:border-green-900/30 rounded-2xl hover:border-[#22c55e]/30 transition-colors"
+              >
+                <div className="w-9 h-9 flex-shrink-0 bg-green-100 dark:bg-green-900/40 rounded-lg flex items-center justify-center mt-0.5">
+                  <v.icon className="w-4 h-4 text-[#1a6b3c] dark:text-[#4ade80]" />
                 </div>
-                <div className="p-5">
-                  <h3 className="font-bold text-gray-900 dark:text-white text-base mb-1.5 group-hover:text-[#1a6b3c] dark:group-hover:text-[#4ade80] transition-colors">{course.title}</h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-4">{course.description}</p>
-                  <div className="flex items-center gap-4 text-xs text-gray-400 mb-4">
-                    <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {course.duration}</span>
-                    <span className="flex items-center gap-1"><BookOpen className="w-3.5 h-3.5" /> {course.lessons} lessons</span>
-                    <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" /> {(course.students / 1000).toFixed(1)}K</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      {[...Array(5)].map((_, idx) => (
-                        <Star key={idx} className={`w-3.5 h-3.5 ${idx < Math.floor(course.rating) ? "text-amber-400 fill-amber-400" : "text-gray-300"}`} />
-                      ))}
-                      <span className="text-xs text-gray-500 ml-1">{course.rating}</span>
-                    </div>
-                    <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-[#1a6b3c] to-[#166534] hover:from-[#22c55e] hover:to-[#16a34a] text-white text-xs font-semibold rounded-lg transition-all">
-                      {course.free ? <><CheckCircle className="w-3.5 h-3.5" /> Start Free</> : <><ChevronRight className="w-3.5 h-3.5" /> Enroll</>}
-                    </motion.button>
-                  </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 dark:text-white text-sm mb-1">{v.title}</h3>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{v.description}</p>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+
+    
+
+      {/* ── Get Involved ──────────────────────────────────────────────── */}
+      <section className="py-20 bg-gray-50 dark:bg-[#060f09]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#16a34a] mb-3">
+              Get Involved
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white">
+              Building Robin Hood Academy 101
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {/* Card 1 — Academy Checklist */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0 }}
+              className="relative rounded-2xl overflow-hidden h-64 sm:h-72 group"
+            >
+              <Image
+                src="/main/images/_drafts/academy1.png"
+                alt="Academy Checklist"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+              <div className="absolute inset-0 flex flex-col justify-end p-5 gap-1.5">
+                <h3 className="text-white font-black text-lg leading-snug">Academy Checklist</h3>
+                <p className="text-white/75 text-xs leading-relaxed">
+                  Once you complete this checklist, email{" "}
+                  <a href="mailto:academy@robinhoodarmy.com" className="underline underline-offset-2 hover:text-green-300 transition-colors">
+                    academy@robinhoodarmy.com
+                  </a>{" "}
+                  to launch your city!
+                </p>
+                <a
+                  href="/documents/academy/Academy City Checklist.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="self-start mt-1 inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors backdrop-blur-sm"
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  View
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Card 2 — Curriculum */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="relative rounded-2xl overflow-hidden h-64 sm:h-72 group"
+            >
+              <Image
+                src="/main/images/_drafts/academy2.png"
+                alt="Curriculum"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+              <div className="absolute inset-0 flex flex-col justify-end p-5 gap-1.5">
+                <h3 className="text-white font-black text-lg leading-snug">Curriculum</h3>
+                <p className="text-white/75 text-xs leading-relaxed">
+                  Our very own Academy Teacher Guide split across 3 levels — to be taught with endless patience and so much love &#x1F60A;
+                </p>
+                <a
+                  href="https://drive.google.com/drive/folders/10E9hKWx9Ua-LNLKGlffnR_1CYJytdZAv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="self-start mt-1 inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors backdrop-blur-sm"
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  View
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Card 3 — #MissionAdmission */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative rounded-2xl overflow-hidden h-64 sm:h-72 group"
+            >
+              <Image
+                src="/main/images/_drafts/academy3.png"
+                alt="#MissionAdmission"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+              <div className="absolute inset-0 flex flex-col justify-end p-5 gap-1.5">
+                <h3 className="text-white font-black text-lg leading-snug">#MissionAdmission</h3>
+                <p className="text-white/75 text-xs leading-relaxed">
+                  Best practices on how to enrol our children in government schools.
+                </p>
+                <a
+                  href="/documents/academy/MissionAdmission.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="self-start mt-1 inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors backdrop-blur-sm"
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  View
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
     </main>
   );
 }
