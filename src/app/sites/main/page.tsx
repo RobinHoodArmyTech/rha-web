@@ -192,17 +192,17 @@ export default function MainHomePage() {
   if (!mounted) return null
 
   const ideaStats = [
-    { value: '6Cr+', label: 'Meals Served', target: 6, suffix: 'Cr+' },
-    { value: '230+', label: 'Cities', target: 230, suffix: '+' },
-    { value: '2L+', label: 'Robins Enlisted', target: 200000, suffix: 'L+' },
+    { value: '15Cr+', label: 'Meals Served', target: 15, suffix: 'Cr+' },
+    { value: '400+', label: 'Cities', target: 400, suffix: '+' },
+    { value: '2.6L+', label: 'Robins Enlisted', target: 260000, suffix: 'L+' },
     { value: '1%', label: 'Done', target: 1, suffix: '%' },
   ]
 
   const presenceStats = [
     { value: '13', label: 'Countries', target: 13, suffix: '' },
-    { value: '230+', label: 'Cities Active', target: 230, suffix: '+' },
-    { value: '2L+', label: 'Volunteers', target: 200000, suffix: 'L+' },
-    { value: '6Cr+', label: 'Meals Served', target: 6, suffix: 'Cr+' },
+    { value: '400+', label: 'Cities Active', target: 400, suffix: '+' },
+    { value: '2.6L+', label: 'Volunteers', target: 260000, suffix: 'L+' },
+    { value: '15Cr+', label: 'Meals Served', target: 15, suffix: 'Cr+' },
   ]
 
   return (
