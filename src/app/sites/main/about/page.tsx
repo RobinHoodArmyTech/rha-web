@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { ChevronDown, Target, Heart, Users, Globe, Quote } from "lucide-react";
+import { ChevronDown, Target, Heart, Users, Globe, Play, X, ExternalLink } from "lucide-react";
 import Image from "next/image";
+import videos from "@/data/robin-speaks-videos.json";
 
 const faqs: { q: string; a: string; image?: string }[] = [
   { q: "What is Robin Hood Army?", a: 'The Robin Hood Army is a zero-funds volunteer organization that works to get surplus food from restaurants and communities to serve the less fortunate. Our \u201cRobins\u201d are largely students and young working professionals \u2013 everyone does this in their free time. The lesser fortunate sections of society we serve include homeless families, orphanages, patients from public hospitals and old age homes.' },
@@ -32,12 +33,6 @@ function renderAnswer(text: string) {
   );
 }
 
-const testimonials = [
-  { id: 1, name: "Aditi Mehta", role: "Centurion · Mumbai", quote: "Being part of Robin Hood Army has changed my perspective on food waste entirely. Seeing the smiles on people's faces when we deliver food is worth more than anything.", imageUrl: "https://picsum.photos/seed/t1/200/200" },
-  { id: 2, name: "Sanjay Reddy", role: "Gladiator · Hyderabad", quote: "I started as a Cadet and didn't know what to expect. Now 57 drives later, every Sunday morning is the highlight of my week.", imageUrl: "https://picsum.photos/seed/t2/200/200" },
-  { id: 3, name: "Kavya Nair", role: "Ninja · Bangalore", quote: "The Check-In system is brilliant! It keeps me motivated and accountable. Getting that Ninja badge was one of the proudest moments of my volunteer journey.", imageUrl: "https://picsum.photos/seed/t3/200/200" },
-  { id: 4, name: "Mohit Agarwal", role: "Centurion · Delhi", quote: "100 drives. That's 100 weekends spent making a difference. RHA gave me purpose and a second family.", imageUrl: "https://picsum.photos/seed/t4/200/200" },
-];
 
 const stats = [
   { icon: Users, value: "2L+", label: "Volunteers Worldwide" },
@@ -46,8 +41,22 @@ const stats = [
   { icon: Target, value: "16", label: "Countries" },
 ];
 
+type Video = typeof videos[0];
+
 export default function AboutPage() {
   const [openItem, setOpenItem] = useState<string>("");
+  const [activeVideo, setActiveVideo] = useState<Video | null>(null);
+
+  useEffect(() => {
+    if (!activeVideo) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setActiveVideo(null); };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [activeVideo]);
 
   return (
     <main className="pt-16">
@@ -154,31 +163,136 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section id="robin-speak" className="py-20 bg-white dark:bg-[#0a1a0f]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="robin-speak" className="pb-20 bg-white dark:bg-[#0a1a0f]">
+        {/* Compact hero banner */}
+        <div className="relative h-64 sm:h-110 overflow-hidden">
+          <Image
+            src="/main/images/_drafts/robinspeakfinal.jpg"
+            alt="Robin Speak hero"
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent" />
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative h-full flex items-center px-8 sm:px-12 lg:px-20 max-w-xl"
+          >
+            <h2 className="text-white font-black text-xl sm:text-2xl leading-snug drop-shadow-md">
+              Hear Robins talk about the most special part of our lives
+            </h2>
+          </motion.div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
             <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#16a34a] mb-3">Robin Speak</span>
             <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white">Stories from the field</h2>
+            <p className="mt-3 text-gray-500 dark:text-gray-400 text-sm">Talks, news features, and field stories from Robins around the world.</p>
           </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {testimonials.map((t, i) => (
-              <motion.div key={t.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} whileHover={{ y: -5 }} className="bg-gray-50 dark:bg-[#0f2818] border border-gray-100 dark:border-green-900/30 rounded-2xl p-6 hover:border-[#22c55e]/40 hover:shadow-xl transition-all">
-                <Quote className="w-8 h-8 text-[#22c55e]/30 mb-4" fill="currentColor" />
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-6 italic">&ldquo;{t.quote}&rdquo;</p>
-                <div className="flex items-center gap-3">
-                  <div className="relative w-10 h-10 rounded-xl overflow-hidden flex-shrink-0">
-                    <Image src={t.imageUrl} alt={t.name} fill className="object-cover" sizes="40px" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {videos.map((video, i) => (
+              <motion.div
+                key={video.order}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: Math.min(i * 0.05, 0.4) }}
+                className="group bg-gray-50 dark:bg-[#0f2818] border border-gray-100 dark:border-green-900/30 rounded-2xl overflow-hidden hover:border-[#22c55e]/50 hover:shadow-2xl hover:shadow-green-900/10 transition-all duration-300"
+              >
+                {/* Thumbnail — click to play */}
+                <button
+                  onClick={() => setActiveVideo(video)}
+                  className="relative w-full aspect-video overflow-hidden bg-gray-200 dark:bg-[#0a1a0f] block cursor-pointer"
+                >
+                  <Image
+                    src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
+                    alt={video.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-full bg-red-600 flex items-center justify-center shadow-xl opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+                      <Play className="w-6 h-6 text-white ml-1" fill="white" />
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm font-bold text-gray-900 dark:text-white">{t.name}</p>
-                    <p className="text-xs text-[#16a34a] font-semibold">{t.role}</p>
-                  </div>
+                </button>
+                {/* Info */}
+                <div className="p-4">
+                  <h3 className="font-bold text-gray-900 dark:text-white text-sm leading-snug mb-1.5 group-hover:text-[#16a34a] transition-colors duration-200 line-clamp-2">
+                    {video.title}
+                  </h3>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                    <span className="text-gray-700 dark:text-gray-300 font-semibold">{video.source}</span>
+                    <span className="mx-1.5 text-gray-300 dark:text-gray-600">&middot;</span>
+                    {video.speaker}
+                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+      {/* Video modal */}
+      {activeVideo && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/80 backdrop-blur-sm"
+          onClick={() => setActiveVideo(null)}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+            className="w-full max-w-4xl bg-[#0f2818] rounded-2xl overflow-hidden shadow-2xl border border-green-900/40"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-start justify-between gap-4 px-5 py-4 border-b border-white/10">
+              <div className="min-w-0">
+                <p className="text-[11px] font-semibold text-[#4ade80] uppercase tracking-widest mb-0.5">
+                  {activeVideo.source} &middot; {activeVideo.speaker}
+                </p>
+                <h3 className="text-white font-bold text-base leading-snug line-clamp-1">
+                  {activeVideo.title}
+                </h3>
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <a
+                  href={activeVideo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded-lg transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  Watch on YouTube
+                </a>
+                <button
+                  onClick={() => setActiveVideo(null)}
+                  className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                  aria-label="Close"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            {/* Embed */}
+            <div className="aspect-video">
+              <iframe
+                src={`https://www.youtube.com/embed/${activeVideo.videoId}?autoplay=1&rel=0`}
+                title={activeVideo.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          </motion.div>
+        </div>
+      )}
     </main>
   );
 }
