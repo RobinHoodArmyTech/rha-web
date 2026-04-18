@@ -12,6 +12,10 @@ import {
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { cn } from "@/lib/utils";
 
+const checkinHref = process.env.NODE_ENV === "production" 
+  ? `https://${process.env.NEXT_PUBLIC_CHECKIN_DOMAIN ?? "checkin.robinhoodarmy.com"}` 
+  : "/sites/checkin";
+
 const navItems = [
   { label: "Home", href: "/sites/main" },
   {
@@ -22,7 +26,7 @@ const navItems = [
       { label: "Robin Speak", href: "/sites/main/about#robin-speak" },
     ],
   },
-  { label: "Checkin", href: "/sites/main" },
+  { label: "Checkin", href: checkinHref },
   { label: "Academy", href: "/sites/main/academy" },
 ];
 
