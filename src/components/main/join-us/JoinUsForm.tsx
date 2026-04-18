@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, Mail, MapPin, Phone, Users } from "lucide-react";
 import { JoinUsSchema, normalizeMobileNumber, type JoinUsValues, type JoinUsFieldErrors } from "@/core/validators/joinUsValidation";
@@ -9,19 +9,11 @@ import { cn } from "@/lib/utils";
 import FormInput from "@/components/ui/FormInput";
 import FormSelect from "@/components/ui/FormSelect";
 
-const cityOptions = [
-  "Delhi",
-  "Mumbai",
-  "Bengaluru",
-  "Hyderabad",
-  "Chennai",
-  "Kolkata",
-  "Pune",
-  "Ahmedabad",
-  "Jaipur",
-  "Chandigarh",
-  "Other",
-];
+interface City {
+  id: number;
+  cityName: string;
+  countryName: string;
+}
 
 function getFieldErrors(values: JoinUsValues): JoinUsFieldErrors {
   const result = JoinUsSchema.safeParse(values);
@@ -33,12 +25,19 @@ function getFieldErrors(values: JoinUsValues): JoinUsFieldErrors {
 }
 
 export default function JoinUsForm() {
-  const [values, setValues] = useState<JoinUsValues>({ fullName: "", mobileNumber: "", email: "", city: "" });
+  const [values, setValues] = useState<JoinUsValues>({ fullName: "", mobileNumber: "", email: "", cityId: 0 });
   const [touched, setTouched] = useState<Partial<Record<keyof JoinUsValues, boolean>>>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const [cities, setCities] = useState<City[]>([]);
+
+  useEffect(() => {
+    api.get<{ data: City[] }>("/master/cities")
+      .then((res) => setCities(res.data))
+      .catch(() => setCities([]));
+  }, []);
 
   const clientErrors = useMemo(() => getFieldErrors(values), [values]);
 
@@ -74,7 +73,7 @@ export default function JoinUsForm() {
 
       setStatus("success");
       setMessage("Thanks for your interest! We'll be in touch soon.");
-      setValues({ fullName: "", mobileNumber: "", email: "", city: "" });
+      setValues({ fullName: "", mobileNumber: "", email: "", cityId: 0 });
       setTouched({});
       setSubmitted(false);
     } catch (err) {
@@ -84,6 +83,15 @@ export default function JoinUsForm() {
       setLoading(false);
     }
   }
+
+  const cityGroups = useMemo(() => {
+    const grouped: Record<string, { label: string; value: string }[]> = {};
+    for (const city of cities) {
+      if (!grouped[city.countryName]) grouped[city.countryName] = [];
+      grouped[city.countryName].push({ label: city.cityName, value: String(city.id) });
+    }
+    return Object.entries(grouped).map(([label, options]) => ({ label, options }));
+  }, [cities]);
 
   return (
     <div className="relative">
@@ -142,11 +150,14 @@ export default function JoinUsForm() {
 
         <FormSelect
           placeholder="Select City *"
-          options={cityOptions}
-          value={values.city}
-          onValueChange={(v) => { set("city", v); touch("city"); }}
+          groups={cityGroups}
+          value={values.cityId ? String(values.cityId) : ""}
+          onValueChange={(id) => {
+            set("cityId", Number(id));
+            touch("cityId");
+          }}
           icon={MapPin}
-          error={visibleError("city")}
+          error={visibleError("cityId")}
         />
 
         <motion.button

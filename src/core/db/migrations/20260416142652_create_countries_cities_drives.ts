@@ -1,7 +1,6 @@
 import type { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
-
   await knex.schema.createTable("countries", (table) => {
     table.increments("id").primary();
     table.string("countryName", 50).notNullable();
@@ -12,38 +11,33 @@ export async function up(knex: Knex): Promise<void> {
 
   await knex.schema.createTable("cities", (table) => {
     table.increments("id").primary();
-    table.string("countryId", 255).notNullable();
-    table.foreign('countryId').references('countries.id').onDelete('CASCADE');
-    table.string("cityName", 255).notNullable();
+    table.integer("countryId").unsigned().notNullable();
+    table.string("cityName", 255).notNullable().unique();
     table.string("cityEmail", 255).notNullable();
-    table.string("cadetWaGroupLink", 200).notNullable();
     table.timestamp("createdAt").defaultTo(knex.fn.now()).notNullable();
     table.timestamp("updatedAt").defaultTo(knex.fn.now()).notNullable();
-  });
 
-  await knex.schema.createTable("signups", (table) => {
-    table.increments("id").primary();
-    table.string("fullName", 255).notNullable();
-    table.string("email", 255).notNullable();
-    table.string("mobileNumber", 20).notNullable();
-    table.string("city", 255).notNullable();
-    table.timestamp("createdAt").defaultTo(knex.fn.now()).notNullable();
-    table.timestamp("updatedAt").defaultTo(knex.fn.now()).notNullable();
+    // Foreign keys
+    table.foreign("countryId").references("countries.id").onDelete("CASCADE");
   });
 
   await knex.schema.createTable("drives", (table) => {
     table.increments("id").primary();
-    table.string("cityId", 255).notNullable();
-    table.foreign('cityId').references('cities.id');
+    table.integer("cityId").unsigned().notNullable();
     table.string("driveLoci", 255).notNullable();
     table.string("driveDesc", 250).notNullable();
     table.string("drivePocName", 50).notNullable();
     table.string("drivePocMobile", 50).notNullable();
     table.timestamp("createdAt").defaultTo(knex.fn.now()).notNullable();
     table.timestamp("updatedAt").defaultTo(knex.fn.now()).notNullable();
+
+    // Foreign keys
+    table.foreign("cityId").references("cities.id");
   });
 }
 
 export async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTable("signups");
+  await knex.schema.dropTable("drives");
+  await knex.schema.dropTable("cities");
+  await knex.schema.dropTable("countries");
 }
