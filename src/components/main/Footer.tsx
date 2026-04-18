@@ -5,16 +5,18 @@ import { Twitter, Instagram, Facebook, Youtube, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const footerLinks = {
-  "Quick Links": [
-    { label: "Home", href: "/sites/main" },
-    { label: "About Us", href: "/sites/main/about" },
-    { label: "Check-In", href: "/sites/main" },
-    { label: "Academy", href: "/sites/main/academy" },
-    { label: "Volunteer", href: "/sites/main/join-us" },
-    { label: "Contact Us", href: "https://api.whatsapp.com/send/?phone=918971966164&l=en"},
-  ],
-};
+const checkinHref = process.env.NODE_ENV === "production"
+  ? `https://${process.env.NEXT_PUBLIC_CHECKIN_DOMAIN ?? "checkin.robinhoodarmy.com"}`
+  : "/sites/checkin";
+
+const quickLinks = [
+  { label: "Home", href: "/sites/main" },
+  { label: "About Us", href: "/sites/main/about" },
+  { label: "Check-In", href: checkinHref },
+  { label: "Academy", href: "/sites/main/academy" },
+  { label: "Volunteer", href: "/sites/main/join-us" },
+  { label: "Contact Us", href: "https://api.whatsapp.com/send/?phone=918971966164&l=en", external: true },
+];
 
 const socialLinks = [
   { icon: Instagram, href: "https://www.instagram.com/rha_india/", label: "Instagram" },
@@ -76,15 +78,27 @@ export default function Footer() {
               Quick Links
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-3 sm:gap-4">
-              {footerLinks["Quick Links"].map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="text-sm text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-center md:text-left"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {quickLinks.map((link) =>
+                link.external ? (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-center md:text-left"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="text-sm text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-center md:text-left"
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
             </div>
           </div>
         </div>
