@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Heart, Target, Utensils, BookOpen, Instagram } from 'lucide-react'
+import { Heart, Utensils, BookOpen, Instagram } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -283,11 +283,11 @@ export default function MainHomePage() {
           
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
             {[
-              { Icon: Target, heading: 'Who we are?', paras: ['The Robin Hood Army is a volunteer based, zero-funds organization that works to get surplus food from restaurants and the community to serve less fortunate people.', 'Our local chapters are run by friends and colleagues. Our "Robins" are largely students and young working professionals — everyone does this in their free time. The lesser fortunate sections we serve include homeless families, orphanages, patients from public hospitals, and old age homes.'] },
-              { Icon: Heart, heading: 'Our vision', paras: ['Really simple — beat global hunger and bring out the best in people around the world. A world where no one sleeps hungry.', 'The idea is to create self-sustained chapters across the world who will look after their local community. And in the process, inspire people around us to give back to those who need it most.'] },
-            ].map(({ Icon, heading, paras }) => (
+              { icon: '/main/images/icons/who-we-are.png', heading: 'Who we are?', paras: ['The Robin Hood Army is a volunteer based, zero-funds organization that works to get surplus food from restaurants and the community to serve less fortunate people.', 'Our local chapters are run by friends and colleagues. Our "Robins" are largely students and young working professionals — everyone does this in their free time. The lesser fortunate sections we serve include homeless families, orphanages, patients from public hospitals, and old age homes.'] },
+              { icon: '/main/images/icons/vision.png', heading: 'Our vision', paras: ['Really simple — beat global hunger and bring out the best in people around the world. A world where no one sleeps hungry.', 'The idea is to create self-sustained chapters across the world who will look after their local community. And in the process, inspire people around us to give back to those who need it most.'] },
+            ].map(({ icon, heading, paras }) => (
               <div key={heading} className="flex gap-5">
-                <div className="w-11 h-11 rounded-full border border-white/50 flex items-center justify-center flex-shrink-0 mt-0.5"><Icon className="w-5 h-5 text-white" /></div>
+                <div className="w-11 h-11 rounded-full border border-white/50 flex items-center justify-center flex-shrink-0 mt-0.5"><Image src={icon} alt={heading} width={24} height={24} /></div>
                 <div><h3 className="text-[#4ade80] font-semibold text-base mb-3">{heading}</h3>{paras.map((para, j) => <p key={j} className="text-white/85 text-sm leading-relaxed mb-3 last:mb-0">{para}</p>)}</div>
               </div>
             ))}
