@@ -34,7 +34,7 @@ export const JoinUsSchema = z.object({
     .min(1, "Email address is required.")
     .refine((v) => isValidEmailAddress(v), "Enter a valid email address (e.g. you@example.com)."),
 
-  city: z.string().min(1, "Please select your city."),
+  cityId: z.number({ message: "Please select your city." }).int().positive(),
 });
 
 export type JoinUsValues = z.infer<typeof JoinUsSchema>;
