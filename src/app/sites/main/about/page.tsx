@@ -17,6 +17,7 @@ const faqs: { q: string; a: string; image?: string }[] = [
   { q: "Do you provide certificate to volunteers??", a: "Naa – we want our team to serve less fortunate people, not build their own polished resumes 🙂. Citizens First → Mission Next → Robins Last." },
   { q: "How can I donate?", a: "Thanks for wanting to support us – the Robin Hood Army DOES NOT accept money. We have grown through contributions in kind and partnerships." },
   { q: "Wait, so do you have any rules?", a: "Three specifically – we do not collect money, we are a-political, and we serve all religions. If anyone claims to being those using the name of RHA, please drop us a note here. Also irritating legal disclaimer: RHA is a zero funds platform with no employees, office space, and insurance hence cannot assume liability. Any personal risk is borne by our Robins individually." },
+  { q: "How do I start a RHA City?", a: "Drop us an email at info@robinhoodarmy.com and let’s talk." },
   { q: "I’m with the press and want to know more! How do I get in touch?", a: "Thanks for the interest – hopefully this will help us spread our reach to more Robins, more cities, and more people. Do write to us at info@robinhoodarmy.com." },
   { q: "I don’t see my question here - help!", a: "Drop us an email at info@robinhoodarmy.com and let’s talk." },
 ];
