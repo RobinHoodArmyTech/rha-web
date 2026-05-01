@@ -12,18 +12,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { z, ZodError } from "zod";
 import { ApiError } from "@/core/apiResponse";
 import { AUTH_COOKIE } from "@/core/config/constants";
+import { verifyToken, type JwtPayload } from "@/lib/jwt";
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
-
-// TODO: dummy type — will be replaced with a proper User model once auth is implemented
-interface User {
-  id: string;
-  fullName: string;
-  email: string;
-  city: string;
-}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RouteContext = { params: Promise<any> };
@@ -31,7 +24,7 @@ type RouteContext = { params: Promise<any> };
 type ApiHandler = (request: NextRequest, context?: RouteContext) => Promise<NextResponse>;
 
 export interface AuthenticatedRequest extends NextRequest {
-  user: User;
+  session: JwtPayload;
 }
 
 type AuthenticatedHandler = (
@@ -78,20 +71,19 @@ export function withApiHandler(handler: ApiHandler) {
 
 export function withApiAuth(handler: AuthenticatedHandler) {
   return withApiHandler(async (request: NextRequest, context?: RouteContext) => {
-    const token = request.cookies.get(AUTH_COOKIE);
+    const token = request.cookies.get(AUTH_COOKIE)?.value;
     if (!token) {
       throw new ApiError(401, "Unauthorized");
     }
 
-    // TODO: validate token and resolve user from session/JWT
-    const user: User = {
-      id: "stub",
-      fullName: "Stub User",
-      email: "stub@robinhoodarmy.com",
-      city: "Delhi",
-    };
+    let session: JwtPayload;
+    try {
+      session = await verifyToken(token);
+    } catch {
+      throw new ApiError(401, "Invalid or expired token");
+    }
 
-    (request as AuthenticatedRequest).user = user;
+    (request as AuthenticatedRequest).session = session;
 
     return handler(request as AuthenticatedRequest, context);
   });
