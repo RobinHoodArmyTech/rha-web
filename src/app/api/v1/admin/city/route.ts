@@ -1,29 +1,33 @@
-import { withApiHandler, withApiAuth } from "@/middleware/apiMiddlewares";
+import { withApiAuth } from "@/middleware/apiMiddlewares";
 import { ApiResponse, ApiError } from "@/core/apiResponse";
+import { CreateCitySchema } from "@/core/validators/cityValidation";
+import { listCities, createCity, getCityByName } from "@/core/services/backend/city/cityService";
+import { getCountryById } from "@/core/services/backend/country/countryService";
 
 /**
- * GET /api/v1/city/{cityName} — fetch city details(public)
- * POST /api/v1/city/{cityName} — add a new city (authenticated)
- * PATCH /api/v1/city/{cityName} — update city details (authenticated)
- * DELETE /api/v1/city/{cityName} — delete city details (authenticated)
+ * GET  /api/v1/admin/city — list all cities
+ * POST /api/v1/admin/city — create a new city
  */
 
-export const GET = withApiHandler(async () => {
-  // TODO: get city specific details
-  return ApiResponse.success({ data: [] });
+export const GET = withApiAuth(async () => {
+  const cities = await listCities();
+  return ApiResponse.success({ data: cities });
 });
 
-export const POST = withApiAuth(async () => {
-  // TODO: parse multipart form-data, create new city in DB and associated pages
-  return ApiResponse.success({ data: [] });
-});
+export const POST = withApiAuth(async (request) => {
+  const body = await request.json();
+  const data = CreateCitySchema.parse(body);
 
-export const PATCH = withApiAuth(async () => {
-  // TODO: parse multipart form-data, update record
-  throw new ApiError(501, "Unable to update city details. Try again later");
-});
+  const existing = await getCityByName(data.cityName);
+  if (existing) {
+    throw new ApiError(409, `City "${data.cityName}" already exists`);
+  }
 
-export const DELETE = withApiAuth(async () => {
-  // TODO: delete record
-  throw new ApiError(501, "Unable to delete city. Try again later");
+  const country = await getCountryById(data.countryId);
+  if (!country) {
+    throw new ApiError(400, "Invalid country");
+  }
+
+  const city = await createCity(data);
+  return ApiResponse.success({ data: city, message: "City created successfully" });
 });

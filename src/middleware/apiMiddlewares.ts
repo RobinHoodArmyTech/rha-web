@@ -25,7 +25,10 @@ interface User {
   city: string;
 }
 
-type ApiHandler = (request: NextRequest) => Promise<NextResponse>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RouteContext = { params: Promise<any> };
+
+type ApiHandler = (request: NextRequest, context?: RouteContext) => Promise<NextResponse>;
 
 export interface AuthenticatedRequest extends NextRequest {
   user: User;
@@ -33,6 +36,7 @@ export interface AuthenticatedRequest extends NextRequest {
 
 type AuthenticatedHandler = (
   request: AuthenticatedRequest,
+  context?: RouteContext,
 ) => Promise<NextResponse>;
 
 // ---------------------------------------------------------------------------
@@ -40,9 +44,9 @@ type AuthenticatedHandler = (
 // ---------------------------------------------------------------------------
 
 export function withApiHandler(handler: ApiHandler) {
-  return async (request: NextRequest): Promise<NextResponse> => {
+  return async (request: NextRequest, context?: RouteContext): Promise<NextResponse> => {
     try {
-      return await handler(request);
+      return await handler(request, context);
     } catch (error) {
       console.log(error);
       if (error instanceof ZodError) {
@@ -73,7 +77,7 @@ export function withApiHandler(handler: ApiHandler) {
 // ---------------------------------------------------------------------------
 
 export function withApiAuth(handler: AuthenticatedHandler) {
-  return withApiHandler(async (request: NextRequest) => {
+  return withApiHandler(async (request: NextRequest, context?: RouteContext) => {
     const token = request.cookies.get(AUTH_COOKIE);
     if (!token) {
       throw new ApiError(401, "Unauthorized");
@@ -89,6 +93,6 @@ export function withApiAuth(handler: AuthenticatedHandler) {
 
     (request as AuthenticatedRequest).user = user;
 
-    return handler(request as AuthenticatedRequest);
+    return handler(request as AuthenticatedRequest, context);
   });
 }

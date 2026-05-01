@@ -34,7 +34,7 @@ export default function JoinUsForm() {
   const [cities, setCities] = useState<City[]>([]);
 
   useEffect(() => {
-    api.get<{ data: City[] }>("/master/cities")
+    api.get<{ data: City[] }>("/public/city")
       .then((res) => setCities(res.data))
       .catch(() => setCities([]));
   }, []);
@@ -69,7 +69,7 @@ export default function JoinUsForm() {
     setStatus("idle");
 
     try {
-      await api.post("/auth/signup", values);
+      await api.post("/public/joinus", values);
 
       setStatus("success");
       setMessage("Thanks for your interest! We'll be in touch soon.");
