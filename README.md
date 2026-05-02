@@ -180,6 +180,21 @@ npm install
 ```bash
 npm run db:migrate
 ```
+4. Seed the database:
+```bash
+# Run all seeds
+npm run db:seed
+
+# Run a specific seed file
+npm run db:seed:one -- <filename>
+```
+5. Create a dev admin user:
+```bash
+npm run db:seed:one -- 04_dev_admin_user.ts
+```
+This creates a SysAdmin user with:
+- Email: `admin@robinhoodarmy.com`
+- Password: `admin1234`
 
 ### Run development server
 ```bash
@@ -220,6 +235,10 @@ NEXT_PRIVATE_ADMIN_CONSOLE_DOMAIN=admin.robinhoodarmy.com
 
 # Database
 DATABASE_URL=postgres://user:password@localhost:5432/rha_dev
+
+# JWT
+JWT_SECRET=your-secret-key
+JWT_EXPIRY_DAYS=7
 ```
 
 ---

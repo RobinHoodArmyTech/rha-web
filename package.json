@@ -10,7 +10,8 @@
     "db:migrate": "NODE_OPTIONS='--import tsx' knex migrate:latest --knexfile knexfile.ts",
     "db:migrate:make": "NODE_OPTIONS='--import tsx' knex migrate:make --knexfile knexfile.ts -x ts",
     "db:rollback": "NODE_OPTIONS='--import tsx' knex migrate:rollback --knexfile knexfile.ts",
-    "db:seed": "NODE_OPTIONS='--import tsx' knex seed:run --knexfile knexfile.ts"
+    "db:seed": "NODE_OPTIONS='--import tsx' knex seed:run --knexfile knexfile.ts",
+    "db:seed:one": "NODE_OPTIONS='--import tsx' knex seed:run --knexfile knexfile.ts --specific"
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.1022.0",

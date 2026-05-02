@@ -2,12 +2,13 @@ import { db } from "@/core/db";
 
 export interface UserRow {
   id: number;
-  userName: string;
   fullName: string;
   email: string;
-  accessKey: string;
+  password: string;
   cityId: number | null;
+  lastLoginAt: Date | null;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface UserRoleRow {
@@ -23,4 +24,8 @@ export async function getUserByEmail(email: string): Promise<UserRow | undefined
 
 export async function getUserRoleByUserId(userId: number): Promise<UserRoleRow | undefined> {
   return db("user_roles").where({ userId }).first();
+}
+
+export async function updateLastLogin(userId: number): Promise<void> {
+  await db("users").where({ id: userId }).update({ lastLoginAt: db.fn.now() });
 }

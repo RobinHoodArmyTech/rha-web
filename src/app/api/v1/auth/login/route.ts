@@ -3,17 +3,23 @@ import { ApiError, ApiResponse } from "@/core/apiResponse";
 import { AUTH_COOKIE } from "@/core/config/constants";
 import { loginSchema } from "@/core/validators/auth";
 import { signToken } from "@/lib/jwt";
-import { getUserByEmail, getUserRoleByUserId } from "@/core/services/backend/user/userService";
+import { verifyPassword } from "@/lib/password";
+import { getUserByEmail, getUserRoleByUserId, updateLastLogin } from "@/core/services/backend/user/userService";
 
 /**
  * POST /api/v1/auth/login — user login (public)
  */
 export const POST = withApiHandler(async (request) => {
   const body = await request.json().catch(() => ({}));
-  const { email, accessKey } = loginSchema.parse(body);
+  const { email, password } = loginSchema.parse(body);
 
   const user = await getUserByEmail(email);
-  if (!user || user.accessKey !== accessKey) {
+  if (!user) {
+    throw new ApiError(401, "Invalid credentials");
+  }
+
+  const valid = await verifyPassword(password, user.password);
+  if (!valid) {
     throw new ApiError(401, "Invalid credentials");
   }
 
@@ -21,6 +27,8 @@ export const POST = withApiHandler(async (request) => {
   if (!userRole) {
     throw new ApiError(403, "No role assigned to this user");
   }
+
+  await updateLastLogin(user.id);
 
   const token = await signToken({ userId: user.id, roleId: userRole.roleId });
 
