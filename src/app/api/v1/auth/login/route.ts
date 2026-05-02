@@ -1,6 +1,6 @@
 import { withApiHandler } from "@/middleware/apiMiddlewares";
 import { ApiError, ApiResponse } from "@/core/apiResponse";
-import { AUTH_COOKIE } from "@/core/config/constants";
+import { AUTH_COOKIE, Role } from "@/core/config/constants";
 import { loginSchema } from "@/core/validators/auth";
 import { signToken } from "@/lib/jwt";
 import { verifyPassword } from "@/lib/password";
@@ -30,7 +30,7 @@ export const POST = withApiHandler(async (request) => {
 
   await updateLastLogin(user.id);
 
-  const token = await signToken({ userId: user.id, roleId: userRole.roleId });
+  const token = await signToken({ userId: user.id, roleId: userRole.roleId, roleName: userRole.roleName as Role });
 
   const response = ApiResponse.success({ message: "Successfully logged in" });
 

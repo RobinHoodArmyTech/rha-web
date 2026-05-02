@@ -1,5 +1,6 @@
 import { SignJWT, jwtVerify } from "jose";
 import { z } from "zod";
+import { Role } from "@/core/config/constants";
 
 const SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 const EXPIRY_DAYS = process.env.JWT_EXPIRY_DAYS || "7";
@@ -7,6 +8,7 @@ const EXPIRY_DAYS = process.env.JWT_EXPIRY_DAYS || "7";
 const JwtPayloadSchema = z.object({
   userId: z.number().int().positive(),
   roleId: z.number().int().positive(),
+  roleName: z.enum(Role),
 });
 
 export type JwtPayload = z.infer<typeof JwtPayloadSchema>;

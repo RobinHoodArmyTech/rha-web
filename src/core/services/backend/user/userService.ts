@@ -22,8 +22,16 @@ export async function getUserByEmail(email: string): Promise<UserRow | undefined
   return db("users").where({ email }).first();
 }
 
-export async function getUserRoleByUserId(userId: number): Promise<UserRoleRow | undefined> {
-  return db("user_roles").where({ userId }).first();
+export interface UserRoleWithName extends UserRoleRow {
+  roleName: string;
+}
+
+export async function getUserRoleByUserId(userId: number): Promise<UserRoleWithName | undefined> {
+  return db("user_roles")
+    .join("roles", "user_roles.roleId", "roles.id")
+    .where({ userId })
+    .select("user_roles.*", "roles.roleName")
+    .first();
 }
 
 export async function updateLastLogin(userId: number): Promise<void> {

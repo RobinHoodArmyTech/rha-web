@@ -6,12 +6,13 @@
  *
  * Usage:
  *   export const GET = withApiHandler(async (req) => { ... });            // public
- *   export const POST = withApiAuth(async (req) => { req.user; ... });    // authenticated
+ *   export const POST = withApiAuth(async (req) => { req.session; ... });  // authenticated
+ *   export const DELETE = withApiRole(Role.SysAdmin)(async (req) => { ... }); // role-gated
  */
 import { NextRequest, NextResponse } from "next/server";
 import { z, ZodError } from "zod";
 import { ApiError } from "@/core/apiResponse";
-import { AUTH_COOKIE } from "@/core/config/constants";
+import { AUTH_COOKIE, Role } from "@/core/config/constants";
 import { verifyToken, type JwtPayload } from "@/lib/jwt";
 
 // ---------------------------------------------------------------------------
@@ -87,4 +88,19 @@ export function withApiAuth(handler: AuthenticatedHandler) {
 
     return handler(request as AuthenticatedRequest, context);
   });
+}
+
+// ---------------------------------------------------------------------------
+// withApiRole — role-based authorization (composes on top of withApiAuth)
+// ---------------------------------------------------------------------------
+
+export function withApiRole(...roles: Role[]) {
+  return (handler: AuthenticatedHandler) => {
+    return withApiAuth(async (request, context) => {
+      if (!roles.includes(request.session.roleName)) {
+        throw new ApiError(403, "Forbidden");
+      }
+      return handler(request, context);
+    });
+  };
 }
