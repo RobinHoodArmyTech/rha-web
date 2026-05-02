@@ -6,33 +6,31 @@
  *
  * Usage:
  *   export const GET = withApiHandler(async (req) => { ... });            // public
- *   export const POST = withApiAuth(async (req) => { req.user; ... });    // authenticated
+ *   export const POST = withApiAuth(async (req) => { req.session; ... });  // authenticated
+ *   export const DELETE = withApiRole(Role.SysAdmin)(async (req) => { ... }); // role-gated
  */
 import { NextRequest, NextResponse } from "next/server";
 import { z, ZodError } from "zod";
 import { ApiError } from "@/core/apiResponse";
-import { AUTH_COOKIE } from "@/core/config/constants";
+import { AUTH_COOKIE, Role } from "@/core/config/constants";
+import { verifyToken, type JwtPayload } from "@/lib/jwt";
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
-// TODO: dummy type — will be replaced with a proper User model once auth is implemented
-interface User {
-  id: string;
-  fullName: string;
-  email: string;
-  city: string;
-}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RouteContext = { params: Promise<any> };
 
-type ApiHandler = (request: NextRequest) => Promise<NextResponse>;
+type ApiHandler = (request: NextRequest, context?: RouteContext) => Promise<NextResponse>;
 
 export interface AuthenticatedRequest extends NextRequest {
-  user: User;
+  session: JwtPayload;
 }
 
 type AuthenticatedHandler = (
   request: AuthenticatedRequest,
+  context?: RouteContext,
 ) => Promise<NextResponse>;
 
 // ---------------------------------------------------------------------------
@@ -40,9 +38,9 @@ type AuthenticatedHandler = (
 // ---------------------------------------------------------------------------
 
 export function withApiHandler(handler: ApiHandler) {
-  return async (request: NextRequest): Promise<NextResponse> => {
+  return async (request: NextRequest, context?: RouteContext): Promise<NextResponse> => {
     try {
-      return await handler(request);
+      return await handler(request, context);
     } catch (error) {
       console.log(error);
       if (error instanceof ZodError) {
@@ -73,22 +71,36 @@ export function withApiHandler(handler: ApiHandler) {
 // ---------------------------------------------------------------------------
 
 export function withApiAuth(handler: AuthenticatedHandler) {
-  return withApiHandler(async (request: NextRequest) => {
-    const token = request.cookies.get(AUTH_COOKIE);
+  return withApiHandler(async (request: NextRequest, context?: RouteContext) => {
+    const token = request.cookies.get(AUTH_COOKIE)?.value;
     if (!token) {
       throw new ApiError(401, "Unauthorized");
     }
 
-    // TODO: validate token and resolve user from session/JWT
-    const user: User = {
-      id: "stub",
-      fullName: "Stub User",
-      email: "stub@robinhoodarmy.com",
-      city: "Delhi",
-    };
+    let session: JwtPayload;
+    try {
+      session = await verifyToken(token);
+    } catch {
+      throw new ApiError(401, "Invalid or expired token");
+    }
 
-    (request as AuthenticatedRequest).user = user;
+    (request as AuthenticatedRequest).session = session;
 
-    return handler(request as AuthenticatedRequest);
+    return handler(request as AuthenticatedRequest, context);
   });
+}
+
+// ---------------------------------------------------------------------------
+// withApiRole — role-based authorization (composes on top of withApiAuth)
+// ---------------------------------------------------------------------------
+
+export function withApiRole(...roles: Role[]) {
+  return (handler: AuthenticatedHandler) => {
+    return withApiAuth(async (request, context) => {
+      if (!roles.includes(request.session.roleName)) {
+        throw new ApiError(403, "Forbidden");
+      }
+      return handler(request, context);
+    });
+  };
 }
