@@ -7,7 +7,7 @@ import Step1Intro from "./Step1Intro";
 import Step2PersonalInfo from "./Step2PersonalInfo";
 import Step3Values from "./Step3Values";
 import Step4Welcome from "./Step4Welcome";
-import type { City, PersonalInfoData } from "./types";
+import type { CityData, City, PersonalInfoData } from "./types";
 
 const INITIAL_DATA: PersonalInfoData = {
   fullName: "",
@@ -20,6 +20,7 @@ const INITIAL_DATA: PersonalInfoData = {
 export default function JoinUsFlow() {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [cities, setCities] = useState<City[]>([]);
+  const [cityData, setCityData] = useState<CityData>();
   const [personalInfo, setPersonalInfo] = useState<PersonalInfoData>(INITIAL_DATA);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -30,6 +31,12 @@ export default function JoinUsFlow() {
       .then((res) => setCities(res.data))
       .catch(() => setCities([]));
   }, []);
+
+  useEffect(() => {
+    api.get<{data: CityData}>("/admin/city/" + personalInfo.cityId.toString())
+    .then((res) => setCityData(res.data))
+    .catch(() => setCityData(undefined));
+  }, [personalInfo.cityId]);
 
   async function handleSubmit() {
     setSubmitting(true);
@@ -75,7 +82,13 @@ export default function JoinUsFlow() {
         />
       )}
 
-      {step === 4 && <Step4Welcome name={personalInfo.fullName} />}
+      {step === 4 && 
+        <Step4Welcome 
+          name={personalInfo.fullName} 
+          cityName={cities[personalInfo.cityId].cityName} 
+          cityCadetLink={cityData?.foodCadetLink}
+        />
+      }
     </>
   );
 }
