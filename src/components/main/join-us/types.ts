@@ -11,3 +11,8 @@ export interface PersonalInfoData {
   age: number;
   cityId: number;
 }
+
+export interface CityData {
+  cityId: number;
+  foodCadetLink: string;
+}
