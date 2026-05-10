@@ -26,7 +26,7 @@ export default function JoinUsFlow() {
 
   useEffect(() => {
     api
-      .get<{ data: City[] }>("/master/cities")
+      .get<{ data: City[] }>("/public/city")
       .then((res) => setCities(res.data))
       .catch(() => setCities([]));
   }, []);
