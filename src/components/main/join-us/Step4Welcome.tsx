@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 interface Props {
   name: string;
-  cityName: string;
+  cityName?: string;
   cityCadetLink?: string;
 }
 
@@ -31,7 +31,7 @@ export default function Step4Welcome({ name, cityName, cityCadetLink }: Props) {
             "bg-[#1a6b3c] text-white shadow-lg shadow-[#1a6b3c]/25 hover:bg-[#1f7a45]"
           )}
         >
-          Join {cityName} WhatsApp Group
+          Join {cityName ?? ""} WhatsApp Group
         </motion.button>
         <p className="mt-3 text-sm text-slate-400 dark:text-slate-500">
           Your local Robins will welcome you. Drives usually happen on weekends — jump into your first one!

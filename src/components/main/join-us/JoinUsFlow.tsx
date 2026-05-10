@@ -33,9 +33,19 @@ export default function JoinUsFlow() {
   }, []);
 
   useEffect(() => {
-    api.get<{data: CityData}>("/admin/city/" + personalInfo.cityId.toString())
-    .then((res) => setCityData(res.data))
-    .catch(() => setCityData(undefined));
+    const fetchCityDetails = async () => {
+      try {
+        const res = await api.get<{data: CityData}>("/public/city/" + personalInfo.cityId.toString());
+        setCityData(res.data);
+      } catch (err) {
+        console.error(err);
+        setCityData(undefined);
+      }
+    };
+
+    if (personalInfo.cityId) {
+      fetchCityDetails();
+    }
   }, [personalInfo.cityId]);
 
   async function handleSubmit() {
@@ -85,8 +95,8 @@ export default function JoinUsFlow() {
       {step === 4 && 
         <Step4Welcome 
           name={personalInfo.fullName} 
-          cityName={cities[personalInfo.cityId].cityName} 
-          cityCadetLink={cityData?.foodCadetLink}
+          cityName={(cities.find(city => personalInfo.cityId == city.id))?.cityName} 
+          cityCadetLink={cityData?.foodCadetsLink}
         />
       }
     </>

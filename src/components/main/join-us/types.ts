@@ -14,5 +14,5 @@ export interface PersonalInfoData {
 
 export interface CityData {
   cityId: number;
-  foodCadetLink: string;
+  foodCadetsLink: string;
 }
