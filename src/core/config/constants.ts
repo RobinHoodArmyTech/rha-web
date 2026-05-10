@@ -5,3 +5,11 @@
  */
 
 export const AUTH_COOKIE = "rha-auth-token";
+
+export enum Role {
+  SysAdmin = "SysAdmin",
+  Founder = "Founder",
+  Librarian = "Librarian",
+  GrowthRep = "Growth_Rep",
+  CityRep = "City_Rep",
+}

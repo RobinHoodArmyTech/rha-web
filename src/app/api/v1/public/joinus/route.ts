@@ -1,11 +1,11 @@
 import { withApiHandler } from "@/middleware/apiMiddlewares";
 import { ApiError, ApiResponse } from "@/core/apiResponse";
 import { JoinUsSchema, normalizeMobileNumber } from "@/core/validators/joinUsValidation";
-import { createSignup } from "@/core/services/backend/auth/signupService";
+import { createSignup } from "@/core/services/backend/joinus/joinusService";
 import { sendSignupEmail } from "@/core/services/backend/email/emailService";
 
 /**
- * POST /api/v1/auth/signup — collect join-us information (public)
+ * POST /api/v1/public/joinus — collect join-us information (public)
  */
 export const POST = withApiHandler(async (request) => {
   const body = await request.json().catch((err) => {

@@ -26,7 +26,7 @@ export default function JoinUsFlow() {
 
   useEffect(() => {
     api
-      .get<{ data: City[] }>("/master/cities")
+      .get<{ data: City[] }>("/public/city")
       .then((res) => setCities(res.data))
       .catch(() => setCities([]));
   }, []);
@@ -35,7 +35,7 @@ export default function JoinUsFlow() {
     setSubmitting(true);
     setSubmitError("");
     try {
-      await api.post("/auth/signup", {
+      await api.post("/public/joinus", {
         fullName: personalInfo.fullName,
         mobileNumber: normalizeMobileNumber(personalInfo.mobileNumber),
         email: personalInfo.email,
