@@ -34,6 +34,12 @@ export const JoinUsSchema = z.object({
     .min(1, "Email address is required.")
     .refine((v) => isValidEmailAddress(v), "Enter a valid email address (e.g. you@example.com)."),
 
+  age: z.coerce
+    .number()
+    .int()
+    .min(13, "Enter your age (must be 13 or above).")
+    .max(100, "Enter a valid age (max 100)."),
+
   cityId: z.number({ message: "Please select your city." }).int().positive(),
 });
 
