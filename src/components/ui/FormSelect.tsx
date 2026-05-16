@@ -1,5 +1,5 @@
-import { Check, ChevronDown } from "lucide-react";
-import * as SelectPrimitive from "@radix-ui/react-select";
+import { useState, useRef, useEffect, useMemo } from "react";
+import { Check, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import FieldError from "./FieldError";
 
@@ -23,84 +23,157 @@ interface FormSelectProps {
   error?: string;
 }
 
-const itemClass = cn(
-  "relative flex cursor-pointer select-none items-center rounded-lg px-3 py-2.5 text-sm text-slate-700 outline-none",
-  "data-[highlighted]:bg-[#f0f7f2] data-[highlighted]:text-[#1a6b3c]",
-  "data-[state=checked]:font-semibold data-[state=checked]:text-[#1a6b3c]",
-  "dark:text-slate-300 dark:data-[highlighted]:bg-green-900/30 dark:data-[highlighted]:text-[#4ade80] dark:data-[state=checked]:text-[#4ade80]",
-);
-
-function SelectItem({ value, children, className }: { value: string; children: React.ReactNode; className?: string }) {
-  return (
-    <SelectPrimitive.Item value={value} className={cn(itemClass, className)}>
-      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-      <SelectPrimitive.ItemIndicator className="absolute right-3">
-        <Check className="h-3.5 w-3.5 text-[#1a6b3c]" />
-      </SelectPrimitive.ItemIndicator>
-    </SelectPrimitive.Item>
-  );
-}
-
 export default function FormSelect({
   placeholder,
-  options,
-  groups,
+  options = [],
+  groups = [],
   value,
   onValueChange,
-  icon: Icon,
+  icon: Icon = Search,
   error,
 }: FormSelectProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const selectedLabel = useMemo(() => {
+    if (!value) return "";
+    const flatOption = options.find((opt) => opt === value);
+    if (flatOption) return flatOption;
+    for (const group of groups) {
+      const groupedOption = group.options.find((opt) => String(opt.value) === String(value));
+      if (groupedOption) return groupedOption.label;
+    }
+    return value;
+  }, [value, options, groups]);
+
+  useEffect(() => {
+    if (!isOpen) setSearchTerm(selectedLabel);
+    else setSearchTerm("");
+  }, [isOpen, selectedLabel]);
+
+  const filteredOptions = options.filter((opt) =>
+    opt.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredGroups = groups
+    .map((group) => ({
+      ...group,
+      options: group.options.filter((opt) =>
+        opt.label.toLowerCase().includes(searchTerm.toLowerCase())
+      ),
+    }))
+    .filter((group) => group.options.length > 0);
+
+  const hasResults = filteredOptions.length > 0 || filteredGroups.length > 0;
+
+  function handleSelect(selectedValue: string) {
+    onValueChange(selectedValue);
+    setIsOpen(false);
+  }
+
   return (
-    <div>
-      <SelectPrimitive.Root value={value} onValueChange={onValueChange}>
-        <SelectPrimitive.Trigger
+    <div ref={wrapperRef} className="relative w-full">
+      <div
+        className={cn(
+          "relative flex w-full items-center gap-2 rounded-xl border bg-white px-3 transition-colors",
+          isOpen
+            ? "border-[#1a6b3c] ring-2 ring-[#1a6b3c]/10 dark:border-[#4ade80] dark:ring-[#4ade80]/10"
+            : "border-slate-200 focus-within:border-[#1a6b3c] focus-within:ring-2 focus-within:ring-[#1a6b3c]/10 dark:border-slate-700 dark:focus-within:border-[#4ade80] dark:focus-within:ring-[#4ade80]/10",
+          "dark:bg-[#0a1a0f]"
+        )}
+      >
+        {Icon && <Icon className="h-4 w-4 shrink-0 text-slate-400" />}
+        
+        <input
+          type="text"
+          value={isOpen ? searchTerm : selectedLabel}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setIsOpen(true);
+          }}
+          onFocus={() => setIsOpen(true)}
+          placeholder={placeholder}
+          className="flex-1 truncate bg-transparent py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400 dark:text-slate-100"
+        />
+
+        <ChevronDown
           className={cn(
-            "flex w-full items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm outline-none transition-colors",
-            "focus:border-[#1a6b3c] focus:ring-2 focus:ring-[#1a6b3c]/10",
-            "data-[state=open]:border-[#1a6b3c] data-[state=open]:ring-2 data-[state=open]:ring-[#1a6b3c]/10",
-            "dark:border-slate-700 dark:bg-[#0a1a0f] dark:focus:border-[#4ade80] dark:focus:ring-[#4ade80]/10 dark:data-[state=open]:border-[#4ade80] dark:data-[state=open]:ring-[#4ade80]/10",
-            value ? "text-slate-900 dark:text-slate-100" : "text-slate-400 dark:text-slate-500",
+            "ml-auto h-4 w-4 shrink-0 cursor-pointer text-slate-400 transition-transform duration-200 dark:text-slate-500",
+            isOpen && "rotate-180"
+          )}
+          onClick={() => setIsOpen(!isOpen)}
+        />
+      </div>
+
+      {isOpen && (
+        <div
+          className={cn(
+            "absolute left-0 top-[calc(100%+4px)] z-50 w-full overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg shadow-slate-200/60 dark:border-slate-700 dark:bg-[#0f2818] dark:shadow-slate-900/60",
+            "animate-in fade-in-0 zoom-in-95"
           )}
         >
-          {Icon && <Icon className="h-4 w-4 shrink-0 text-slate-400" />}
-          <SelectPrimitive.Value placeholder={placeholder} className="flex-1 text-left" />
-          <SelectPrimitive.Icon asChild>
-            <ChevronDown className="ml-auto h-4 w-4 shrink-0 text-slate-400 dark:text-slate-500" />
-          </SelectPrimitive.Icon>
-        </SelectPrimitive.Trigger>
+          <div className="max-h-60 overflow-y-auto p-1">
+            {!hasResults ? (
+              <div className="py-6 text-center text-sm text-slate-500">
+                No city found.
+              </div>
+            ) : (
+              <>
+                {filteredOptions.map((opt) => (
+                  <button
+                    key={opt}
+                    onClick={() => handleSelect(opt)}
+                    type="button"
+                    className={cn(
+                      "relative flex w-full cursor-pointer select-none items-center rounded-lg px-3 py-2.5 text-left text-sm text-slate-700 outline-none transition-colors hover:bg-[#f0f7f2] hover:text-[#1a6b3c] dark:text-slate-300 dark:hover:bg-green-900/30 dark:hover:text-[#4ade80]",
+                      value === opt && "bg-[#f0f7f2] font-semibold text-[#1a6b3c] dark:bg-green-900/30 dark:text-[#4ade80]"
+                    )}
+                  >
+                    {opt}
+                    {value === opt && <Check className="ml-auto h-4 w-4 text-[#1a6b3c] dark:text-[#4ade80]" />}
+                  </button>
+                ))}
 
-        <SelectPrimitive.Portal>
-          <SelectPrimitive.Content
-            position="popper"
-            sideOffset={4}
-            className={cn(
-              "z-50 max-h-80 min-w-[var(--radix-select-trigger-width)] overflow-hidden",
-              "rounded-xl border border-slate-200 bg-white shadow-lg shadow-slate-200/60",
-              "dark:border-slate-700 dark:bg-[#0f2818] dark:shadow-slate-900/60",
-              "data-[state=open]:animate-in data-[state=closed]:animate-out",
-              "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-              "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+                {filteredGroups.map((group) => (
+                  <div key={group.label}>
+                    <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                      {group.label}
+                    </div>
+                    {group.options.map((opt) => (
+                      <button
+                        key={opt.value}
+                        onClick={() => handleSelect(opt.value)}
+                        type="button"
+                        className={cn(
+                          "relative flex w-full cursor-pointer select-none items-center rounded-lg px-3 py-2.5 pl-6 text-left text-sm text-slate-700 outline-none transition-colors hover:bg-[#f0f7f2] hover:text-[#1a6b3c] dark:text-slate-300 dark:hover:bg-green-900/30 dark:hover:text-[#4ade80]",
+                          String(value) === String(opt.value) && "bg-[#f0f7f2] font-semibold text-[#1a6b3c] dark:bg-green-900/30 dark:text-[#4ade80]"
+                        )}
+                      >
+                        {opt.label}
+                        {String(value) === String(opt.value) && (
+                          <Check className="ml-auto h-4 w-4 text-[#1a6b3c] dark:text-[#4ade80]" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                ))}
+              </>
             )}
-          >
-            <SelectPrimitive.Viewport className="p-1">
-              {options?.map((opt) => (
-                <SelectItem key={opt} value={opt}>{opt}</SelectItem>
-              ))}
+          </div>
+        </div>
+      )}
 
-              {groups?.map((group) => (
-                <SelectPrimitive.Group key={group.label}>
-                  <SelectPrimitive.Label className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                    {group.label}
-                  </SelectPrimitive.Label>
-                  {group.options.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value} className="pl-6">{opt.label}</SelectItem>
-                  ))}
-                </SelectPrimitive.Group>
-              ))}
-            </SelectPrimitive.Viewport>
-          </SelectPrimitive.Content>
-        </SelectPrimitive.Portal>
-      </SelectPrimitive.Root>
       <FieldError error={error} />
     </div>
   );
