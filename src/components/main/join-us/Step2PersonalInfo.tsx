@@ -159,8 +159,8 @@ export default function Step2PersonalInfo({ cities, data, onChange, onNext, onBa
                   min={13}
                   max={100}
                   className="[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                  value={data.age}
-                  onChange={(e) => onChange({ ...data, age: e.target.value })}
+                  value={data.age === 0 ? "" : data.age} // set HTML UI input to display an empty string when the value is 0 (or undefined/null).
+                  onChange={(e) => onChange({ ...data, age: e.target.value === "" ? 0 : Number(e.target.value) })} // JS string value to number assignation
                   onBlur={() => touch("age")}
                   error={visibleError("age")}
                 />
