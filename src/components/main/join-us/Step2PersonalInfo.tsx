@@ -171,7 +171,7 @@ export default function Step2PersonalInfo({ cities, data, onChange, onNext, onBa
                   Which city are you in?
                 </label>
                 <FormSelect
-                  placeholder="Select your city"
+                  placeholder="Search your city"
                   groups={cityGroups}
                   value={data.cityId ? String(data.cityId) : ""}
                   onValueChange={(id) => {
