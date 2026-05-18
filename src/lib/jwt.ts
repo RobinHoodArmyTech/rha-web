@@ -9,6 +9,7 @@ const JwtPayloadSchema = z.object({
   userId: z.number().int().positive(),
   roleId: z.number().int().positive(),
   roleName: z.enum(Role),
+  cityId: z.number().int().positive().nullable(),
 });
 
 export type JwtPayload = z.infer<typeof JwtPayloadSchema>;

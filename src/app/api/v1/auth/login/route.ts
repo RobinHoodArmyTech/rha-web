@@ -30,7 +30,7 @@ export const POST = withApiHandler(async (request) => {
 
   await updateLastLogin(user.id);
 
-  const token = await signToken({ userId: user.id, roleId: userRole.roleId, roleName: userRole.roleName as Role });
+  const token = await signToken({ userId: user.id, roleId: userRole.roleId, roleName: userRole.roleName as Role, cityId: user.cityId });
 
   const response = ApiResponse.success({ message: "Successfully logged in" });
 
