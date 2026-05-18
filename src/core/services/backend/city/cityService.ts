@@ -75,13 +75,11 @@ export async function createCity(
 ): Promise<CityDetail> {
   const { cityName, countryId, cityEmail, ...cityData } = data;
 
-  const [city] = await db("cities")
-    .insert({ cityName, countryId, cityEmail })
-    .returning("*");
+  const [cityId] = await db("cities").insert({ cityName, countryId, cityEmail });
 
-  await db("city_data").insert({ cityId: city.id, ...cityData });
+  await db("city_data").insert({ cityId, ...cityData });
 
-  return (await getCityById(city.id))!;
+  return (await getCityById(cityId))!;
 }
 
 export async function patchCity(

@@ -8,6 +8,7 @@ export interface SignupRow extends JoinUsValues {
 }
 
 export async function createSignup(data: JoinUsValues): Promise<SignupRow> {
-  const [row] = await db("signups").insert(data).returning("*");
+  const [id] = await db("signups").insert(data);
+  const row = await db("signups").where({ id }).first();
   return row;
 }

@@ -10,16 +10,14 @@ export async function seed(knex: Knex): Promise<void> {
 
   const hashedPassword = await hashPassword(DEV_ADMIN_PASSWORD);
 
-  const [user] = await knex("users")
-    .insert({
-      fullName: "Dev Admin",
-      email: DEV_ADMIN_EMAIL,
-      password: hashedPassword,
-    })
-    .returning("id");
+  const [userId] = await knex("users").insert({
+    fullName: "Dev Admin",
+    email: DEV_ADMIN_EMAIL,
+    password: hashedPassword,
+  });
 
   const sysAdminRole = await knex("roles").where({ roleName: "SysAdmin" }).first();
   if (sysAdminRole) {
-    await knex("user_roles").insert({ userId: user.id, roleId: sysAdminRole.id });
+    await knex("user_roles").insert({ userId, roleId: sysAdminRole.id });
   }
 }
