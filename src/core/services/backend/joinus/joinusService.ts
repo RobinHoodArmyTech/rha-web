@@ -11,6 +11,8 @@ export interface SignupFilters {
   cityId?: number | null;
   from?: string;
   to?: string;
+  page?: number;
+  limit?: number;
 }
 
 export async function createSignup(data: JoinUsValues): Promise<SignupRow> {
@@ -36,5 +38,9 @@ export async function getSignups(filters: SignupFilters = {}) {
     query.where("signups.createdAt", "<=", filters.to);
   }
 
-  return query.orderBy("signups.createdAt", "desc");
+  const page = filters.page ?? 1;
+  const limit = filters.limit ?? 20;
+  const offset = (page - 1) * limit;
+
+  return query.orderBy("signups.createdAt", "desc").limit(limit).offset(offset);
 }

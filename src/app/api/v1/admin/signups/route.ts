@@ -40,6 +40,12 @@ export const GET = withApiRole(
   const to = searchParams.get("to");
   if (to) filters.to = to;
 
+  const page = searchParams.get("page");
+  if (page) filters.page = Number(page);
+
+  const limit = searchParams.get("limit");
+  if (limit) filters.limit = Number(limit);
+
   const signups = await getSignups(filters);
   return ApiResponse.success({ data: signups });
 });
