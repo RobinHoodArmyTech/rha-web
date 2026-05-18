@@ -6,21 +6,22 @@ export async function seed(knex: Knex): Promise<void> {
     const country = await knex("countries").where({ countryName: city.country }).first();
     if (!country) continue;
 
-    const exists = await knex("cities").where({ cityName: city.cityName, countryId: country.id }).first();
-    if (!exists) {
-      await knex("cities").insert({
+    let cityRow = await knex("cities").where({ cityName: city.cityName, countryId: country.id }).first();
+    if (!cityRow) {
+      const [id] = await knex("cities").insert({
         countryId: country.id,
         cityName: city.cityName,
         cityEmail: city.cityEmail?.trim() || "",
       });
+      cityRow = { id };
     }
 
-    const city_data =await knex("city_data").where({cityId: exists.id, foodCadetsLink: city.foodCadetsLink}).first();
-    if(!city_data){
+    const cityDataExists = await knex("city_data").where({ cityId: cityRow.id }).first();
+    if (!cityDataExists) {
       await knex("city_data").insert({
-        cityId: exists.id,
-        foodCadetsLink: city.foodCadetsLink
-      })
+        cityId: cityRow.id,
+        foodCadetsLink: city.foodCadetsLink,
+      });
     }
   }
 }

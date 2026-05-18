@@ -2,7 +2,7 @@ import "dotenv/config";
 import type { Knex } from "knex";
 
 const config: Knex.Config = {
-  client: "pg",
+  client: "mysql2",
   connection: process.env.DATABASE_URL,
   migrations: {
     directory: "./src/core/db/migrations",
