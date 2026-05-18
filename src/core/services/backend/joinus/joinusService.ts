@@ -38,7 +38,3 @@ export async function getSignups(filters: SignupFilters = {}) {
 
   return query.orderBy("signups.createdAt", "desc");
 }
-
-export async function deleteSignup(id: number): Promise<number> {
-  return db("signups").where({ id }).delete();
-}
