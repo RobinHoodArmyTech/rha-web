@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { Check, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import FieldError from "./FieldError";
@@ -35,17 +35,7 @@ export default function FormSelect({
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const wrapperRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
+  
   const selectedLabel = useMemo(() => {
     if (!value) return "";
     const flatOption = options.find((opt) => opt === value);
@@ -57,30 +47,71 @@ export default function FormSelect({
     return value;
   }, [value, options, groups]);
 
-  useEffect(() => {
-    if (!isOpen) setSearchTerm(selectedLabel);
-    else setSearchTerm("");
-  }, [isOpen, selectedLabel]);
+  const handleToggleDropdown = useCallback(() => {
+    setIsOpen(prev => {
+      const newIsOpen = !prev;
+      if (!newIsOpen) {
+        setSearchTerm(selectedLabel);
+      } else {
+        setSearchTerm("");
+      }
+      return newIsOpen;
+    });
+  }, [selectedLabel]);
 
-  const filteredOptions = options.filter((opt) =>
-    opt.toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+        setSearchTerm(selectedLabel);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [selectedLabel]);
+
+  const filteredOptions = useMemo(() => 
+    options.filter((opt) =>
+      opt.toLowerCase().includes(searchTerm.toLowerCase())
+    ),
+    [options, searchTerm]
   );
 
-  const filteredGroups = groups
-    .map((group) => ({
-      ...group,
-      options: group.options.filter((opt) =>
-        opt.label.toLowerCase().includes(searchTerm.toLowerCase())
-      ),
-    }))
-    .filter((group) => group.options.length > 0);
+  const filteredGroups = useMemo(() => 
+    groups
+      .map((group) => ({
+        ...group,
+        options: group.options.filter((opt) =>
+          opt.label.toLowerCase().includes(searchTerm.toLowerCase())
+        ),
+      }))
+      .filter((group) => group.options.length > 0),
+    [groups, searchTerm]
+  );
 
   const hasResults = filteredOptions.length > 0 || filteredGroups.length > 0;
 
-  function handleSelect(selectedValue: string) {
+  const handleSelect = useCallback((selectedValue: string) => {
     onValueChange(selectedValue);
     setIsOpen(false);
-  }
+    setSearchTerm(selectedLabel);
+  }, [onValueChange, selectedLabel]);
+
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    if (!isOpen) {
+      setIsOpen(true);
+    }
+  }, [isOpen]);
+
+  const handleInputFocus = useCallback(() => {
+    if (!isOpen) {
+      setIsOpen(true);
+      setSearchTerm("");
+    }
+  }, [isOpen]);
+
+  const displayValue = isOpen ? searchTerm : selectedLabel;
 
   return (
     <div ref={wrapperRef} className="relative w-full">
@@ -97,12 +128,9 @@ export default function FormSelect({
         
         <input
           type="text"
-          value={isOpen ? searchTerm : selectedLabel}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setIsOpen(true);
-          }}
-          onFocus={() => setIsOpen(true)}
+          value={displayValue}
+          onChange={handleInputChange}
+          onFocus={handleInputFocus}
           placeholder={placeholder}
           className="flex-1 truncate bg-transparent py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400 dark:text-slate-100"
         />
@@ -112,7 +140,7 @@ export default function FormSelect({
             "ml-auto h-4 w-4 shrink-0 cursor-pointer text-slate-400 transition-transform duration-200 dark:text-slate-500",
             isOpen && "rotate-180"
           )}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={handleToggleDropdown}
         />
       </div>
 

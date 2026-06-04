@@ -179,17 +179,13 @@ const press = [
 
 export default function MainHomePage() {
   const [slide, setSlide] = useState(0)
-  const [mounted, setMounted] = useState(false)
   const [statsVisible, setStatsVisible] = useState(false)
   const [presenceVisible, setPresenceVisible] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
     const t = setInterval(() => setSlide(s => (s + 1) % heroSlides.length), 5000)
     return () => clearInterval(t)
   }, [])
-
-  if (!mounted) return null
 
   const ideaStats = [
     { value: '15Cr+', label: 'Meals Served', target: 15, suffix: 'Cr+' },

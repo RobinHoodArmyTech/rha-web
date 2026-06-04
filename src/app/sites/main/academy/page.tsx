@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpen, Users, School, Heart, Mail, Download, MapPin, Shield, ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import { BookOpen, Users, School, Heart, MapPin, Shield, ChevronLeft, ChevronRight, Eye } from "lucide-react";
 
 const slides = [
   {
@@ -83,12 +83,12 @@ const values = [
   },
 ];
 
-const gallery = [
-  { src: "/main/images/_drafts/academyslide1.jpg", alt: "Academy session with children" },
-  { src: "/main/images/_drafts/academyslide2.jpg", alt: "Robin volunteering with kids" },
-  { src: "/main/images/_drafts/academyslide3.jpg", alt: "Outdoor teaching session" },
-  { src: "/main/images/_drafts/academyslide4.jpg", alt: "Children at an excursion" },
-];
+// const gallery = [
+//   { src: "/main/images/_drafts/academyslide1.jpg", alt: "Academy session with children" },
+//   { src: "/main/images/_drafts/academyslide2.jpg", alt: "Robin volunteering with kids" },
+//   { src: "/main/images/_drafts/academyslide3.jpg", alt: "Outdoor teaching session" },
+//   { src: "/main/images/_drafts/academyslide4.jpg", alt: "Children at an excursion" },
+// ];
 
 export default function AcademyPage() {
   const [current, setCurrent] = useState(0);
@@ -538,7 +538,7 @@ export default function AcademyPage() {
                   to launch your city!
                 </p>
                 <a
-                  href="/documents/academy/Academy City Checklist.pdf"
+                  href="/documents/academy/academy-city-checklist.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="self-start mt-1 inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors backdrop-blur-sm"
