@@ -23,7 +23,7 @@ export default function Step4Welcome({ name, cityName, cityCadetLink }: Props) {
           You&apos;re officially a Robin. Join your city&apos;s WhatsApp group — that&apos;s where drives are coordinated, and you&apos;ll find your first one.
         </p>
         <motion.button 
-          onClick={() => window.location.href = cityCadetLink ?? "https://api.whatsapp.com/send/?phone=918971966164&lang=en"}
+          onClick={() => window.location.href = cityCadetLink ?? "https://api.whatsapp.com/send/?phone=918069251697&lang=en&text=Hi"}
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.98 }}
           className={cn(

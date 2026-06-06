@@ -15,7 +15,7 @@ const quickLinks = [
   { label: "Check-In", href: checkinHref },
   { label: "Academy", href: "/sites/main/academy" },
   { label: "Volunteer", href: "/sites/main/join-us" },
-  { label: "Contact Us", href: "https://api.whatsapp.com/send/?phone=918971966164&l=en", external: true },
+  { label: "Contact Us", href: "https://api.whatsapp.com/send/?phone=918069251697&l=en&text=Hi", external: true },
 ];
 
 const socialLinks = [

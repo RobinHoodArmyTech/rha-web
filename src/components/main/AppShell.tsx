@@ -12,7 +12,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Sticky WhatsApp Join Us */}
       <a
-        href="https://api.whatsapp.com/send/?phone=918971966164&lang=en"
+        href="https://api.whatsapp.com/send/?phone=918069251697&lang=en&text=Hi"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-white dark:bg-[#0f2818] border border-gray-200 dark:border-green-900/40 text-gray-800 dark:text-white text-sm font-semibold px-4 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50 dark:hover:bg-[#1a4d2e] transition-all"

@@ -415,7 +415,7 @@ export default function MainHomePage() {
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="mt-6 bg-[#e8573a] rounded-2xl px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-white text-lg font-light">Any concerns about this?</p>
             <a
-              href="https://api.whatsapp.com/send/?phone=918971966164&lang=en"
+              href="https://api.whatsapp.com/send/?phone=918069251697&lang=en&text=Hi"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-2 border-2 border-white text-white text-sm font-semibold rounded-full hover:bg-white hover:text-[#e8573a] transition-all"
