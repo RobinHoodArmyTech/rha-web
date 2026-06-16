@@ -12,6 +12,10 @@ export const DOMAINS = {
     hostname: process.env.NEXT_PUBLIC_CHECKIN_DOMAIN ?? "checkin.robinhoodarmy.com",
     basePath: "/sites/checkin",
   },
+  admin: {
+    hostname: process.env.NEXT_PUBLIC_ADMIN_DOMAIN ?? "admin.robinhoodarmy.com",
+    basePath: "/sites/admin",
+  },
 } as const;
 
 export type DomainKey = keyof typeof DOMAINS;

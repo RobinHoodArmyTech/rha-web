@@ -1,5 +1,5 @@
 import { withApiRole } from "@/middleware/apiMiddlewares";
-import { Role } from "@/core/config/constants";
+import { CITY_ADMIN_ROLES } from "@/core/config/constants";
 import { ApiResponse, ApiError } from "@/core/apiResponse";
 import { PatchCitySchema } from "@/core/validators/cityValidation";
 import { getCityById, patchCity, deleteCity } from "@/core/services/backend/city/cityService";
@@ -18,7 +18,7 @@ async function parseCityId(context?: { params: Promise<{ id: string }> }): Promi
   return cityId;
 }
 
-export const GET = withApiRole(Role.SysAdmin, Role.Founder)(async (_request, context) => {
+export const GET = withApiRole(...CITY_ADMIN_ROLES)(async (_request, context) => {
   const cityId = await parseCityId(context);
 
   const city = await getCityById(cityId);
@@ -27,7 +27,7 @@ export const GET = withApiRole(Role.SysAdmin, Role.Founder)(async (_request, con
   return ApiResponse.success({ data: city });
 });
 
-export const PATCH = withApiRole(Role.SysAdmin, Role.Founder)(async (request, context) => {
+export const PATCH = withApiRole(...CITY_ADMIN_ROLES)(async (request, context) => {
   const cityId = await parseCityId(context);
 
   const body = await request.json();
@@ -43,7 +43,7 @@ export const PATCH = withApiRole(Role.SysAdmin, Role.Founder)(async (request, co
   return ApiResponse.success({ data: city, message: "City updated successfully" });
 });
 
-export const DELETE = withApiRole(Role.SysAdmin, Role.Founder)(async (_request, context) => {
+export const DELETE = withApiRole(...CITY_ADMIN_ROLES)(async (_request, context) => {
   const cityId = await parseCityId(context);
 
   const deleted = await deleteCity(cityId);

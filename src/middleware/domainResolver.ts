@@ -39,6 +39,16 @@ export function domainResolver(request: NextRequest): NextResponse | null {
     return NextResponse.rewrite(rewriteUrl);
   }
 
+  // Admin subdomain — rewrite to /sites/admin tree
+  if (
+    hostname === DOMAINS.admin.hostname ||
+    hostname.startsWith("admin.")
+  ) {
+    const rewriteUrl = request.nextUrl.clone();
+    rewriteUrl.pathname = `/sites/admin${pathname === "/" ? "" : pathname}`;
+    return NextResponse.rewrite(rewriteUrl);
+  }
+
   // Main domain — rewrite to /sites/main tree
   const rewriteUrl = request.nextUrl.clone();
   rewriteUrl.pathname = `/sites/main${pathname === "/" ? "" : pathname}`;

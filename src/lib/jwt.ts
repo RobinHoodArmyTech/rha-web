@@ -9,12 +9,22 @@ const JwtPayloadSchema = z.object({
   userId: z.number().int().positive(),
   roleId: z.number().int().positive(),
   roleName: z.enum(Role),
+  email: z.email(),
+  cityId: z.number().int().positive().nullable(),
+  cityName: z.string().nullable(),
 });
 
 export type JwtPayload = z.infer<typeof JwtPayloadSchema>;
 
 export async function signToken(payload: JwtPayload): Promise<string> {
-  return new SignJWT(payload as unknown as Record<string, unknown>)
+  return new SignJWT({
+    userId: payload.userId,
+    roleId: payload.roleId,
+    roleName: payload.roleName,
+    email: payload.email,
+    cityId: payload.cityId,
+    cityName: payload.cityName,
+  })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime(`${EXPIRY_DAYS}d`)

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { db } from "@/core/db";
+import { ApiError } from "@/core/apiResponse";
 import { CreateCitySchema, PatchCitySchema } from "@/core/validators/cityValidation";
 
 // ---------------------------------------------------------------------------
@@ -70,6 +71,11 @@ export async function getCityByName(cityName: string) {
   return db("cities").where("cityName", cityName).first();
 }
 
+export async function getCityNameById(id: number): Promise<string | null> {
+  const row = await db("cities").where("id", id).select("cityName").first();
+  return row?.cityName ?? null;
+}
+
 export async function createCity(
   data: z.infer<typeof CreateCitySchema>,
 ): Promise<CityDetail> {
@@ -116,7 +122,22 @@ export async function patchCity(
   return getCityById(id);
 }
 
+/** MySQL errno 1451 — ER_ROW_IS_REFERENCED_2: a child row (signup/drive) still references this city. */
+function isForeignKeyConstraintError(err: unknown): boolean {
+  return typeof err === "object" && err !== null && (err as { errno?: number }).errno === 1451;
+}
+
 export async function deleteCity(id: number): Promise<boolean> {
-  const deleted = await db("cities").where("id", id).del();
-  return deleted > 0;
+  try {
+    const deleted = await db("cities").where("id", id).del();
+    return deleted > 0;
+  } catch (err) {
+    if (isForeignKeyConstraintError(err)) {
+      throw new ApiError(
+        409,
+        "Cannot delete this city while signups or drives still reference it. Reassign or remove them first.",
+      );
+    }
+    throw err;
+  }
 }

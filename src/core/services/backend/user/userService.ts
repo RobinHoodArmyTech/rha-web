@@ -22,6 +22,14 @@ export async function getUserByEmail(email: string): Promise<UserRow | undefined
   return db("users").where({ email }).first();
 }
 
+export async function getUserById(id: number): Promise<UserRow | undefined> {
+  return db("users").where({ id }).first();
+}
+
+export async function updateUserPassword(id: number, password: string): Promise<void> {
+  await db("users").where({ id }).update({ password, updatedAt: db.fn.now() });
+}
+
 export interface UserRoleWithName extends UserRoleRow {
   roleName: string;
 }

@@ -5,6 +5,7 @@ import { loginSchema } from "@/core/validators/auth";
 import { signToken } from "@/lib/jwt";
 import { verifyPassword } from "@/lib/password";
 import { getUserByEmail, getUserRoleByUserId, updateLastLogin } from "@/core/services/backend/user/userService";
+import { getCityNameById } from "@/core/services/backend/city/cityService";
 
 /**
  * POST /api/v1/auth/login — user login (public)
@@ -30,7 +31,16 @@ export const POST = withApiHandler(async (request) => {
 
   await updateLastLogin(user.id);
 
-  const token = await signToken({ userId: user.id, roleId: userRole.roleId, roleName: userRole.roleName as Role });
+  const cityName = user.cityId ? await getCityNameById(user.cityId) : null;
+
+  const token = await signToken({
+    userId: user.id,
+    roleId: userRole.roleId,
+    roleName: userRole.roleName as Role,
+    email: user.email,
+    cityId: user.cityId,
+    cityName,
+  });
 
   const response = ApiResponse.success({ message: "Successfully logged in" });
 

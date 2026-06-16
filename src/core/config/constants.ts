@@ -13,3 +13,10 @@ export enum Role {
   GrowthRep = "Growth_Rep",
   CityRep = "City_Rep",
 }
+
+/**
+ * Full-access platform admins. They manage the city master list (UI + APIs).
+ * Single source of truth for that authorization — reuse instead of inlining
+ * [Role.SysAdmin, Role.Founder].
+ */
+export const CITY_ADMIN_ROLES: Role[] = [Role.SysAdmin, Role.Founder];
