@@ -7,11 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:migrate": "cross-env NODE_OPTIONS='--import tsx' knex migrate:latest --knexfile knexfile.ts",
-    "db:migrate:make": "cross-env NODE_OPTIONS='--import tsx' knex migrate:make --knexfile knexfile.ts -x ts",
-    "db:rollback": "cross-env NODE_OPTIONS='--import tsx' knex migrate:rollback --knexfile knexfile.ts",
-    "db:seed": "cross-env NODE_OPTIONS='--import tsx' knex seed:run --knexfile knexfile.ts",
-    "db:seed:one": "cross-env NODE_OPTIONS='--import tsx' knex seed:run --knexfile knexfile.ts --specific"
+    "db:migrate": "cross-env NODE_OPTIONS=\"--import tsx\" knex migrate:latest --knexfile knexfile.ts",
+    "db:migrate:make": "cross-env NODE_OPTIONS=\"--import tsx\" knex migrate:make --knexfile knexfile.ts -x ts",
+    "db:rollback": "cross-env NODE_OPTIONS=\"--import tsx\" knex migrate:rollback --knexfile knexfile.ts",
+    "db:seed": "cross-env NODE_OPTIONS=\"--import tsx\" knex seed:run --knexfile knexfile.ts",
+    "db:seed:one": "cross-env NODE_OPTIONS=\"--import tsx\" knex seed:run --knexfile knexfile.ts --specific"
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.1022.0",
@@ -23,7 +23,7 @@
     "@radix-ui/react-select": "^2.2.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "dotenv": "^17.3.1",
+    "dotenv": "^17.4.2",
     "framer-motion": "^12.36.0",
     "jose": "^6.2.3",
     "knex": "^3.1.0",

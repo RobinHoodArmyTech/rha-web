@@ -1,369 +1,2204 @@
 [
-  { "cityName": "Manamai", "country": "Bahrain", "cityEmail": "robinhoodarmymanamai@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kathmandu", "country": "Nepal", "cityEmail": "robinhoodarmykathmandu@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dhaka", "country": "Bangladesh", "cityEmail": "robinhoodarmydhaka@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Gaborene", "country": "Botswana", "cityEmail": "robinhoodarmygaborene@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Abohar", "country": "India", "cityEmail": "robinhoodarmyabohar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Conakry", "country": "Guinea", "cityEmail": "robinhoodarmyconakry@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Medan", "country": "Indonesia", "cityEmail": "robinhoodarmymedan@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Agra", "country": "India", "cityEmail": "robinhoodarmyagra@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kuala Lumpur", "country": "Malaysia", "cityEmail": "robinhoodarmy.kl@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ahmedabad", "country": "India", "cityEmail": "robinhoodarmyahmedabad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Chitwan", "country": "Nepal", "cityEmail": "robinhoodarmychitwan@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ajmer", "country": "India", "cityEmail": "robinhoodarmyajmer@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Aligarh", "country": "India", "cityEmail": "robinhoodarmyaligarh@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Rupandehi", "country": "Nepal", "cityEmail": "robinhoodarmyrupandehi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Alwar", "country": "India", "cityEmail": "robinhoodarmyalwar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Birtamode", "country": "Nepal", "cityEmail": "robinhoodarmybirtamode@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ambala", "country": "India", "cityEmail": "robinhoodarmyambala@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Lagos", "country": "Nigeria", "cityEmail": "robinhoodarmylagos@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Amravati", "country": "India", "cityEmail": "robinhoodarmyamravati@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ashok Nagar", "country": "India", "cityEmail": "robinhoodarmyashok nagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Aurangabad", "country": "India", "cityEmail": "robinhoodarmyaurangabad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Amalapuram", "country": "India", "cityEmail": "robinhoodarmyamalapuram@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Badwani", "country": "India", "cityEmail": "robinhoodarmybadwani@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bahadurgarh", "country": "India", "cityEmail": "robinhoodarmybahadurgarh@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ballia", "country": "India", "cityEmail": "robinhoodarmyballia@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Batticaloa", "country": "Sri Lanka", "cityEmail": "robinhoodarmybatticaloa@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bangalore", "country": "India", "cityEmail": "robinhoodarmybangalore@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Colombo", "country": "Sri Lanka", "cityEmail": "robinhoodarmycolombo@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bathinda", "country": "India", "cityEmail": "robinhoodarmybathinda@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kampala", "country": "Uganda", "cityEmail": "robinhoodarmykampala@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Berhampur", "country": "India", "cityEmail": "robinhoodarmyberhampur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Other", "country": "India", "cityEmail": null , "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhagalpur", "country": "India", "cityEmail": "robinhoodarmybhagalpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ichalkaranji", "country": "India", "cityEmail": "robinhoodarmyichalkaranji@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhavnagar", "country": "India", "cityEmail": "robinhoodarmybhavnagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhilai", "country": "India", "cityEmail": "robinhoodarmybhilai@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Delhi", "country": "India", "cityEmail": "robinhoodarmydelhi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bokaro", "country": "India", "cityEmail": "rhabokaro@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mumbai", "country": "India", "cityEmail": "robinhoodarmymumbai@gmail.com ", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhopal", "country": "India", "cityEmail": "robinhoodarmybhopal@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhubaneswar", "country": "India", "cityEmail": "robinhoodarmybhubaneshwar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Hyderabad", "country": "India", "cityEmail": "robinhoodarmyhyderabad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bikaner", "country": "India", "cityEmail": "robinhoodarmybikaner@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Pune", "country": "India", "cityEmail": "robinhoodarmypune@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bina", "country": "India", "cityEmail": "robinhoodarmybina@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jaipur", "country": "India", "cityEmail": "robinhoodarmyjaipur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bongaigaon", "country": "India", "cityEmail": "robinhoodarmybongaigaon@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Lucknow", "country": "India", "cityEmail": "robinhoodarmylucknow@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Burhanpur", "country": "India", "cityEmail": "robinhoodarmyburhanpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Chandigarh", "country": "India", "cityEmail": "robinhoodarmychandigarh@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Calicut", "country": "India", "cityEmail": "robinhoodarmycalicut@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Gurugram", "country": "India", "cityEmail": "robinhoodarmygurgaon@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Indore", "country": "India", "cityEmail": "robinhoodarmyindore@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Chennai", "country": "India", "cityEmail": "robinhoodarmychennai@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kolkata", "country": "India", "cityEmail": "robinhoodarmykolkata@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Surat", "country": "India", "cityEmail": "robinhoodarmysurat@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dewas", "country": "India", "cityEmail": "robinhoodarmydewas@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Udaipur", "country": "India", "cityEmail": "robinhoodarmyudaipur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dhanbad", "country": "India", "cityEmail": "robinhoodarmydhanbad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Abhayapuri", "country": "India", "cityEmail": "robinhoodarmyabhayapuri@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dhubri", "country": "India", "cityEmail": "robinhoodarmydhubri@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Durgapur", "country": "India", "cityEmail": "robinhoodarmydurgapur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Agartala", "country": "India", "cityEmail": "robinhoodarmyagartala@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Faridabad", "country": "India", "cityEmail": "robinhoodarmyfaridabad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Fazilka", "country": "India", "cityEmail": "robinhoodarmyfazilka@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ahmednagar", "country": "India", "cityEmail": "robinhoodarmyahmednagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ghaziabad", "country": "India", "cityEmail": "robinhoodarmyghaziabad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Goalpara", "country": "India", "cityEmail": "robinhoodarmygoalpara@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Akkalkot", "country": "India", "cityEmail": "robinhoodarmyakkalkot@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Gorakhpur", "country": "India", "cityEmail": "robinhoodarmygorakhpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Akola", "country": "India", "cityEmail": "robinhoodarmyakola@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Greater Noida", "country": "India", "cityEmail": "robinhoodarmygreater noida@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Guna", "country": "India", "cityEmail": "robinhoodarmyguna@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Alipurduar", "country": "India", "cityEmail": "robinhoodarmyalipurduar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Guwahati", "country": "India", "cityEmail": "robinhoodarmyguwahati@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Gwalior", "country": "India", "cityEmail": "robinhoodarmygwalior@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ambajogai", "country": "India", "cityEmail": "robinhoodarmyambajogai@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Hisar", "country": "India", "cityEmail": "robinhoodarmyhisar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Hojai", "country": "India", "cityEmail": "robinhoodarmyhojai@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Hubli", "country": "India", "cityEmail": "robinhoodarmyhubli@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Amritsar", "country": "India", "cityEmail": "robinhoodarmyamritsar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Anand", "country": "India", "cityEmail": "robinhoodarmyanand@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Asansol", "country": "India", "cityEmail": "robinhoodarmyasansol@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jabalpur", "country": "India", "cityEmail": "rhajabalpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jalgaon", "country": "India", "cityEmail": "robinhoodarmyjalgaon@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Azamgarh", "country": "India", "cityEmail": "robinhoodarmyazamgarh@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jalpaiguri", "country": "India", "cityEmail": "robinhoodarmyjalpaiguri@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Badnawar", "country": "India", "cityEmail": "robinhoodarmybadnawar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jammu", "country": "India", "cityEmail": "robinhoodarmyjammu@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jamnagar", "country": "India", "cityEmail": "robinhoodarmyjamnagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jamshedpur", "country": "India", "cityEmail": "robinhoodarmyjamshedpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Balasore", "country": "India", "cityEmail": "robinhoodarmybalasore@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jhansi", "country": "India", "cityEmail": "robinhoodarmyjhansi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jharsuguda", "country": "India", "cityEmail": "robinhoodarmyjharsuguda@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Banka", "country": "India", "cityEmail": "robinhoodarmybanka@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jodhpur", "country": "India", "cityEmail": "robinhoodarmyjdpr@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Banswara", "country": "India", "cityEmail": "robinhoodarmybanswara@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Junagadh", "country": "India", "cityEmail": "robinhoodarmyjunagadh@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Barabanki", "country": "India", "cityEmail": "robinhoodarmybarabanki@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Baramati", "country": "India", "cityEmail": "robinhoodarmybaramati@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bardoli", "country": "India", "cityEmail": "robinhoodarmybardoli@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bareilly", "country": "India", "cityEmail": "robinhoodarmybareilly@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Barrackpore", "country": "India", "cityEmail": "robinhoodarmybarrackpore@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Barpeta", "country": "India", "cityEmail": "robinhoodarmybarpeta@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Basti", "country": "India", "cityEmail": "robinhoodarmybasti@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Berhampore", "country": "India", "cityEmail": "robinhoodarmyberhampore@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhadohi", "country": "India", "cityEmail": "robinhoodarmybhadohi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhadrak", "country": "India", "cityEmail": "robinhoodarmybhadrak@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhanvad", "country": "India", "cityEmail": "robinhoodarmybhanvad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bharatpur", "country": "India", "cityEmail": "robinhoodarmybharatpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bharuch", "country": "India", "cityEmail": "robinhoodarmybharuch@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhesan", "country": "India", "cityEmail": "robinhoodarmybhesan@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhilwara", "country": "India", "cityEmail": "robinhoodarmybhilwara@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhiwadi", "country": "India", "cityEmail": "robinhoodarmybhiwadi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhuj", "country": "India", "cityEmail": "robinhoodarmybhuj@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhusawal", "country": "India", "cityEmail": "robinhoodarmybhusawal@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bijni", "country": "India", "cityEmail": "robinhoodarmybijni@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bijnor", "country": "India", "cityEmail": "rhabijnor@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bilasipara", "country": "India", "cityEmail": "robinhoodarmybilasipara@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bilaspur", "country": "India", "cityEmail": "robinhoodarmybilaspur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Botad", "country": "India", "cityEmail": "robinhoodarmybotad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Burdwan", "country": "India", "cityEmail": "robinhoodarmyburdwan@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Canning", "country": "India", "cityEmail": "robinhoodarmycanning@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Chaibasa", "country": "India", "cityEmail": "robinhoodarmychaibasa@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Chakulia", "country": "India", "cityEmail": "robinhoodarmychakulia@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Chandrapur", "country": "India", "cityEmail": "robinhoodarmychandrapur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Chapra", "country": "India", "cityEmail": "robinhoodarmychapra@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Chhatarpur", "country": "India", "cityEmail": "robinhoodarmychhattarpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Chhindwara", "country": "India", "cityEmail": "robinhoodarmychhindwara@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Cooch Behar", "country": "India", "cityEmail": "robinhoodarmycooch behar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Cuttack", "country": "India", "cityEmail": "rhacuttack@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dabhoi", "country": "India", "cityEmail": "robinhoodarmydabhoi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dahod", "country": "India", "cityEmail": "robinhoodarmydahod1@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Daltonganj", "country": "India", "cityEmail": "robinhoodarmydaltonganj@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Daman", "country": "India", "cityEmail": "robinhoodarmydaman@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Danapur", "country": "India", "cityEmail": "robinhoodarmydanapur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Darjeeling", "country": "India", "cityEmail": "robinhoodarmydarjeeling@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dehradun", "country": "India", "cityEmail": "robinhoodarmydehradun@gmail.com ", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dehri", "country": "India", "cityEmail": "robinhoodarmydehri@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Deoghar", "country": "India", "cityEmail": "robinhoodarmydeoghar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dhar", "country": "India", "cityEmail": "robinhoodarmydhar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dhekiajuli", "country": "India", "cityEmail": "robinhoodarmydhekiajuli@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dibrugarh", "country": "India", "cityEmail": "robinhoodarmydibrugarh@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dhenkanal", "country": "India", "cityEmail": "robinhoodarmydhenkanal@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jalandhar", "country": "India", "cityEmail": "robinhoodarmyjalandhar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dhrangadhra", "country": "India", "cityEmail": "robinhoodarmydhrangadhra@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dhule", "country": "India", "cityEmail": "robinhoodarmydhule@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dimapur", "country": "India", "cityEmail": "robinhoodarmydimapur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Hapur", "country": "India", "cityEmail": "robinhoodarmyhapur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kakinada", "country": "India", "cityEmail": "robinhoodarmykakinada@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Eluru", "country": "India", "cityEmail": "robinhoodarmyeluru@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ernakulam", "country": "India", "cityEmail": "robinhoodarmyernakulam@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Etah", "country": "India", "cityEmail": "robinhoodarmyetah@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Fakiragram", "country": "India", "cityEmail": "robinhoodarmyfakiragram@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Fatehabad", "country": "India", "cityEmail": "robinhoodarmyfatehabad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Fatehpur", "country": "India", "cityEmail": "robinhoodarmyfatehpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Firozabad", "country": "India", "cityEmail": "robinhoodarmyfirozabad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Gandhidham", "country": "India", "cityEmail": "robinhoodarmygandhidham@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Gangoh", "country": "India", "cityEmail": "robinhoodarmygangoh@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Gaya", "country": "India", "cityEmail": "robinhoodarmygaya@gmail.com ", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Goa", "country": "India", "cityEmail": "robinhoodarmygoa@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Gondia", "country": "India", "cityEmail": "robinhoodarmygondia@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Itarsi", "country": "India", "cityEmail": "robinhoodarmyitarsi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Gossaigaon", "country": "India", "cityEmail": "robinhoodarmygossaigaon@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Guntur", "country": "India", "cityEmail": "robinhoodarmyguntur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Hailakandi", "country": "India", "cityEmail": "robinhoodarmyhailakandi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Haldia", "country": "India", "cityEmail": "robinhoodarmyhaldia@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Hanumangarh", "country": "India", "cityEmail": "robinhoodarmyhanumangarh@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Harda", "country": "India", "cityEmail": "rhaharda@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Hoshangabad", "country": "India", "cityEmail": "robinhoodarmyhoshangabad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jalna", "country": "India", "cityEmail": "robinhoodarmyjalna@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jalore", "country": "India", "cityEmail": "robinhoodarmyjalore@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jaysingpur", "country": "India", "cityEmail": "robinhoodarmyjaysingpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kalaburagi", "country": "India", "cityEmail": "robinhoodarmygulbarga@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kalain", "country": "India", "cityEmail": "robinhoodarmykalain@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kamareddy", "country": "India", "cityEmail": "robinhoodarmykamareddy@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kamrup Rural", "country": "India", "cityEmail": "robinhoodarmykamrup rural@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kanchanpur", "country": "India", "cityEmail": "robinhoodarmykanchanpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kaniha", "country": "India", "cityEmail": "robinhoodarmykaniha@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kanpur", "country": "India", "cityEmail": "robinhoodarmykanpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kapasan", "country": "India", "cityEmail": "robinhoodarmykapasan@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kapurthala", "country": "India", "cityEmail": "robinhoodarmykapurthala@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Karimganj", "country": "India", "cityEmail": "robinhoodarmykarimganj@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Karimnagar", "country": "India", "cityEmail": "robinhoodarmykarimnagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Karnal", "country": "India", "cityEmail": "robinhoodarmykarnal@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Katni", "country": "India", "cityEmail": "robinhoodarmykatni@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Khammam", "country": "India", "cityEmail": "robinhoodarmykhammam@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Khandwa", "country": "India", "cityEmail": "robinhoodarmykhandwa@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kharagpur", "country": "India", "cityEmail": "robinhoodarmykharagpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Koderma", "country": "India", "cityEmail": "robinhoodarmykoderma@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kolhapur", "country": "India", "cityEmail": "robinhoodarmykolhapur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kokrajhar", "country": "India", "cityEmail": "robinhoodarmykokrajhar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Korba", "country": "India", "cityEmail": "robinhoodarmykorba@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kota", "country": "India", "cityEmail": "robinhoodarmykota@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kottayam", "country": "India", "cityEmail": "robinhoodarmykottayam@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kurukshetra", "country": "India", "cityEmail": "robinhoodarmykurukshetra@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Lakheri", "country": "India", "cityEmail": "robinhoodarmylakheri@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Latur", "country": "India", "cityEmail": "robinhoodarmylatur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Lohardaga", "country": "India", "cityEmail": "robinhoodarmylohardaga@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Lonavala", "country": "India", "cityEmail": "robinhoodarmylonavala@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Loni", "country": "India", "cityEmail": "robinhoodarmyloni@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ludhiana", "country": "India", "cityEmail": "robinhoodarmyludhiana@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mahabubabad", "country": "India", "cityEmail": "robinhoodarmymahabubabad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mahabubnagar", "country": "India", "cityEmail": "robinhoodarmymahabubnagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mahoba", "country": "India", "cityEmail": "robinhoodarmymahoba@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Malda", "country": "India", "cityEmail": "robinhoodarmymalda@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mancherial", "country": "India", "cityEmail": "robinhoodarmymancherial@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mandla", "country": "India", "cityEmail": "robinhoodarmymandla@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mandsaur", "country": "India", "cityEmail": "robinhoodarmymandsaur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Manesar", "country": "India", "cityEmail": "robinhoodarmymanesar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mangaldai", "country": "India", "cityEmail": "robinhoodarmymangaldai@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mangalore", "country": "India", "cityEmail": "robinhoodarmymangalore@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mathura", "country": "India", "cityEmail": "robinhoodarmymathura@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Medinipur", "country": "India", "cityEmail": "robinhoodarmymedinipur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Meerut", "country": "India", "cityEmail": "robinhoodarmymeerut@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mirzapur", "country": "India", "cityEmail": "robinhoodarmymirzapur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Modinagar", "country": "India", "cityEmail": "robinhoodarmymodinagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Moradabad", "country": "India", "cityEmail": "rhamoradabad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Moranhat", "country": "India", "cityEmail": "robinhoodarmymoranhat@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Morbi", "country": "India", "cityEmail": "robinhoodarmymorbi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mughalsarai", "country": "India", "cityEmail": "rhamughalsarai@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Munger", "country": "India", "cityEmail": "robinhoodarmymunger@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Muradnagar", "country": "India", "cityEmail": "robinhoodarmymuradnagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Muzaffarnagar", "country": "India", "cityEmail": "robinhoodarmymuzaffarnagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Muzaffarpur", "country": "India", "cityEmail": "robinhoodarmymuzaffarpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Mysore", "country": "India", "cityEmail": "robinhoodarmymysore@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Nadia", "country": "India", "cityEmail": "robinhoodarmynadia@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Nagaon", "country": "India", "cityEmail": "robinhoodarmynagaon@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Nagpur", "country": "India", "cityEmail": "robinhoodarmynagpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Nalbari", "country": "India", "cityEmail": "robinhoodarmynalbari@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Nalgonda", "country": "India", "cityEmail": "robinhoodarmynalgonda@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Nanded", "country": "India", "cityEmail": "robinhoodarmynanded@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Narasapuram", "country": "India", "cityEmail": "robinhoodarmynarasapuram@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Nashik", "country": "India", "cityEmail": "robinhoodarmynashik@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Navsari", "country": "India", "cityEmail": "robinhoodarmynavsari@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Neemuch", "country": "India", "cityEmail": "robinhoodarmyneemuch@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Nellore", "country": "India", "cityEmail": "robinhoodarmynellore@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Noida", "country": "India", "cityEmail": "robinhoodarmynoida@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Orai", "country": "India", "cityEmail": "robinhoodarmyorai@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Osmanabad", "country": "India", "cityEmail": "robinhoodarmyosmanabad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Palakkad", "country": "India", "cityEmail": "robinhoodarmypalakkad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Palanpur", "country": "India", "cityEmail": "robinhoodarmypalanpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Palwal", "country": "India", "cityEmail": "robinhoodarmypalwal@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Pandharpur", "country": "India", "cityEmail": "robinhoodarmypandharpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Panipat", "country": "India", "cityEmail": "rhapanipat@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Parbhani", "country": "India", "cityEmail": "robinhoodarmyparbhani@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Patan", "country": "India", "cityEmail": "robinhoodarmypatan1@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Patiala", "country": "India", "cityEmail": "robinhoodarmypatiala@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Patna", "country": "India", "cityEmail": "robinhoodarmypatna@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Pinjore", "country": "India", "cityEmail": "robinhoodarmypinjore@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Pithampur", "country": "India", "cityEmail": "robinhoodarmypithampur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Prayagraj", "country": "India", "cityEmail": "robinhoodarmyallahabad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Prithvipur", "country": "India", "cityEmail": "robinhoodarmyprithvipur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Pukhrayan", "country": "India", "cityEmail": "robinhoodarmypukhrayan@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Puri", "country": "India", "cityEmail": "robinhoodarmypuri@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Purulia", "country": "India", "cityEmail": "robinhoodarmypurulia@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Radhanpur", "country": "India", "cityEmail": "robinhoodarmyradhanpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Raebareli", "country": "India", "cityEmail": "robinhoodarmyraebareli@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Raipur", "country": "India", "cityEmail": "robinhoodarmyraipur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Rajkot", "country": "India", "cityEmail": "robinhoodarmyrajkot@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ramgarh", "country": "India", "cityEmail": "robinhoodarmyramgarh@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ranchi", "country": "India", "cityEmail": "robinhoodarmyranchi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Rangiya", "country": "India", "cityEmail": "robinhoodarmyrangiya@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ratlam", "country": "India", "cityEmail": "robinhoodarmyratlam@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Rayagada", "country": "India", "cityEmail": "robinhoodarmyrayagada@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Rewa", "country": "India", "cityEmail": "robinhoodarmyrewa@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Rewari", "country": "India", "cityEmail": "robinhoodarmyrewari@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Rohtak", "country": "India", "cityEmail": "robinhoodarmyrohtak@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Roorkee", "country": "India", "cityEmail": "robinhoodarmyroorkee@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Rourkela", "country": "India", "cityEmail": "robinhoodarmyrourkela@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sagar", "country": "India", "cityEmail": "robinhoodarmysagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Saharanpur", "country": "India", "cityEmail": "robinhoodarmysaharanpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Samastipur", "country": "India", "cityEmail": "robinhoodarmysamastipur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sambalpur", "country": "India", "cityEmail": "robinhoodarmysambalpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sambhal", "country": "India", "cityEmail": "robinhoodarmysambhal@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sangamner", "country": "India", "cityEmail": "robinhoodarmysangamner@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sangli", "country": "India", "cityEmail": "robinhoodarmysangli@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sapatgram", "country": "India", "cityEmail": "robinhoodarmysapatgram@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Satara", "country": "India", "cityEmail": "robinhoodarmysatara@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Savedi", "country": "India", "cityEmail": "robinhoodarmysavedi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sehore", "country": "India", "cityEmail": "robinhoodarmysehore@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Shahjahanpur", "country": "India", "cityEmail": "robinhoodarmyshahjahanpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Shajapur", "country": "India", "cityEmail": "robinhoodarmyshajapur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Shillong", "country": "India", "cityEmail": "robinhoodarmyshillong@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Shimla", "country": "India", "cityEmail": "robinhoodarmyshimla@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Shrirampur", "country": "India", "cityEmail": "robinhoodarmyshrirampur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sikar", "country": "India", "cityEmail": "robinhoodarmysikar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Silchar", "country": "India", "cityEmail": "robinhoodarmysilchar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Siliguri", "country": "India", "cityEmail": "robinhoodarmysiliguri@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Silvassa", "country": "India", "cityEmail": "robinhoodarmysilvassa@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sirsa", "country": "India", "cityEmail": "robinhoodarmysirsa@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sivasagar", "country": "India", "cityEmail": "robinhoodarmysivasagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Solapur", "country": "India", "cityEmail": "robinhoodarmysolapur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sonipat", "country": "India", "cityEmail": "robinhoodarmysonipat@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sorbhog", "country": "India", "cityEmail": "robinhoodarmysorbhog@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sriganganagar", "country": "India", "cityEmail": "robinhoodarmysriganganagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Surendranagar", "country": "India", "cityEmail": "robinhoodarmysurendranagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Tangla", "country": "India", "cityEmail": "robinhoodarmytangla@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Tezpur", "country": "India", "cityEmail": "robinhoodarmytezpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Thrissur", "country": "India", "cityEmail": "robinhoodarmythrissur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Tinsukia", "country": "India", "cityEmail": "robinhoodarmytinsukia@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Tirupati", "country": "India", "cityEmail": "robinhoodarmytirupati@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Tumkur", "country": "India", "cityEmail": "robinhoodarmytumkur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Udhampur", "country": "India", "cityEmail": "robinhoodarmyudhampur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Udupi", "country": "India", "cityEmail": "robinhoodarmyudupi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ujjain", "country": "India", "cityEmail": "robinhoodarmyujjain@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Vadodara", "country": "India", "cityEmail": "robinhoodarmybaroda@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Vaishali", "country": "India", "cityEmail": "robinhoodarmyvaishali@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Valsad", "country": "India", "cityEmail": "robinhoodarmyvalsad@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Vansda", "country": "India", "cityEmail": "robinhoodarmyvansda@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Vapi", "country": "India", "cityEmail": "rhavapi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Varanasi", "country": "India", "cityEmail": "robinhoodarmyvaranasi@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Vellore", "country": "India", "cityEmail": "robinhoodarmyvellore@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Vijaywada", "country": "India", "cityEmail": "robinhoodarmyvijaywada@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Vizag", "country": "India", "cityEmail": "robinhoodarmyvizag@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Warangal", "country": "India", "cityEmail": "robinhoodarmywarangal@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Yavatmal", "country": "India", "cityEmail": "robinhoodarmyyavatmal@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Datia", "country": "India", "cityEmail": "robinhoodarmydatia@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Puducherry", "country": "India", "cityEmail": "robinhoodarmypuducherry@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Nagda", "country": "India", "cityEmail": "robinhoodarmynagda@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bhinmal", "country": "India", "cityEmail": "robinhoodarmybhinmal@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Chirawa", "country": "India", "cityEmail": "robinhoodarmychirawa@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kotputli", "country": "India", "cityEmail": "robinhoodarmykotputli@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Haldwani", "country": "India", "cityEmail": "robinhoodarmyhaldwani@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Phagwara", "country": "India", "cityEmail": "robinhoodarmyphagwara@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Yamunanagar", "country": "India", "cityEmail": "robinhoodarmyyamunanagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Belpahar", "country": "India", "cityEmail": "robinhoodarmybelpahar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bishalgarh", "country": "India", "cityEmail": "robinhoodarmybishalgarh@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Giridih", "country": "India", "cityEmail": "robinhoodarmygiridih@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Nalanda", "country": "India", "cityEmail": "robinhoodarmynalanda@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "North Lakhimpur", "country": "India", "cityEmail": "robinhoodarmynorth lakhimpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Lumding", "country": "India", "cityEmail": "robinhoodarmylumding@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Badarpur", "country": "India", "cityEmail": "robinhoodarmybadarpur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jaisalmer", "country": "India", "cityEmail": "robinhoodarmyjaisalmer@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Nuh", "country": "India", "cityEmail": "robinhoodarmynuh@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bilimora", "country": "India", "cityEmail": "robinhoodarmybilimora@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Malancha", "country": "India", "cityEmail": "robinhoodarmymalancha@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Pathardih", "country": "India", "cityEmail": "robinhoodarmypathardih@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Sahibganj", "country": "India", "cityEmail": "robinhoodarmysahibganj@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Raniganj", "country": "India", "cityEmail": "robinhoodarmyraniganj@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Aska", "country": "India", "cityEmail": "robinhoodarmyaska@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Tenali", "country": "India", "cityEmail": "robinhoodarmytenali@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Balrampur", "country": "India", "cityEmail": "robinhoodarmybalrampur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Deoria", "country": "India", "cityEmail": "robinhoodarmydeoria@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Bilhaur", "country": "India", "cityEmail": "robinhoodarmybilhaur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Etawah", "country": "India", "cityEmail": "robinhoodarmyetawah@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Talbehat", "country": "India", "cityEmail": "robinhoodarmytalbehat@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Malbazar", "country": "India", "cityEmail": "robinhoodarmymalbazar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Dumka", "country": "India", "cityEmail": "robinhoodarmydumka@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jamtara", "country": "India", "cityEmail": "robinhoodarmyjamtara@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kishanganj", "country": "India", "cityEmail": "robinhoodarmykishanganj@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Chandikhol", "country": "India", "cityEmail": "robinhoodarmychandikhol@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jaora", "country": "India", "cityEmail": "robinhoodarmyjaora@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Raisen", "country": "India", "cityEmail": "robinhoodarmyraisen@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Barnagar", "country": "India", "cityEmail": "robinhoodarmybarnagar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Tikamgarh", "country": "India", "cityEmail": "robinhoodarmytikamgarh@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Rajnandgaon", "country": "India", "cityEmail": "robinhoodarmyrajnandgaon@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Shirur", "country": "India", "cityEmail": "robinhoodarmyshirur@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Aloor", "country": "India", "cityEmail": "robinhoodarmyaloor@gmail.com ", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Malappuram", "country": "India", "cityEmail": "robinhoodarmymalappuram@gmail.com ", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kollam", "country": "India", "cityEmail": "robinhoodarmykollam@gmail.com ", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Lusaka", "country": "Zambia", "cityEmail": "robinhoodarmylusaka@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Kankavli", "country": "India", "cityEmail": "robinhoodarmykankavli@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Duliajan", "country": "India", "cityEmail": "robinhoodarmyduliajan@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Jorhat", "country": "India", "cityEmail": "robinhoodarmyjorhat@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Ankleshwar", "country": "India", "cityEmail": "robinhoodarmyankleshwar@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" },
-  { "cityName": "Cairo", "country": "Egypt", "cityEmail": "robinhoodarmycairo@gmail.com", "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t" }
+  {
+    "cityName": "Manamai",
+    "country": "Bahrain",
+    "cityEmail": "robinhoodarmymanamai@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kathmandu",
+    "country": "Nepal",
+    "cityEmail": "robinhoodarmykathmandu@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dhaka",
+    "country": "Bangladesh",
+    "cityEmail": "robinhoodarmydhaka@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Gaborene",
+    "country": "Botswana",
+    "cityEmail": "robinhoodarmygaborene@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Abohar",
+    "country": "India",
+    "cityEmail": "robinhoodarmyabohar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Conakry",
+    "country": "Guinea",
+    "cityEmail": "robinhoodarmyconakry@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Medan",
+    "country": "Indonesia",
+    "cityEmail": "robinhoodarmymedan@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Agra",
+    "country": "India",
+    "cityEmail": "robinhoodarmyagra@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kuala Lumpur",
+    "country": "Malaysia",
+    "cityEmail": "robinhoodarmy.kl@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ahmedabad",
+    "country": "India",
+    "cityEmail": "robinhoodarmyahmedabad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Chitwan",
+    "country": "Nepal",
+    "cityEmail": "robinhoodarmychitwan@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ajmer",
+    "country": "India",
+    "cityEmail": "robinhoodarmyajmer@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Aligarh",
+    "country": "India",
+    "cityEmail": "robinhoodarmyaligarh@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Rupandehi",
+    "country": "Nepal",
+    "cityEmail": "robinhoodarmyrupandehi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Alwar",
+    "country": "India",
+    "cityEmail": "robinhoodarmyalwar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Birtamode",
+    "country": "Nepal",
+    "cityEmail": "robinhoodarmybirtamode@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ambala",
+    "country": "India",
+    "cityEmail": "robinhoodarmyambala@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Lagos",
+    "country": "Nigeria",
+    "cityEmail": "robinhoodarmylagos@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Amravati",
+    "country": "India",
+    "cityEmail": "robinhoodarmyamravati@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ashok Nagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmyashok nagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Aurangabad",
+    "country": "India",
+    "cityEmail": "robinhoodarmyaurangabad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Amalapuram",
+    "country": "India",
+    "cityEmail": "robinhoodarmyamalapuram@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Badwani",
+    "country": "India",
+    "cityEmail": "robinhoodarmybadwani@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bahadurgarh",
+    "country": "India",
+    "cityEmail": "robinhoodarmybahadurgarh@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ballia",
+    "country": "India",
+    "cityEmail": "robinhoodarmyballia@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Batticaloa",
+    "country": "Sri Lanka",
+    "cityEmail": "robinhoodarmybatticaloa@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bangalore",
+    "country": "India",
+    "cityEmail": "robinhoodarmybangalore@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Colombo",
+    "country": "Sri Lanka",
+    "cityEmail": "robinhoodarmycolombo@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bathinda",
+    "country": "India",
+    "cityEmail": "robinhoodarmybathinda@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kampala",
+    "country": "Uganda",
+    "cityEmail": "robinhoodarmykampala@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Berhampur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyberhampur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Other",
+    "country": "India",
+    "cityEmail": null,
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhagalpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhagalpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ichalkaranji",
+    "country": "India",
+    "cityEmail": "robinhoodarmyichalkaranji@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhavnagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhavnagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhilai",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhilai@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Delhi",
+    "country": "India",
+    "cityEmail": "robinhoodarmydelhi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bokaro",
+    "country": "India",
+    "cityEmail": "rhabokaro@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mumbai",
+    "country": "India",
+    "cityEmail": "robinhoodarmymumbai@gmail.com ",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhopal",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhopal@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhubaneswar",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhubaneshwar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Hyderabad",
+    "country": "India",
+    "cityEmail": "robinhoodarmyhyderabad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bikaner",
+    "country": "India",
+    "cityEmail": "robinhoodarmybikaner@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Pune",
+    "country": "India",
+    "cityEmail": "robinhoodarmypune@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bina",
+    "country": "India",
+    "cityEmail": "robinhoodarmybina@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jaipur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjaipur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bongaigaon",
+    "country": "India",
+    "cityEmail": "robinhoodarmybongaigaon@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Lucknow",
+    "country": "India",
+    "cityEmail": "robinhoodarmylucknow@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Burhanpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyburhanpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Chandigarh",
+    "country": "India",
+    "cityEmail": "robinhoodarmychandigarh@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Calicut",
+    "country": "India",
+    "cityEmail": "robinhoodarmycalicut@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Gurugram",
+    "country": "India",
+    "cityEmail": "robinhoodarmygurgaon@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Indore",
+    "country": "India",
+    "cityEmail": "robinhoodarmyindore@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Chennai",
+    "country": "India",
+    "cityEmail": "robinhoodarmychennai@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kolkata",
+    "country": "India",
+    "cityEmail": "robinhoodarmykolkata@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Surat",
+    "country": "India",
+    "cityEmail": "robinhoodarmysurat@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dewas",
+    "country": "India",
+    "cityEmail": "robinhoodarmydewas@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Udaipur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyudaipur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dhanbad",
+    "country": "India",
+    "cityEmail": "robinhoodarmydhanbad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Abhayapuri",
+    "country": "India",
+    "cityEmail": "robinhoodarmyabhayapuri@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dhubri",
+    "country": "India",
+    "cityEmail": "robinhoodarmydhubri@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Durgapur",
+    "country": "India",
+    "cityEmail": "robinhoodarmydurgapur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Agartala",
+    "country": "India",
+    "cityEmail": "robinhoodarmyagartala@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Faridabad",
+    "country": "India",
+    "cityEmail": "robinhoodarmyfaridabad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Fazilka",
+    "country": "India",
+    "cityEmail": "robinhoodarmyfazilka@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ahmednagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmyahmednagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ghaziabad",
+    "country": "India",
+    "cityEmail": "robinhoodarmyghaziabad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Goalpara",
+    "country": "India",
+    "cityEmail": "robinhoodarmygoalpara@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Akkalkot",
+    "country": "India",
+    "cityEmail": "robinhoodarmyakkalkot@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Gorakhpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmygorakhpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Akola",
+    "country": "India",
+    "cityEmail": "robinhoodarmyakola@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Greater Noida",
+    "country": "India",
+    "cityEmail": "robinhoodarmygreater noida@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Guna",
+    "country": "India",
+    "cityEmail": "robinhoodarmyguna@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Alipurduar",
+    "country": "India",
+    "cityEmail": "robinhoodarmyalipurduar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Guwahati",
+    "country": "India",
+    "cityEmail": "robinhoodarmyguwahati@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Gwalior",
+    "country": "India",
+    "cityEmail": "robinhoodarmygwalior@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ambajogai",
+    "country": "India",
+    "cityEmail": "robinhoodarmyambajogai@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Hisar",
+    "country": "India",
+    "cityEmail": "robinhoodarmyhisar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Hojai",
+    "country": "India",
+    "cityEmail": "robinhoodarmyhojai@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Hubli",
+    "country": "India",
+    "cityEmail": "robinhoodarmyhubli@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Amritsar",
+    "country": "India",
+    "cityEmail": "robinhoodarmyamritsar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Anand",
+    "country": "India",
+    "cityEmail": "robinhoodarmyanand@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Asansol",
+    "country": "India",
+    "cityEmail": "robinhoodarmyasansol@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jabalpur",
+    "country": "India",
+    "cityEmail": "rhajabalpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jalgaon",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjalgaon@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Azamgarh",
+    "country": "India",
+    "cityEmail": "robinhoodarmyazamgarh@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jalpaiguri",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjalpaiguri@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Badnawar",
+    "country": "India",
+    "cityEmail": "robinhoodarmybadnawar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jammu",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjammu@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jamnagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjamnagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jamshedpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjamshedpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Balasore",
+    "country": "India",
+    "cityEmail": "robinhoodarmybalasore@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jhansi",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjhansi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jharsuguda",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjharsuguda@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Banka",
+    "country": "India",
+    "cityEmail": "robinhoodarmybanka@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jodhpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjdpr@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Banswara",
+    "country": "India",
+    "cityEmail": "robinhoodarmybanswara@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Junagadh",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjunagadh@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Barabanki",
+    "country": "India",
+    "cityEmail": "robinhoodarmybarabanki@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Baramati",
+    "country": "India",
+    "cityEmail": "robinhoodarmybaramati@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bardoli",
+    "country": "India",
+    "cityEmail": "robinhoodarmybardoli@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bareilly",
+    "country": "India",
+    "cityEmail": "robinhoodarmybareilly@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Barrackpore",
+    "country": "India",
+    "cityEmail": "robinhoodarmybarrackpore@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Barpeta",
+    "country": "India",
+    "cityEmail": "robinhoodarmybarpeta@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Basti",
+    "country": "India",
+    "cityEmail": "robinhoodarmybasti@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Berhampore",
+    "country": "India",
+    "cityEmail": "robinhoodarmyberhampore@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhadohi",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhadohi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhadrak",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhadrak@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhanvad",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhanvad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bharatpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmybharatpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bharuch",
+    "country": "India",
+    "cityEmail": "robinhoodarmybharuch@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhesan",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhesan@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhilwara",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhilwara@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhiwadi",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhiwadi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhuj",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhuj@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhusawal",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhusawal@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bijni",
+    "country": "India",
+    "cityEmail": "robinhoodarmybijni@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bijnor",
+    "country": "India",
+    "cityEmail": "rhabijnor@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bilasipara",
+    "country": "India",
+    "cityEmail": "robinhoodarmybilasipara@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bilaspur",
+    "country": "India",
+    "cityEmail": "robinhoodarmybilaspur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Botad",
+    "country": "India",
+    "cityEmail": "robinhoodarmybotad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Burdwan",
+    "country": "India",
+    "cityEmail": "robinhoodarmyburdwan@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Canning",
+    "country": "India",
+    "cityEmail": "robinhoodarmycanning@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Chaibasa",
+    "country": "India",
+    "cityEmail": "robinhoodarmychaibasa@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Chakulia",
+    "country": "India",
+    "cityEmail": "robinhoodarmychakulia@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Chandrapur",
+    "country": "India",
+    "cityEmail": "robinhoodarmychandrapur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Chapra",
+    "country": "India",
+    "cityEmail": "robinhoodarmychapra@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Chhatarpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmychhattarpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Chhindwara",
+    "country": "India",
+    "cityEmail": "robinhoodarmychhindwara@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Cooch Behar",
+    "country": "India",
+    "cityEmail": "robinhoodarmycooch behar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Cuttack",
+    "country": "India",
+    "cityEmail": "rhacuttack@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dabhoi",
+    "country": "India",
+    "cityEmail": "robinhoodarmydabhoi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dahod",
+    "country": "India",
+    "cityEmail": "robinhoodarmydahod1@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Daltonganj",
+    "country": "India",
+    "cityEmail": "robinhoodarmydaltonganj@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Daman",
+    "country": "India",
+    "cityEmail": "robinhoodarmydaman@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Danapur",
+    "country": "India",
+    "cityEmail": "robinhoodarmydanapur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Darjeeling",
+    "country": "India",
+    "cityEmail": "robinhoodarmydarjeeling@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dehradun",
+    "country": "India",
+    "cityEmail": "robinhoodarmydehradun@gmail.com ",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dehri",
+    "country": "India",
+    "cityEmail": "robinhoodarmydehri@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Deoghar",
+    "country": "India",
+    "cityEmail": "robinhoodarmydeoghar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dhar",
+    "country": "India",
+    "cityEmail": "robinhoodarmydhar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dhekiajuli",
+    "country": "India",
+    "cityEmail": "robinhoodarmydhekiajuli@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dibrugarh",
+    "country": "India",
+    "cityEmail": "robinhoodarmydibrugarh@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dhenkanal",
+    "country": "India",
+    "cityEmail": "robinhoodarmydhenkanal@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jalandhar",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjalandhar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dhrangadhra",
+    "country": "India",
+    "cityEmail": "robinhoodarmydhrangadhra@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dhule",
+    "country": "India",
+    "cityEmail": "robinhoodarmydhule@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dimapur",
+    "country": "India",
+    "cityEmail": "robinhoodarmydimapur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Hapur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyhapur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kakinada",
+    "country": "India",
+    "cityEmail": "robinhoodarmykakinada@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Eluru",
+    "country": "India",
+    "cityEmail": "robinhoodarmyeluru@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ernakulam",
+    "country": "India",
+    "cityEmail": "robinhoodarmyernakulam@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Etah",
+    "country": "India",
+    "cityEmail": "robinhoodarmyetah@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Fakiragram",
+    "country": "India",
+    "cityEmail": "robinhoodarmyfakiragram@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Fatehabad",
+    "country": "India",
+    "cityEmail": "robinhoodarmyfatehabad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Fatehpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyfatehpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Firozabad",
+    "country": "India",
+    "cityEmail": "robinhoodarmyfirozabad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Gandhidham",
+    "country": "India",
+    "cityEmail": "robinhoodarmygandhidham@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Gangoh",
+    "country": "India",
+    "cityEmail": "robinhoodarmygangoh@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Gaya",
+    "country": "India",
+    "cityEmail": "robinhoodarmygaya@gmail.com ",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Goa",
+    "country": "India",
+    "cityEmail": "robinhoodarmygoa@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Gondia",
+    "country": "India",
+    "cityEmail": "robinhoodarmygondia@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Itarsi",
+    "country": "India",
+    "cityEmail": "robinhoodarmyitarsi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Gossaigaon",
+    "country": "India",
+    "cityEmail": "robinhoodarmygossaigaon@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Guntur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyguntur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Hailakandi",
+    "country": "India",
+    "cityEmail": "robinhoodarmyhailakandi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Haldia",
+    "country": "India",
+    "cityEmail": "robinhoodarmyhaldia@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Hanumangarh",
+    "country": "India",
+    "cityEmail": "robinhoodarmyhanumangarh@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Harda",
+    "country": "India",
+    "cityEmail": "rhaharda@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Hoshangabad",
+    "country": "India",
+    "cityEmail": "robinhoodarmyhoshangabad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jalna",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjalna@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jalore",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjalore@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jaysingpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjaysingpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kalaburagi",
+    "country": "India",
+    "cityEmail": "robinhoodarmygulbarga@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kalain",
+    "country": "India",
+    "cityEmail": "robinhoodarmykalain@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kamareddy",
+    "country": "India",
+    "cityEmail": "robinhoodarmykamareddy@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kamrup Rural",
+    "country": "India",
+    "cityEmail": "robinhoodarmykamrup rural@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kanchanpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmykanchanpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kaniha",
+    "country": "India",
+    "cityEmail": "robinhoodarmykaniha@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kanpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmykanpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kapasan",
+    "country": "India",
+    "cityEmail": "robinhoodarmykapasan@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kapurthala",
+    "country": "India",
+    "cityEmail": "robinhoodarmykapurthala@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Karimganj",
+    "country": "India",
+    "cityEmail": "robinhoodarmykarimganj@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Karimnagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmykarimnagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Karnal",
+    "country": "India",
+    "cityEmail": "robinhoodarmykarnal@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Katni",
+    "country": "India",
+    "cityEmail": "robinhoodarmykatni@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Khammam",
+    "country": "India",
+    "cityEmail": "robinhoodarmykhammam@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Khandwa",
+    "country": "India",
+    "cityEmail": "robinhoodarmykhandwa@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kharagpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmykharagpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Koderma",
+    "country": "India",
+    "cityEmail": "robinhoodarmykoderma@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kolhapur",
+    "country": "India",
+    "cityEmail": "robinhoodarmykolhapur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kokrajhar",
+    "country": "India",
+    "cityEmail": "robinhoodarmykokrajhar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Korba",
+    "country": "India",
+    "cityEmail": "robinhoodarmykorba@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kota",
+    "country": "India",
+    "cityEmail": "robinhoodarmykota@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kottayam",
+    "country": "India",
+    "cityEmail": "robinhoodarmykottayam@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kurukshetra",
+    "country": "India",
+    "cityEmail": "robinhoodarmykurukshetra@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Lakheri",
+    "country": "India",
+    "cityEmail": "robinhoodarmylakheri@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Latur",
+    "country": "India",
+    "cityEmail": "robinhoodarmylatur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Lohardaga",
+    "country": "India",
+    "cityEmail": "robinhoodarmylohardaga@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Lonavala",
+    "country": "India",
+    "cityEmail": "robinhoodarmylonavala@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Loni",
+    "country": "India",
+    "cityEmail": "robinhoodarmyloni@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ludhiana",
+    "country": "India",
+    "cityEmail": "robinhoodarmyludhiana@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mahabubabad",
+    "country": "India",
+    "cityEmail": "robinhoodarmymahabubabad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mahabubnagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmymahabubnagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mahoba",
+    "country": "India",
+    "cityEmail": "robinhoodarmymahoba@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Malda",
+    "country": "India",
+    "cityEmail": "robinhoodarmymalda@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mancherial",
+    "country": "India",
+    "cityEmail": "robinhoodarmymancherial@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mandla",
+    "country": "India",
+    "cityEmail": "robinhoodarmymandla@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mandsaur",
+    "country": "India",
+    "cityEmail": "robinhoodarmymandsaur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Manesar",
+    "country": "India",
+    "cityEmail": "robinhoodarmymanesar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mangaldai",
+    "country": "India",
+    "cityEmail": "robinhoodarmymangaldai@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mangalore",
+    "country": "India",
+    "cityEmail": "robinhoodarmymangalore@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mathura",
+    "country": "India",
+    "cityEmail": "robinhoodarmymathura@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Medinipur",
+    "country": "India",
+    "cityEmail": "robinhoodarmymedinipur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Meerut",
+    "country": "India",
+    "cityEmail": "robinhoodarmymeerut@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mirzapur",
+    "country": "India",
+    "cityEmail": "robinhoodarmymirzapur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Modinagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmymodinagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Moradabad",
+    "country": "India",
+    "cityEmail": "rhamoradabad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Moranhat",
+    "country": "India",
+    "cityEmail": "robinhoodarmymoranhat@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Morbi",
+    "country": "India",
+    "cityEmail": "robinhoodarmymorbi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mughalsarai",
+    "country": "India",
+    "cityEmail": "rhamughalsarai@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Munger",
+    "country": "India",
+    "cityEmail": "robinhoodarmymunger@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Muradnagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmymuradnagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Muzaffarnagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmymuzaffarnagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Muzaffarpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmymuzaffarpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Mysore",
+    "country": "India",
+    "cityEmail": "robinhoodarmymysore@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Nadia",
+    "country": "India",
+    "cityEmail": "robinhoodarmynadia@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Nagaon",
+    "country": "India",
+    "cityEmail": "robinhoodarmynagaon@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Nagpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmynagpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Nalbari",
+    "country": "India",
+    "cityEmail": "robinhoodarmynalbari@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Nalgonda",
+    "country": "India",
+    "cityEmail": "robinhoodarmynalgonda@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Nanded",
+    "country": "India",
+    "cityEmail": "robinhoodarmynanded@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Narasapuram",
+    "country": "India",
+    "cityEmail": "robinhoodarmynarasapuram@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Nashik",
+    "country": "India",
+    "cityEmail": "robinhoodarmynashik@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Navsari",
+    "country": "India",
+    "cityEmail": "robinhoodarmynavsari@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Neemuch",
+    "country": "India",
+    "cityEmail": "robinhoodarmyneemuch@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Nellore",
+    "country": "India",
+    "cityEmail": "robinhoodarmynellore@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Noida",
+    "country": "India",
+    "cityEmail": "robinhoodarmynoida@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Orai",
+    "country": "India",
+    "cityEmail": "robinhoodarmyorai@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Osmanabad",
+    "country": "India",
+    "cityEmail": "robinhoodarmyosmanabad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Palakkad",
+    "country": "India",
+    "cityEmail": "robinhoodarmypalakkad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Palanpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmypalanpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Palwal",
+    "country": "India",
+    "cityEmail": "robinhoodarmypalwal@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Pandharpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmypandharpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Panipat",
+    "country": "India",
+    "cityEmail": "rhapanipat@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Parbhani",
+    "country": "India",
+    "cityEmail": "robinhoodarmyparbhani@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Patan",
+    "country": "India",
+    "cityEmail": "robinhoodarmypatan1@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Patiala",
+    "country": "India",
+    "cityEmail": "robinhoodarmypatiala@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Patna",
+    "country": "India",
+    "cityEmail": "robinhoodarmypatna@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Pinjore",
+    "country": "India",
+    "cityEmail": "robinhoodarmypinjore@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Pithampur",
+    "country": "India",
+    "cityEmail": "robinhoodarmypithampur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Prayagraj",
+    "country": "India",
+    "cityEmail": "robinhoodarmyallahabad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Prithvipur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyprithvipur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Pukhrayan",
+    "country": "India",
+    "cityEmail": "robinhoodarmypukhrayan@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Puri",
+    "country": "India",
+    "cityEmail": "robinhoodarmypuri@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Purulia",
+    "country": "India",
+    "cityEmail": "robinhoodarmypurulia@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Radhanpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyradhanpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Raebareli",
+    "country": "India",
+    "cityEmail": "robinhoodarmyraebareli@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Raipur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyraipur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Rajkot",
+    "country": "India",
+    "cityEmail": "robinhoodarmyrajkot@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ramgarh",
+    "country": "India",
+    "cityEmail": "robinhoodarmyramgarh@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ranchi",
+    "country": "India",
+    "cityEmail": "robinhoodarmyranchi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Rangiya",
+    "country": "India",
+    "cityEmail": "robinhoodarmyrangiya@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ratlam",
+    "country": "India",
+    "cityEmail": "robinhoodarmyratlam@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Rayagada",
+    "country": "India",
+    "cityEmail": "robinhoodarmyrayagada@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Rewa",
+    "country": "India",
+    "cityEmail": "robinhoodarmyrewa@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Rewari",
+    "country": "India",
+    "cityEmail": "robinhoodarmyrewari@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Rohtak",
+    "country": "India",
+    "cityEmail": "robinhoodarmyrohtak@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Roorkee",
+    "country": "India",
+    "cityEmail": "robinhoodarmyroorkee@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Rourkela",
+    "country": "India",
+    "cityEmail": "robinhoodarmyrourkela@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmysagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Saharanpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmysaharanpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Samastipur",
+    "country": "India",
+    "cityEmail": "robinhoodarmysamastipur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sambalpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmysambalpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sambhal",
+    "country": "India",
+    "cityEmail": "robinhoodarmysambhal@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sangamner",
+    "country": "India",
+    "cityEmail": "robinhoodarmysangamner@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sangli",
+    "country": "India",
+    "cityEmail": "robinhoodarmysangli@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sapatgram",
+    "country": "India",
+    "cityEmail": "robinhoodarmysapatgram@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Satara",
+    "country": "India",
+    "cityEmail": "robinhoodarmysatara@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Savedi",
+    "country": "India",
+    "cityEmail": "robinhoodarmysavedi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sehore",
+    "country": "India",
+    "cityEmail": "robinhoodarmysehore@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Shahjahanpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyshahjahanpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Shajapur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyshajapur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Shillong",
+    "country": "India",
+    "cityEmail": "robinhoodarmyshillong@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Shimla",
+    "country": "India",
+    "cityEmail": "robinhoodarmyshimla@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Shrirampur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyshrirampur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sikar",
+    "country": "India",
+    "cityEmail": "robinhoodarmysikar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Silchar",
+    "country": "India",
+    "cityEmail": "robinhoodarmysilchar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Siliguri",
+    "country": "India",
+    "cityEmail": "robinhoodarmysiliguri@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Silvassa",
+    "country": "India",
+    "cityEmail": "robinhoodarmysilvassa@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sirsa",
+    "country": "India",
+    "cityEmail": "robinhoodarmysirsa@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sivasagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmysivasagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Solapur",
+    "country": "India",
+    "cityEmail": "robinhoodarmysolapur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sonipat",
+    "country": "India",
+    "cityEmail": "robinhoodarmysonipat@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sorbhog",
+    "country": "India",
+    "cityEmail": "robinhoodarmysorbhog@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sriganganagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmysriganganagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Surendranagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmysurendranagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Tangla",
+    "country": "India",
+    "cityEmail": "robinhoodarmytangla@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Tezpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmytezpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Thrissur",
+    "country": "India",
+    "cityEmail": "robinhoodarmythrissur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Tinsukia",
+    "country": "India",
+    "cityEmail": "robinhoodarmytinsukia@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Tirupati",
+    "country": "India",
+    "cityEmail": "robinhoodarmytirupati@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Tumkur",
+    "country": "India",
+    "cityEmail": "robinhoodarmytumkur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Udhampur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyudhampur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Udupi",
+    "country": "India",
+    "cityEmail": "robinhoodarmyudupi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ujjain",
+    "country": "India",
+    "cityEmail": "robinhoodarmyujjain@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Vadodara",
+    "country": "India",
+    "cityEmail": "robinhoodarmybaroda@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Vaishali",
+    "country": "India",
+    "cityEmail": "robinhoodarmyvaishali@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Valsad",
+    "country": "India",
+    "cityEmail": "robinhoodarmyvalsad@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Vansda",
+    "country": "India",
+    "cityEmail": "robinhoodarmyvansda@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Vapi",
+    "country": "India",
+    "cityEmail": "rhavapi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Varanasi",
+    "country": "India",
+    "cityEmail": "robinhoodarmyvaranasi@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Vellore",
+    "country": "India",
+    "cityEmail": "robinhoodarmyvellore@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Vijaywada",
+    "country": "India",
+    "cityEmail": "robinhoodarmyvijaywada@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Vizag",
+    "country": "India",
+    "cityEmail": "robinhoodarmyvizag@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Warangal",
+    "country": "India",
+    "cityEmail": "robinhoodarmywarangal@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Yavatmal",
+    "country": "India",
+    "cityEmail": "robinhoodarmyyavatmal@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Datia",
+    "country": "India",
+    "cityEmail": "robinhoodarmydatia@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Puducherry",
+    "country": "India",
+    "cityEmail": "robinhoodarmypuducherry@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Nagda",
+    "country": "India",
+    "cityEmail": "robinhoodarmynagda@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bhinmal",
+    "country": "India",
+    "cityEmail": "robinhoodarmybhinmal@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Chirawa",
+    "country": "India",
+    "cityEmail": "robinhoodarmychirawa@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kotputli",
+    "country": "India",
+    "cityEmail": "robinhoodarmykotputli@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Haldwani",
+    "country": "India",
+    "cityEmail": "robinhoodarmyhaldwani@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Phagwara",
+    "country": "India",
+    "cityEmail": "robinhoodarmyphagwara@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Yamunanagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmyyamunanagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Belpahar",
+    "country": "India",
+    "cityEmail": "robinhoodarmybelpahar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bishalgarh",
+    "country": "India",
+    "cityEmail": "robinhoodarmybishalgarh@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Giridih",
+    "country": "India",
+    "cityEmail": "robinhoodarmygiridih@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Nalanda",
+    "country": "India",
+    "cityEmail": "robinhoodarmynalanda@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "North Lakhimpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmynorth lakhimpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Lumding",
+    "country": "India",
+    "cityEmail": "robinhoodarmylumding@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Badarpur",
+    "country": "India",
+    "cityEmail": "robinhoodarmybadarpur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jaisalmer",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjaisalmer@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Nuh",
+    "country": "India",
+    "cityEmail": "robinhoodarmynuh@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bilimora",
+    "country": "India",
+    "cityEmail": "robinhoodarmybilimora@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Malancha",
+    "country": "India",
+    "cityEmail": "robinhoodarmymalancha@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Pathardih",
+    "country": "India",
+    "cityEmail": "robinhoodarmypathardih@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Sahibganj",
+    "country": "India",
+    "cityEmail": "robinhoodarmysahibganj@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Raniganj",
+    "country": "India",
+    "cityEmail": "robinhoodarmyraniganj@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Aska",
+    "country": "India",
+    "cityEmail": "robinhoodarmyaska@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Tenali",
+    "country": "India",
+    "cityEmail": "robinhoodarmytenali@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Balrampur",
+    "country": "India",
+    "cityEmail": "robinhoodarmybalrampur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Deoria",
+    "country": "India",
+    "cityEmail": "robinhoodarmydeoria@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Bilhaur",
+    "country": "India",
+    "cityEmail": "robinhoodarmybilhaur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Etawah",
+    "country": "India",
+    "cityEmail": "robinhoodarmyetawah@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Talbehat",
+    "country": "India",
+    "cityEmail": "robinhoodarmytalbehat@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Malbazar",
+    "country": "India",
+    "cityEmail": "robinhoodarmymalbazar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Dumka",
+    "country": "India",
+    "cityEmail": "robinhoodarmydumka@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jamtara",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjamtara@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kishanganj",
+    "country": "India",
+    "cityEmail": "robinhoodarmykishanganj@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Chandikhol",
+    "country": "India",
+    "cityEmail": "robinhoodarmychandikhol@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jaora",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjaora@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Raisen",
+    "country": "India",
+    "cityEmail": "robinhoodarmyraisen@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Barnagar",
+    "country": "India",
+    "cityEmail": "robinhoodarmybarnagar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Tikamgarh",
+    "country": "India",
+    "cityEmail": "robinhoodarmytikamgarh@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Rajnandgaon",
+    "country": "India",
+    "cityEmail": "robinhoodarmyrajnandgaon@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Shirur",
+    "country": "India",
+    "cityEmail": "robinhoodarmyshirur@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Aloor",
+    "country": "India",
+    "cityEmail": "robinhoodarmyaloor@gmail.com ",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Malappuram",
+    "country": "India",
+    "cityEmail": "robinhoodarmymalappuram@gmail.com ",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kollam",
+    "country": "India",
+    "cityEmail": "robinhoodarmykollam@gmail.com ",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Lusaka",
+    "country": "Zambia",
+    "cityEmail": "robinhoodarmylusaka@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Kankavli",
+    "country": "India",
+    "cityEmail": "robinhoodarmykankavli@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Duliajan",
+    "country": "India",
+    "cityEmail": "robinhoodarmyduliajan@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Jorhat",
+    "country": "India",
+    "cityEmail": "robinhoodarmyjorhat@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Ankleshwar",
+    "country": "India",
+    "cityEmail": "robinhoodarmyankleshwar@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  },
+  {
+    "cityName": "Cairo",
+    "country": "Egypt",
+    "cityEmail": "robinhoodarmycairo@gmail.com",
+    "foodCadetsLink": "https://chat.whatsapp.com/IgVl8lW9lGABsLLuRyUKn?mode=gi_t"
+  }
 ]
