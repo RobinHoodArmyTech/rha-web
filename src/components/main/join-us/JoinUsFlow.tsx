@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { api } from "@/core/services/http";
+import { api } from "@/lib/http";
 import { normalizeMobileNumber } from "@/core/validators/joinUsValidation";
 import Step1Intro from "./Step1Intro";
 import Step2PersonalInfo from "./Step2PersonalInfo";
