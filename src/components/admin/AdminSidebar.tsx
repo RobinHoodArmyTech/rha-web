@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Role } from "@/core/config/constants";
-import { CITY_ADMIN_ROLES } from "@/core/config/constants";
+import { ADMIN_ROLES } from "@/core/config/constants";
 import { useAdminSession } from "./AdminSessionProvider";
 
 /** `roles` omitted → visible to every logged-in user. Otherwise only those roles see the item. */
@@ -15,11 +15,7 @@ export default function AdminSidebar({ isOpen, onClose }: { isOpen: boolean; onC
 
   const navItems: NavItem[] = [
     { label: "Dashboard", href: "/sites/admin", icon: "dashboard" },
-    { label: "City Management", href: "/sites/admin/cities", icon: "location_city", roles: CITY_ADMIN_ROLES },
-    { label: "Food Management", href: "/sites/admin/food", icon: "restaurant" },
-    { label: "Academy Management", href: "/sites/admin/academy", icon: "school" },
-    { label: "Analytics", href: "/sites/admin/analytics", icon: "monitoring" },
-    { label: "Settings", href: "/sites/admin/settings", icon: "settings" },
+    { label: "City Management", href: "/sites/admin/cities", icon: "location_city", roles: ADMIN_ROLES },
   ];
 
   const visibleNavItems = navItems.filter((item) => !item.roles || item.roles.includes(roleName));

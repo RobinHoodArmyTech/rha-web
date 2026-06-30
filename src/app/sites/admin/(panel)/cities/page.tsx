@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import type { CityWithCountry } from "@/core/services/backend/city/cityService";
-import { CITY_ADMIN_ROLES } from "@/core/config/constants";
+import { ADMIN_ROLES } from "@/core/config/constants";
 import { CreateCitySchema } from "@/core/validators/cityValidation";
 import { useAdminSession } from "@/components/admin/AdminSessionProvider";
 import { api } from "@/lib/http";
@@ -19,7 +19,7 @@ const errorMessage = (err: unknown, fallback: string) =>
 export default function CitiesPage() {
   const router = useRouter();
   const { roleName } = useAdminSession();
-  const isAuthorized = CITY_ADMIN_ROLES.includes(roleName);
+  const isAuthorized = ADMIN_ROLES.includes(roleName);
 
   const [cities, setCities] = useState<CityWithCountry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -74,7 +74,7 @@ export default function CitiesPage() {
     setSubmitted(false);
   };
 
-  // Client-side access gate. The API enforces CITY_ADMIN_ROLES independently;
+  // Client-side access gate. The API enforces ADMIN_ROLES independently;
   // this is UX only — redirect a non-admin who navigates here directly.
   useEffect(() => {
     if (!isAuthorized) router.replace("/sites/admin");

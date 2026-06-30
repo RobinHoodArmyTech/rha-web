@@ -15,8 +15,8 @@ export enum Role {
 }
 
 /**
- * Full-access platform admins. They manage the city master list (UI + APIs).
- * Single source of truth for that authorization — reuse instead of inlining
+ * Full-access platform admins (e.g. they manage the city master list, UI + APIs).
+ * Single source of truth for admin-level authorization — reuse instead of inlining
  * [Role.SysAdmin, Role.Founder].
  */
-export const CITY_ADMIN_ROLES: Role[] = [Role.SysAdmin, Role.Founder];
+export const ADMIN_ROLES: Role[] = [Role.SysAdmin, Role.Founder];

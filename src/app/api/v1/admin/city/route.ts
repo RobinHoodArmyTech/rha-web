@@ -1,5 +1,5 @@
 import { withApiRole } from "@/middleware/apiMiddlewares";
-import { CITY_ADMIN_ROLES } from "@/core/config/constants";
+import { ADMIN_ROLES } from "@/core/config/constants";
 import { ApiResponse, ApiError } from "@/core/apiResponse";
 import { CreateCitySchema } from "@/core/validators/cityValidation";
 import { listCities, createCity, getCityByName } from "@/core/services/backend/city/cityService";
@@ -10,12 +10,12 @@ import { getCountryById } from "@/core/services/backend/country/countryService";
  * POST /api/v1/admin/city — create a new city
  */
 
-export const GET = withApiRole(...CITY_ADMIN_ROLES)(async () => {
+export const GET = withApiRole(...ADMIN_ROLES)(async () => {
   const cities = await listCities();
   return ApiResponse.success({ data: cities });
 });
 
-export const POST = withApiRole(...CITY_ADMIN_ROLES)(async (request) => {
+export const POST = withApiRole(...ADMIN_ROLES)(async (request) => {
   const body = await request.json();
   const data = CreateCitySchema.parse(body);
 

@@ -7,13 +7,13 @@ import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
 import { Shield, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Role, CITY_ADMIN_ROLES } from "@/core/config/constants";
+import { Role, ADMIN_ROLES } from "@/core/config/constants";
 import UserMenu from "./UserMenu";
 import { useAdminSession } from "./AdminSessionProvider";
 
 const navLinks: { label: string; href: string; allowedRoles?: Role[] }[] = [
   { label: "Dashboard", href: "/sites/admin" },
-  { label: "Cities", href: "/sites/admin/cities", allowedRoles: CITY_ADMIN_ROLES },
+  { label: "Cities", href: "/sites/admin/cities", allowedRoles: ADMIN_ROLES },
 ];
 
 export default function AdminNavbar() {
