@@ -50,9 +50,9 @@ export default function UserMenu() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label="Account menu"
-        className="flex items-center gap-1.5 rounded-lg p-1 pr-2 text-white transition-all hover:bg-white/10"
+        className="flex items-center gap-1.5 rounded-lg p-1 pr-2 text-slate-700 transition-all hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-green-900/30"
       >
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-sm font-semibold">
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1a6b3c] text-sm font-semibold text-white">
           {initial}
         </span>
         <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", open && "rotate-180")} />
