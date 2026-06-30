@@ -1,12 +1,20 @@
 "use client";
 
-import React, { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { Plus, Search, ListFilter, MessageCircle, Pencil, Trash2, X, Info } from "lucide-react";
 import type { CityWithCountry } from "@/core/services/backend/city/cityService";
 import { ADMIN_ROLES } from "@/core/config/constants";
 import { CreateCitySchema } from "@/core/validators/cityValidation";
 import { useAdminSession } from "@/components/admin/AdminSessionProvider";
 import { api } from "@/lib/http";
+import DataTable, { type Column } from "@/components/ui/DataTable";
+
+// Shared input styling — matches the login screen / app design language.
+const inputBase =
+  "w-full rounded-xl border bg-slate-50 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-all focus:outline-none focus:ring-2 focus:ring-[#22c55e] dark:bg-green-950/30 dark:text-white";
+const inputBorder = (hasError?: string) =>
+  hasError ? "border-rose-400 dark:border-rose-500" : "border-slate-200 dark:border-green-800/40";
 
 type FormErrors = Partial<Record<"cityName" | "countryId" | "cityEmail" | "foodCadetsLink", string>>;
 
@@ -26,10 +34,6 @@ export default function CitiesPage() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [countryFilter, setCountryFilter] = useState("All");
-
-  // Pagination
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
 
   // Modal State
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -105,24 +109,19 @@ export default function CitiesPage() {
     return Array.from(map.entries()).map(([id, name]) => ({ id, name })).sort((a, b) => a.name.localeCompare(b.name));
   }, [cities]);
 
-  // Filtering
+  // Filtering — free-text search matches city name, country name, or email.
   const filteredCities = useMemo(() => {
+    const q = search.trim().toLowerCase();
     return cities.filter(c => {
-      const matchSearch = c.cityName.toLowerCase().includes(search.toLowerCase()) ||
-                          (c.cityEmail && c.cityEmail.toLowerCase().includes(search.toLowerCase()));
+      const matchSearch =
+        !q ||
+        c.cityName.toLowerCase().includes(q) ||
+        c.countryName.toLowerCase().includes(q) ||
+        (c.cityEmail?.toLowerCase().includes(q) ?? false);
       const matchCountry = countryFilter === "All" || c.countryName === countryFilter;
       return matchSearch && matchCountry;
     });
   }, [cities, search, countryFilter]);
-
-  // Pagination Slice
-  const totalPages = Math.ceil(filteredCities.length / limit) || 1;
-  const paginatedCities = filteredCities.slice((page - 1) * limit, page * limit);
-
-  // Reset page when filters change
-  React.useEffect(() => {
-    setPage(1);
-  }, [search, countryFilter, limit]);
 
   const openAddModal = () => {
     setFormData({ cityName: "", countryId: "", cityEmail: "", foodCadetsLink: "" });
@@ -205,18 +204,55 @@ export default function CitiesPage() {
     }
   };
 
-  // Generate page numbers to display
-  const getPageNumbers = () => {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-      if (i === 1 || i === totalPages || (i >= page - 1 && i <= page + 1)) {
-        pages.push(i);
-      } else if (i === page - 2 || i === page + 2) {
-        pages.push('...');
-      }
-    }
-    return pages.filter((p, index, arr) => p !== '...' || arr[index - 1] !== '...');
-  };
+  // Column definitions for the shared DataTable.
+  const columns: Column<CityWithCountry>[] = [
+    { key: "cityName", header: "City Name", cellClassName: "font-medium text-slate-900 dark:text-white" },
+    { key: "countryName", header: "Country" },
+    { key: "cityEmail", header: "City Email", render: (c) => c.cityEmail || "N/A" },
+    {
+      key: "foodCadetsLink",
+      header: "Food Cadets Link",
+      render: (c) =>
+        c.foodCadetsLink ? (
+          <a
+            href={c.foodCadetsLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 transition-colors hover:bg-green-200 dark:bg-green-900/40 dark:text-green-200 dark:hover:bg-green-900/60"
+          >
+            <MessageCircle className="h-3.5 w-3.5" />
+            WhatsApp
+          </a>
+        ) : (
+          <span className="text-sm text-slate-400">Not provided</span>
+        ),
+    },
+    {
+      key: "actions",
+      header: "Actions",
+      align: "right",
+      render: (c) => (
+        <div className="flex justify-end gap-1">
+          <button
+            type="button"
+            onClick={() => openEditModal(c)}
+            className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-slate-100 hover:text-[#1a6b3c] dark:hover:bg-green-900/30 dark:hover:text-green-300"
+            title="Edit"
+          >
+            <Pencil className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setDeletingCity(c)}
+            className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/30 dark:hover:text-rose-400"
+            title="Delete"
+          >
+            <Trash2 className="h-4 w-4" />
+          </button>
+        </div>
+      ),
+    },
+  ];
 
   // Non-admins are redirected by the effect above; render nothing meanwhile.
   if (!isAuthorized) return null;
@@ -225,214 +261,92 @@ export default function CitiesPage() {
     <>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="font-display text-headline-lg font-bold text-on-surface">City Management</h2>
-          <p className="font-body-md text-body-md text-on-surface-variant mt-1">Manage operational cities, leads, and overarching volunteer metrics.</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">City Management</h1>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Manage operational cities, leads, and overarching volunteer metrics.</p>
         </div>
         <button
           type="button"
           onClick={openAddModal}
-          className="bg-primary text-on-primary font-label-md text-label-md py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-on-primary-fixed-variant transition-colors shadow-sm whitespace-nowrap"
+          className="inline-flex items-center gap-2 whitespace-nowrap rounded-xl bg-gradient-to-r from-[#1a6b3c] to-[#166534] px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:from-[#22c55e] hover:to-[#16a34a]"
         >
-          <span className="material-symbols-outlined text-[18px]">add</span>
+          <Plus className="h-4 w-4" strokeWidth={2.5} />
           Add City
         </button>
       </div>
 
-      <div className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0px_1px_3px_rgba(0,0,0,0.02),_0px_4px_8px_rgba(0,0,0,0.04)] overflow-hidden">
-        {/* Table Controls */}
-        <div className="p-4 border-b border-outline-variant/30 flex flex-col md:flex-row justify-between gap-4">
-          <div className="relative w-full md:w-72">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-transparent rounded-lg focus:bg-surface-container-lowest focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/70"
-              placeholder="Search cities..."
-              type="text"
-            />
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 items-center">
-            <div className="flex items-center gap-2 text-on-surface font-body-md text-body-md">
-              <label>Show</label>
-              <select
-                value={limit}
-                onChange={(e) => setLimit(Number(e.target.value))}
-                className="bg-surface-container-low text-on-surface border border-transparent rounded-lg px-2 py-1 outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer"
-              >
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-                <option value={50}>50</option>
-              </select>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-[18px] text-on-surface-variant">filter_list</span>
-              <select
-                value={countryFilter}
-                onChange={(e) => setCountryFilter(e.target.value)}
-                className="bg-surface-container-low text-on-surface border border-transparent rounded-lg px-3 py-2 outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md cursor-pointer"
-              >
-                <option value="All">All Countries</option>
-                {uniqueCountries.map(c => (
-                  <option key={c.id} value={c.name}>{c.name}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-surface-container-low/50 border-b border-outline-variant/30">
-                <th className="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">City Name</th>
-                <th className="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Country</th>
-                <th className="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">City Email</th>
-                <th className="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Food Cadets Link</th>
-                <th className="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="font-body-md text-body-md">
-              {isLoading ? (
-                <tr>
-                  <td colSpan={5} className="py-8 text-center text-on-surface-variant">
-                    Loading cities…
-                  </td>
-                </tr>
-              ) : loadError ? (
-                <tr>
-                  <td colSpan={5} className="py-8 text-center text-error">
-                    {loadError}{" "}
-                    <button type="button" onClick={loadCities} className="underline hover:text-on-surface">Retry</button>
-                  </td>
-                </tr>
-              ) : paginatedCities.length === 0 ? (
-                <tr>
-                  <td colSpan={5} className="py-8 text-center text-on-surface-variant">
-                    No cities found.
-                  </td>
-                </tr>
-              ) : (
-                paginatedCities.map((city) => (
-                  <tr key={city.id} className="border-b border-outline-variant/10 hover:bg-primary-fixed/10 transition-colors group">
-                    <td className="py-3 px-4 font-medium text-on-surface">{city.cityName}</td>
-                    <td className="py-3 px-4 text-on-surface-variant">{city.countryName}</td>
-                    <td className="py-3 px-4 text-on-surface-variant">{city.cityEmail || "N/A"}</td>
-                    <td className="py-3 px-4">
-                      {city.foodCadetsLink ? (
-                        <a
-                          href={city.foodCadetsLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm hover:bg-primary transition-colors"
-                        >
-                          <span className="material-symbols-outlined text-[16px]">chat</span>
-                          WhatsApp
-                        </a>
-                      ) : (
-                        <span className="text-on-surface-variant text-sm">Not provided</span>
-                      )}
-                    </td>
-                    <td className="py-3 px-4 text-right">
-                      <div className="flex justify-end gap-2 transition-opacity">
-                        <button
-                          type="button"
-                          onClick={() => openEditModal(city)}
-                          className="p-1.5 text-on-surface-variant hover:text-primary rounded hover:bg-surface-container-high transition-colors cursor-pointer"
-                          title="Edit"
-                        >
-                          <span className="material-symbols-outlined text-[18px]">edit</span>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setDeletingCity(city)}
-                          className="p-1.5 text-on-surface-variant hover:text-error rounded hover:bg-error-container/50 transition-colors cursor-pointer"
-                          title="Delete"
-                        >
-                          <span className="material-symbols-outlined text-[18px]">delete</span>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Pagination Controls */}
-        <div className="p-4 border-t border-outline-variant/30 flex flex-col sm:flex-row items-center justify-between text-on-surface-variant font-body-md text-body-md gap-4">
-          <p>
-            Showing {filteredCities.length > 0 ? (page - 1) * limit + 1 : 0} to {Math.min(page * limit, filteredCities.length)} of {filteredCities.length} entries
-          </p>
-          <div className="flex items-center gap-1">
-            <button
-              onClick={() => setPage(p => Math.max(1, p - 1))}
-              disabled={page === 1}
-              className="px-3 py-1 border border-outline-variant rounded hover:bg-surface-container-high disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              Prev
-            </button>
-
-            <div className="flex items-center gap-1 mx-2">
-              {getPageNumbers().map((p, i) => (
-                p === '...' ? (
-                  <span key={`dots-${i}`} className="px-2 text-on-surface-variant">...</span>
-                ) : (
-                  <button
-                    key={`page-${p}`}
-                    onClick={() => setPage(p as number)}
-                    className={`w-8 h-8 flex items-center justify-center rounded transition-colors ${page === p ? 'bg-primary text-on-primary' : 'hover:bg-surface-container-high text-on-surface'}`}
-                  >
-                    {p}
-                  </button>
-                )
-              ))}
-            </div>
-
-            <button
-              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-              disabled={page === totalPages || totalPages === 0}
-              className="px-3 py-1 border border-outline-variant rounded hover:bg-surface-container-high disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              Next
-            </button>
-          </div>
-        </div>
+      <div className="mt-6">
+        <DataTable
+          columns={columns}
+          data={filteredCities}
+          rowKey={(c) => c.id}
+          isLoading={isLoading}
+          error={loadError}
+          onRetry={loadCities}
+          emptyMessage="No cities found."
+          resetKey={`${search}|${countryFilter}`}
+          toolbar={
+            <>
+              <div className="relative w-full md:w-72">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                <input
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 transition-all focus:outline-none focus:ring-2 focus:ring-[#22c55e] dark:border-green-800/40 dark:bg-green-950/30 dark:text-white"
+                  placeholder="Search by city or country..."
+                  type="text"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <ListFilter className="h-4 w-4 text-slate-400" />
+                <select
+                  value={countryFilter}
+                  onChange={(e) => setCountryFilter(e.target.value)}
+                  className="cursor-pointer rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-900 transition-all focus:outline-none focus:ring-2 focus:ring-[#22c55e] dark:border-green-800/40 dark:bg-green-950/30 dark:text-white"
+                >
+                  <option value="All">All Countries</option>
+                  {uniqueCountries.map((c) => (
+                    <option key={c.id} value={c.name}>{c.name}</option>
+                  ))}
+                </select>
+              </div>
+            </>
+          }
+        />
       </div>
 
-      {/* Modern Add / Edit / Delete City Modal */}
+      {/* Add / Edit / Delete City Modal */}
       {(isAddModalOpen || editingCity || deletingCity) && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={closeModals}
           />
-          <div className="relative bg-surface rounded-2xl w-[95vw] sm:w-[440px] shadow-2xl border border-outline-variant/20 overflow-hidden transform transition-all flex flex-col">
-            <div className="p-6 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-lowest">
-              <h3 className="font-display text-headline-sm font-bold text-on-surface">
+          <div className="relative flex w-[95vw] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl sm:w-[440px] dark:border-green-800/30 dark:bg-[#0f2818]">
+            <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-green-800/30">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                 {deletingCity ? "Delete City" : (editingCity ? (isConfirmingEdit ? "Confirm Changes" : "Edit City") : "Add New City")}
               </h3>
-              <button type="button" onClick={closeModals} className="p-1 rounded-full text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors cursor-pointer">
-                <span className="material-symbols-outlined">close</span>
+              <button type="button" onClick={closeModals} className="rounded-full p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-green-900/30">
+                <X className="h-5 w-5" />
               </button>
             </div>
 
             {deletingCity ? (
-              <div className="p-6 space-y-5 bg-surface-container-lowest">
+              <div className="space-y-5 p-6">
                 <div className="py-4 text-center">
-                  <span className="material-symbols-outlined text-error text-[48px] mb-4">delete_forever</span>
-                  <h4 className="font-headline-md text-headline-md text-on-surface mb-2">Delete {deletingCity.cityName}?</h4>
-                  <p className="font-body-md text-body-md text-on-surface-variant">
+                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-rose-100 dark:bg-rose-950/40">
+                    <Trash2 className="h-7 w-7 text-rose-600 dark:text-rose-400" />
+                  </div>
+                  <h4 className="mb-2 text-lg font-semibold text-slate-900 dark:text-white">Delete {deletingCity.cityName}?</h4>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
                     This action cannot be undone. Are you sure you want to permanently delete this city?
                   </p>
                 </div>
-                <div className="pt-2 flex justify-end gap-3">
+                <div className="flex justify-end gap-3 pt-2">
                   <button
                     type="button"
                     onClick={closeModals}
-                    className="px-5 py-2.5 border border-outline-variant text-on-surface-variant font-label-md rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer"
+                    className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-green-800/40 dark:text-slate-200 dark:hover:bg-green-950/20"
                   >
                     Cancel
                   </button>
@@ -440,90 +354,92 @@ export default function CitiesPage() {
                     type="button"
                     onClick={handleDelete}
                     disabled={isSubmitting}
-                    className="px-5 py-2.5 bg-error text-on-error font-label-md rounded-xl hover:bg-error/90 disabled:opacity-70 flex items-center gap-2 transition-all shadow-sm cursor-pointer"
+                    className="rounded-xl bg-rose-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-rose-700 disabled:opacity-60"
                   >
                     {isSubmitting ? "Deleting..." : "Yes, Delete"}
                   </button>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate className="p-6 space-y-5 bg-surface-container-lowest">
+              <form onSubmit={handleSubmit} noValidate className="space-y-5 p-6">
               {isConfirmingEdit ? (
                 <div className="py-4 text-center">
-                  <span className="material-symbols-outlined text-warning text-[48px] mb-4 text-primary">info</span>
-                  <h4 className="font-headline-md text-headline-md text-on-surface mb-2">Are you sure?</h4>
-                  <p className="font-body-md text-body-md text-on-surface-variant">
-                    You are about to save changes for <strong>{editingCity?.cityName}</strong>. Please confirm your action.
+                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/40">
+                    <Info className="h-7 w-7 text-[#1a6b3c] dark:text-green-300" />
+                  </div>
+                  <h4 className="mb-2 text-lg font-semibold text-slate-900 dark:text-white">Are you sure?</h4>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                    You are about to save changes for <strong className="text-slate-700 dark:text-slate-200">{editingCity?.cityName}</strong>. Please confirm your action.
                   </p>
                 </div>
               ) : (
                 <>
                   <div>
-                    <label className="block font-label-md text-label-md text-on-surface mb-1.5">City Name <span className="text-error">*</span></label>
+                    <label className="mb-1.5 block text-xs font-semibold text-slate-700 dark:text-slate-300">City Name <span className="text-rose-500">*</span></label>
                     <input
                       type="text"
                       value={formData.cityName}
                       onChange={e => setFormData(p => ({ ...p, cityName: e.target.value }))}
                       onBlur={() => touch("cityName")}
-                      className={`w-full px-4 py-2.5 bg-surface-container-low text-on-surface border rounded-xl focus:bg-surface-container-lowest focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all ${visibleError("cityName") ? "border-error" : "border-outline-variant/30"}`}
+                      className={`${inputBase} ${inputBorder(visibleError("cityName"))}`}
                       placeholder="Enter city name"
                     />
-                    {visibleError("cityName") && <p className="mt-1 font-label-sm text-label-sm text-error">{visibleError("cityName")}</p>}
+                    {visibleError("cityName") && <p className="mt-1 text-xs text-rose-600 dark:text-rose-400">{visibleError("cityName")}</p>}
                   </div>
                   <div>
-                    <label className="block font-label-md text-label-md text-on-surface mb-1.5">Country <span className="text-error">*</span></label>
+                    <label className="mb-1.5 block text-xs font-semibold text-slate-700 dark:text-slate-300">Country <span className="text-rose-500">*</span></label>
                     <select
                       value={formData.countryId}
                       onChange={e => setFormData(p => ({ ...p, countryId: e.target.value }))}
                       onBlur={() => touch("countryId")}
-                      className={`w-full px-4 py-2.5 bg-surface-container-low text-on-surface border rounded-xl focus:bg-surface-container-lowest focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all cursor-pointer ${visibleError("countryId") ? "border-error" : "border-outline-variant/30"}`}
+                      className={`${inputBase} ${inputBorder(visibleError("countryId"))} cursor-pointer`}
                     >
                       <option value="" disabled>Select a country</option>
                       {uniqueCountries.map(c => (
                         <option key={c.id} value={c.id}>{c.name}</option>
                       ))}
                     </select>
-                    {visibleError("countryId") && <p className="mt-1 font-label-sm text-label-sm text-error">{visibleError("countryId")}</p>}
+                    {visibleError("countryId") && <p className="mt-1 text-xs text-rose-600 dark:text-rose-400">{visibleError("countryId")}</p>}
                   </div>
                   <div>
-                    <label className="block font-label-md text-label-md text-on-surface mb-1.5">City Email <span className="text-error">*</span></label>
+                    <label className="mb-1.5 block text-xs font-semibold text-slate-700 dark:text-slate-300">City Email <span className="text-rose-500">*</span></label>
                     <input
                       type="email"
                       value={formData.cityEmail}
                       onChange={e => setFormData(p => ({ ...p, cityEmail: e.target.value }))}
                       onBlur={() => touch("cityEmail")}
-                      className={`w-full px-4 py-2.5 bg-surface-container-low text-on-surface border rounded-xl focus:bg-surface-container-lowest focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all ${visibleError("cityEmail") ? "border-error" : "border-outline-variant/30"}`}
+                      className={`${inputBase} ${inputBorder(visibleError("cityEmail"))}`}
                       placeholder="e.g. city@robinhoodarmy.com"
                     />
-                    {visibleError("cityEmail") && <p className="mt-1 font-label-sm text-label-sm text-error">{visibleError("cityEmail")}</p>}
+                    {visibleError("cityEmail") && <p className="mt-1 text-xs text-rose-600 dark:text-rose-400">{visibleError("cityEmail")}</p>}
                   </div>
                   <div>
-                    <label className="block font-label-md text-label-md text-on-surface mb-1.5">Food Cadets WhatsApp Link</label>
+                    <label className="mb-1.5 block text-xs font-semibold text-slate-700 dark:text-slate-300">Food Cadets WhatsApp Link</label>
                     <input
                       type="url"
                       value={formData.foodCadetsLink}
                       onChange={e => setFormData(p => ({ ...p, foodCadetsLink: e.target.value }))}
                       onBlur={() => touch("foodCadetsLink")}
-                      className={`w-full px-4 py-2.5 bg-surface-container-low text-on-surface border rounded-xl focus:bg-surface-container-lowest focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all ${visibleError("foodCadetsLink") ? "border-error" : "border-outline-variant/30"}`}
+                      className={`${inputBase} ${inputBorder(visibleError("foodCadetsLink"))}`}
                       placeholder="https://chat.whatsapp.com/..."
                     />
-                    {visibleError("foodCadetsLink") && <p className="mt-1 font-label-sm text-label-sm text-error">{visibleError("foodCadetsLink")}</p>}
+                    {visibleError("foodCadetsLink") && <p className="mt-1 text-xs text-rose-600 dark:text-rose-400">{visibleError("foodCadetsLink")}</p>}
                   </div>
                 </>
               )}
 
-              <div className="pt-2 flex justify-end gap-3">
+              <div className="flex justify-end gap-3 pt-2">
                 <button
                   type="button"
                   onClick={() => isConfirmingEdit ? setIsConfirmingEdit(false) : closeModals()}
-                  className="px-5 py-2.5 border border-outline-variant text-on-surface-variant font-label-md rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer"
+                  className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-green-800/40 dark:text-slate-200 dark:hover:bg-green-950/20"
                 >
                   {isConfirmingEdit ? "Back" : "Cancel"}
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-5 py-2.5 bg-primary text-on-primary font-label-md rounded-xl hover:bg-on-primary-fixed-variant disabled:opacity-70 flex items-center gap-2 transition-all shadow-sm cursor-pointer"
+                  className="rounded-xl bg-gradient-to-r from-[#1a6b3c] to-[#166534] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:from-[#22c55e] hover:to-[#16a34a] disabled:opacity-60"
                 >
                   {isSubmitting
                     ? (editingCity ? "Saving..." : "Adding...")
