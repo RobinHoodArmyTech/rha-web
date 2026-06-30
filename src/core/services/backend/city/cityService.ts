@@ -13,6 +13,7 @@ export interface CityWithCountry {
   cityEmail: string;
   countryId: number;
   countryName: string;
+  foodCadetsLink?: string | null;
 }
 
 export interface CityDetail extends CityWithCountry {
@@ -33,11 +34,13 @@ export interface CityDetail extends CityWithCountry {
 export async function listCities(): Promise<CityWithCountry[]> {
   return db("cities")
     .join("countries", "cities.countryId", "countries.id")
+    .leftJoin("city_data", "cities.id", "city_data.cityId")
     .select(
       "cities.id",
       "cities.cityName",
       "cities.cityEmail",
       "cities.countryId",
+      "city_data.foodCadetsLink",
       "countries.countryName",
     )
     .orderBy("countries.countryName", "asc")

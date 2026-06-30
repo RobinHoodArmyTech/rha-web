@@ -12,8 +12,8 @@ import {
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { cn } from "@/lib/utils";
 
-const checkinHref = process.env.NODE_ENV === "production" 
-  ? `https://${process.env.NEXT_PUBLIC_CHECKIN_DOMAIN ?? "checkin.robinhoodarmy.com"}` 
+const checkinHref = process.env.NODE_ENV === "production"
+  ? `https://${process.env.NEXT_PUBLIC_CHECKIN_DOMAIN ?? "checkin.robinhoodarmy.com"}`
   : "/sites/checkin";
 
 const navItems = [
@@ -46,7 +46,7 @@ export default function Navbar() {
   return (
     <>
       <div className="fixed top-0 left-0 right-0 h-[1px] pointer-events-none z-40" id="navbar-trigger" />
-      
+
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -69,8 +69,8 @@ export default function Navbar() {
               >
                 <div className="relative w-8 h-8 rounded-md overflow-hidden">
                   <Image
-                    src="/main/images/icons/robin-hood-army-logo.png"
-                    alt="Robin Hood Army"
+                    src="/shared/images/icons/robin-hood-army-logo.png"
+                    alt="Robin Hood Army Logo"
                     fill
                     className="object-contain"
                     priority
