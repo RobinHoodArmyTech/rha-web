@@ -334,8 +334,8 @@ export default function CitiesPage() {
             {deletingCity ? (
               <div className="space-y-5 p-6">
                 <div className="py-4 text-center">
-                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-rose-100 dark:bg-rose-950/40">
-                    <Trash2 className="h-7 w-7 text-rose-600 dark:text-rose-400" />
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-rose-50 dark:bg-rose-950/30">
+                    <Trash2 className="h-6 w-6 text-rose-500 dark:text-rose-400" />
                   </div>
                   <h4 className="mb-2 text-lg font-semibold text-slate-900 dark:text-white">Delete {deletingCity.cityName}?</h4>
                   <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -354,7 +354,7 @@ export default function CitiesPage() {
                     type="button"
                     onClick={handleDelete}
                     disabled={isSubmitting}
-                    className="rounded-xl bg-rose-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-rose-700 disabled:opacity-60"
+                    className="rounded-xl border border-rose-200 bg-rose-50 px-5 py-2.5 text-sm font-semibold text-rose-600 transition-colors hover:bg-rose-600 hover:text-white disabled:opacity-60 dark:border-rose-900/50 dark:bg-rose-950/30 dark:text-rose-300 dark:hover:bg-rose-600 dark:hover:text-white"
                   >
                     {isSubmitting ? "Deleting..." : "Yes, Delete"}
                   </button>
