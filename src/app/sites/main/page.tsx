@@ -119,7 +119,7 @@ const problems = [
   },
 ]
 
-const countries = ['Bahrain', 'Bangladesh', 'Botswana', 'Guinea', 'India', 'Indonesia', 'Malaysia', 'Nepal', 'Nigeria', 'Pakistan', 'Sri Lanka', 'Uganda', 'Zambia']
+const countries = ['Bahrain', 'Bangladesh', 'Botswana', 'Guinea', 'India', 'Indonesia', 'Malaysia', 'Nepal', 'Nigeria', 'Sri Lanka', 'Uganda', 'Zambia']
 
 const countryInstagram = [
   { name: "India", flag: "/main/images/flags/india.svg", instagram: "https://www.instagram.com/rha_india" },
@@ -131,7 +131,6 @@ const countryInstagram = [
   { name: "Sri Lanka", flag: "/main/images/flags/srilanka.svg", instagram: "https://www.instagram.com/rha_srilanka" },
   { name: "Nepal", flag: "/main/images/flags/nepal.svg", instagram: "https://www.instagram.com/rha_nepal" },
   { name: "Malaysia", flag: "/main/images/flags/malaysia.svg", instagram: "https://www.instagram.com/rha_malaysia" },
-  { name: "Pakistan", flag: "/main/images/flags/pakistan.svg", instagram: "https://www.instagram.com/reliefandhopeforall/p/DBJp1_0voXU/" },
   { name: "Indonesia", flag: "/main/images/flags/indonesia.svg", instagram: "https://www.instagram.com/rha_indonesia" },
   { name: "Zambia", flag: "/main/images/flags/zambia.svg", instagram: "https://www.instagram.com/rha_zambia" },
   { name: "Guinea", flag: "/main/images/flags/guinea.svg", instagram: "https://www.instagram.com/rha_guinea" },
