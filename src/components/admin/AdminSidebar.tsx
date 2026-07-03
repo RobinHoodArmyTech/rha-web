@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Shield, LayoutDashboard, Building2, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Shield, LayoutDashboard, Building2, UserPlus, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Role, ADMIN_ROLES } from "@/core/config/constants";
 import { useAdminSession } from "./AdminSessionProvider";
@@ -14,6 +14,8 @@ type NavItem = { label: string; href: string; icon: React.ElementType; roles?: R
 const navItems: NavItem[] = [
   { label: "Dashboard", href: "/sites/admin", icon: LayoutDashboard },
   { label: "Cities", href: "/sites/admin/cities", icon: Building2, roles: ADMIN_ROLES },
+  // Visible to every role — the API scopes non-admins to their own city.
+  { label: "Signups", href: "/sites/admin/signups", icon: UserPlus },
 ];
 
 interface AdminSidebarProps {
