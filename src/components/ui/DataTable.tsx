@@ -127,7 +127,14 @@ export default function DataTable<T>({
         </div>
       )}
 
-      <div className="overflow-x-auto">
+      <div className="relative overflow-x-auto">
+        {/* Re-fetch overlay: keep the current rows in place so the layout (and the
+            pagination controls) don't jump while the next page loads. */}
+        {isLoading && rows.length > 0 && (
+          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-white/60 dark:bg-[#0f2818]/60">
+            <Loader2 className="h-6 w-6 animate-spin text-[#1a6b3c]" />
+          </div>
+        )}
         <table className="w-full border-collapse text-left">
           <thead>
             <tr className="border-b border-slate-200 bg-slate-50 dark:border-green-800/30 dark:bg-green-950/20">
@@ -146,7 +153,8 @@ export default function DataTable<T>({
             </tr>
           </thead>
           <tbody className="text-sm">
-            {isLoading ? (
+            {/* Initial load only — during a re-fetch we keep the old rows + overlay. */}
+            {isLoading && rows.length === 0 ? (
               <tr>
                 <td colSpan={columns.length} className="py-10 text-center text-slate-500 dark:text-slate-400">
                   <Loader2 className="mx-auto h-5 w-5 animate-spin text-[#1a6b3c]" />

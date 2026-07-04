@@ -16,11 +16,11 @@ const cards = [
     allowedRoles: ADMIN_ROLES,
   },
   {
-    href: "#",
+    href: "/sites/admin/signups",
     title: "Signups",
-    description: "View and export volunteer signup data.",
+    description: "View volunteer signup data, filtered by city and date.",
     icon: Users,
-    ready: false,
+    ready: true,
     allowedRoles: undefined as Role[] | undefined,
   },
 ];
