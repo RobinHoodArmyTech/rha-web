@@ -20,6 +20,9 @@
 # production
 /build
 
+# locally-stored check-in selfies (dev storage driver)
+/public/checkins
+
 # misc
 .DS_Store
 *.pem

@@ -1,29 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { MapPin, ChevronDown, TrendingUp } from "lucide-react";
-
-const cityData = [
-  { city: "MUMBAI", checkIns: 585 },
-  { city: "NOIDA", checkIns: 483 },
-  { city: "DELHI", checkIns: 419 },
-  { city: "PUNE", checkIns: 246 },
-  { city: "BANGALORE", checkIns: 235 },
-  { city: "HYDERABAD", checkIns: 179 },
-  { city: "CHENNAI", checkIns: 147 },
-  { city: "KOLKATA", checkIns: 132 },
-  { city: "AHMEDABAD", checkIns: 98 },
-  { city: "JAIPUR", checkIns: 76 },
-];
-
-const allCities = [
-  "Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai",
-  "Kolkata", "Pune", "Ahmedabad", "Jaipur", "Noida",
-  "Lucknow", "Bhopal", "Surat", "Indore", "Nagpur",
-];
-
-const maxValue = Math.max(...cityData.map((c) => c.checkIns));
+import type { CityCheckinCount } from "@/core/services/backend/checkin/checkinService";
+import { api } from "@/lib/http";
 
 const barColors = [
   "from-[#22c55e] to-[#16a34a]",
@@ -41,8 +22,28 @@ const barColors = [
 export default function CheckInHighlights() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [cities, setCities] = useState<CityCheckinCount[]>([]);
+  const [loaded, setLoaded] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // Cities ranked by check-ins over the last 60 days (public).
+  useEffect(() => {
+    api
+      .get<{ data: CityCheckinCount[] }>("/checkin/highlights")
+      .then((res) => setCities(res.data ?? []))
+      .catch((err) => console.error(err))
+      .finally(() => setLoaded(true));
+  }, []);
+
+  // `cities` includes every city (0-count ones too). The chart shows only the
+  // top cities that actually have check-ins; the dropdown/lookup covers all.
+  const activeCities = cities.filter((c) => c.checkins > 0);
+  const topCities = activeCities.slice(0, 10);
+  const maxValue = topCities[0]?.checkins || 1; // `|| 1` guards against a 0 max
+  const totalCheckins = activeCities.reduce((sum, c) => sum + c.checkins, 0);
+  const dropdownCities = [...cities].sort((a, b) => a.cityName.localeCompare(b.cityName));
+  const selected = cities.find((c) => c.cityName === selectedCity);
 
   return (
     <section ref={ref} className="py-20 bg-gray-50 dark:bg-[#060f09]">
@@ -76,11 +77,11 @@ export default function CheckInHighlights() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="lg:col-span-2 space-y-3"
           >
-            {cityData.map((item, i) => {
-              const pct = (item.checkIns / maxValue) * 100;
+            {topCities.map((item, i) => {
+              const pct = (item.checkins / maxValue) * 100;
               return (
                 <motion.div
-                  key={item.city}
+                  key={item.cityId}
                   initial={{ opacity: 0, x: -20 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.3 + i * 0.07 }}
@@ -89,7 +90,7 @@ export default function CheckInHighlights() {
                   {/* City name */}
                   <div className="w-28 flex-shrink-0 text-right">
                     <span className="text-xs font-bold text-[#1a6b3c] dark:text-[#4ade80] uppercase tracking-wide group-hover:text-[#22c55e] transition-colors">
-                      {item.city}
+                      {item.cityName}
                     </span>
                   </div>
 
@@ -101,7 +102,7 @@ export default function CheckInHighlights() {
                       transition={{ duration: 1, delay: 0.4 + i * 0.07, ease: "easeOut" }}
                       className={`h-full bg-gradient-to-r ${barColors[i]} rounded-lg flex items-center justify-end pr-3 min-w-[3rem]`}
                     >
-                      <span className="text-xs font-bold text-white/90">{item.checkIns}</span>
+                      <span className="text-xs font-bold text-white/90">{item.checkins}</span>
                     </motion.div>
                   </div>
 
@@ -114,6 +115,12 @@ export default function CheckInHighlights() {
                 </motion.div>
               );
             })}
+
+            {loaded && topCities.length === 0 && (
+              <div className="rounded-2xl border border-dashed border-gray-200 dark:border-green-900/40 py-16 text-center text-gray-500 dark:text-gray-400">
+                No check-ins in the last 60 days yet.
+              </div>
+            )}
           </motion.div>
 
           {/* Right: City lookup widget */}
@@ -134,14 +141,15 @@ export default function CheckInHighlights() {
               </div>
 
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                Find out how many check-ins happened in your city this month.
+                Find out how many check-ins happened in your city over the last 60 days.
               </p>
 
               {/* Custom dropdown */}
               <div className="relative mb-4">
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-green-950/30 border border-gray-200 dark:border-green-800/40 rounded-xl text-sm text-left flex items-center justify-between text-gray-700 dark:text-gray-200 hover:border-[#22c55e] transition-colors"
+                  disabled={cities.length === 0}
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-green-950/30 border border-gray-200 dark:border-green-800/40 rounded-xl text-sm text-left flex items-center justify-between text-gray-700 dark:text-gray-200 hover:border-[#22c55e] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span>{selectedCity || "Select a city..."}</span>
                   <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
@@ -153,33 +161,31 @@ export default function CheckInHighlights() {
                     animate={{ opacity: 1, y: 0 }}
                     className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-[#0f2818] border border-gray-200 dark:border-green-800/40 rounded-xl shadow-xl z-20 max-h-48 overflow-y-auto"
                   >
-                    {allCities.map((city) => (
+                    {dropdownCities.map((c) => (
                       <button
-                        key={city}
-                        onClick={() => { setSelectedCity(city); setDropdownOpen(false); }}
+                        key={c.cityId}
+                        onClick={() => { setSelectedCity(c.cityName); setDropdownOpen(false); }}
                         className="w-full px-4 py-2.5 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-[#1a6b3c] dark:hover:text-[#4ade80] transition-colors first:rounded-t-xl last:rounded-b-xl"
                       >
-                        {city}
+                        {c.cityName}
                       </button>
                     ))}
                   </motion.div>
                 )}
               </div>
 
-              {selectedCity && (
+              {selected && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="bg-gradient-to-br from-[#155e3a] to-[#0d3d27] rounded-xl p-4 text-center"
                 >
                   <p className="text-green-300 text-xs font-semibold uppercase tracking-wider mb-1">
-                    {selectedCity}
+                    {selected.cityName}
                   </p>
                   <div className="flex items-center justify-center gap-1 mb-1">
                     <TrendingUp className="w-4 h-4 text-green-400" />
-                    <span className="text-3xl font-black text-white">
-                      {cityData.find((c) => c.city === selectedCity.toUpperCase())?.checkIns ?? 0}
-                    </span>
+                    <span className="text-3xl font-black text-white">{selected.checkins}</span>
                   </div>
                   <p className="text-green-400/70 text-xs">Check-ins in 60 days</p>
                 </motion.div>
@@ -188,11 +194,15 @@ export default function CheckInHighlights() {
               {/* Summary stats */}
               <div className="mt-4 pt-4 border-t border-gray-100 dark:border-green-900/30 grid grid-cols-2 gap-3">
                 <div className="text-center">
-                  <div className="text-lg font-black text-[#1a6b3c] dark:text-[#4ade80]">127</div>
+                  <div className="text-lg font-black text-[#1a6b3c] dark:text-[#4ade80]">
+                    {loaded ? activeCities.length : "—"}
+                  </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400">Cities Active</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-lg font-black text-[#1a6b3c] dark:text-[#4ade80]">3,279</div>
+                  <div className="text-lg font-black text-[#1a6b3c] dark:text-[#4ade80]">
+                    {loaded ? totalCheckins.toLocaleString("en-IN") : "—"}
+                  </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400">Total Check-Ins</div>
                 </div>
               </div>

@@ -1,39 +1,181 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Camera, MapPin, FileText, Upload, CheckCircle, X } from "lucide-react";
+import { Camera, MapPin, Users, GraduationCap, Upload, CheckCircle, X } from "lucide-react";
 import Image from "next/image";
+import type { CityWithCountry } from "@/core/services/backend/city/cityService";
+import {
+  CreateCheckinSchema,
+  ALLOWED_SELFIE_TYPES,
+  isAllowedSelfieType,
+  MAX_SELFIE_BYTES,
+} from "@/core/validators/checkinValidation";
+import { api } from "@/lib/http";
 
-const CITIES = [
-  "Delhi", "Mumbai", "Bangalore", "Hyderabad", "Chennai", "Kolkata", "Pune",
-  "Ahmedabad", "Jaipur", "Surat", "Lucknow", "Kanpur", "Nagpur", "Indore",
-  "Bhopal", "Patna", "Vadodara", "Ghaziabad", "Ludhiana", "Agra",
-];
+const inputClass =
+  "w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-green-900/40 bg-white dark:bg-[#0a1a0f] text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#22c55e] focus:border-transparent transition-all";
+
+// How the server wants the selfie uploaded (see /api/v1/checkin/presign).
+type UploadPlan =
+  | { strategy: "proxy" }
+  | { strategy: "s3"; url: string; fields: Record<string, string>; key: string };
+
+/**
+ * Downscale + re-encode a selfie to keep uploads small (phone photos are large).
+ * Best-effort: falls back to the original file if the browser can't decode it
+ * (e.g. some HEIC images).
+ */
+async function compressImage(file: File): Promise<File> {
+  try {
+    const bitmap = await createImageBitmap(file);
+    const scale = Math.min(1, 1600 / Math.max(bitmap.width, bitmap.height));
+    const w = Math.round(bitmap.width * scale);
+    const h = Math.round(bitmap.height * scale);
+    const canvas = document.createElement("canvas");
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return file;
+    ctx.drawImage(bitmap, 0, 0, w, h);
+    const blob = await new Promise<Blob | null>((res) => canvas.toBlob(res, "image/jpeg", 0.82));
+    if (!blob) return file;
+    return new File([blob], "selfie.jpg", { type: "image/jpeg" });
+  } catch {
+    return file;
+  }
+}
 
 export default function CheckInSubmitPage() {
-  const [photo, setPhoto] = useState<string | null>(null);
-  const [city, setCity] = useState("");
-  const [notes, setNotes] = useState("");
+  const [cities, setCities] = useState<{ id: number; cityName: string }[]>([]);
+  const [cityId, setCityId] = useState("");
+  const [peopleServed, setPeopleServed] = useState("0");
+  const [studentsTaught, setStudentsTaught] = useState("0");
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  // Load the real city list (same public endpoint the join-us form uses).
+  useEffect(() => {
+    api
+      .get<{ data: CityWithCountry[] }>("/public/city")
+      .then((res) =>
+        setCities(
+          (res.data ?? [])
+            .map((c) => ({ id: c.id, cityName: c.cityName }))
+            .sort((a, b) => a.cityName.localeCompare(b.cityName)),
+        ),
+      )
+      .catch((err) => console.error(err));
+  }, []);
+
+  const selectedCityName = useMemo(
+    () => cities.find((c) => String(c.id) === cityId)?.cityName ?? "",
+    [cities, cityId],
+  );
+
+  // Validate the fields against the SAME schema the API enforces (single source
+  // of truth): cityId required + at least one of people/students > 0.
+  const fieldsValid = useMemo(
+    () =>
+      CreateCheckinSchema.safeParse({
+        cityId: cityId ? Number(cityId) : undefined,
+        peopleServed: peopleServed === "" ? 0 : Number(peopleServed),
+        studentsTaught: studentsTaught === "" ? 0 : Number(studentsTaught),
+      }).success,
+    [cityId, peopleServed, studentsTaught],
+  );
+  const hasCount = Number(peopleServed || 0) + Number(studentsTaught || 0) > 0;
+  const canSubmit = !!photoFile && fieldsValid && !loading;
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    setPhotoFile(file);
     const reader = new FileReader();
-    reader.onload = () => setPhoto(reader.result as string);
+    reader.onload = () => setPhotoPreview(reader.result as string);
     reader.readAsDataURL(file);
+  }
+
+  function clearPhoto() {
+    setPhotoFile(null);
+    setPhotoPreview(null);
+    if (fileRef.current) fileRef.current.value = "";
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!photo || !city) return;
+    if (!canSubmit || !photoFile) return;
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1200));
-    setLoading(false);
-    setSubmitted(true);
+    setError(null);
+    try {
+      const selfie = await compressImage(photoFile);
+
+      // Check type + size BEFORE requesting an upload — no point presigning a
+      // file the API will reject anyway.
+      if (!isAllowedSelfieType(selfie.type)) {
+        setError("Please upload a JPG, PNG, WebP or HEIC image.");
+        return;
+      }
+      if (selfie.size > MAX_SELFIE_BYTES) {
+        setError("The selfie must be under 10MB. Please choose a smaller photo.");
+        return;
+      }
+
+      // Ask the backend how to upload. The server holds the AWS creds and mints
+      // the presigned POST — the client never sees any credentials.
+      const prep = await api.post<{ data: UploadPlan }>("/checkin/presign", {
+        contentType: selfie.type,
+      });
+      const plan = prep.data;
+
+      if (plan.strategy === "s3") {
+        // Upload straight to S3; its presigned policy re-enforces size + type.
+        const s3Form = new FormData();
+        Object.entries(plan.fields).forEach(([k, v]) => s3Form.append(k, v));
+        s3Form.append("file", selfie);
+        const upload = await fetch(plan.url, { method: "POST", body: s3Form });
+        if (!upload.ok) throw new Error("Upload failed. Please try again.");
+
+        // Record the check-in against the just-uploaded object.
+        await api.post("/checkin", {
+          cityId: Number(cityId),
+          peopleServed: Number(peopleServed || 0),
+          studentsTaught: Number(studentsTaught || 0),
+          photoKey: plan.key,
+        });
+      } else {
+        // Dev/local: proxy the file through our own API.
+        const form = new FormData();
+        form.set("cityId", cityId);
+        form.set("peopleServed", peopleServed || "0");
+        form.set("studentsTaught", studentsTaught || "0");
+        form.set("selfie", selfie);
+        const res = await fetch("/api/v1/checkin", { method: "POST", body: form });
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({ message: res.statusText }));
+          throw new Error(body.message ?? "Submission failed");
+        }
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function reset() {
+    setSubmitted(false);
+    clearPhoto();
+    setCityId("");
+    setPeopleServed("0");
+    setStudentsTaught("0");
+    setError(null);
   }
 
   if (submitted) {
@@ -49,10 +191,12 @@ export default function CheckInSubmitPage() {
           </div>
           <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">Check-In Recorded!</h2>
           <p className="text-gray-500 dark:text-gray-400 mb-6">
-            Your drive in <span className="font-semibold text-[#1a6b3c] dark:text-[#4ade80]">{city}</span> has been saved. Keep spreading the love!
+            Your drive in{" "}
+            <span className="font-semibold text-[#1a6b3c] dark:text-[#4ade80]">{selectedCityName}</span>{" "}
+            has been saved. Keep spreading the love!
           </p>
           <button
-            onClick={() => { setSubmitted(false); setPhoto(null); setCity(""); setNotes(""); }}
+            onClick={reset}
             className="px-6 py-2.5 bg-gradient-to-r from-[#1a6b3c] to-[#166534] text-white font-semibold rounded-xl hover:from-[#22c55e] hover:to-[#16a34a] transition-all"
           >
             Submit Another
@@ -64,39 +208,74 @@ export default function CheckInSubmitPage() {
 
   return (
     <main className="min-h-screen pt-20 bg-gray-50 dark:bg-[#060f09]">
-      <section className="bg-gradient-to-br from-[#155e3a] via-[#1a6b3c] to-[#0d3d27] py-14 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
-        <div className="relative max-w-xl mx-auto px-4 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-400/20 border border-green-400/30 rounded-full text-green-300 text-xs font-semibold uppercase tracking-widest mb-4">
-              <CheckCircle className="w-3.5 h-3.5" /> Check-In Now!
-            </span>
-            <h1 className="text-3xl sm:text-4xl font-black text-white mb-3">Submit Your Drive</h1>
-            <p className="text-gray-300">Upload a selfie, select your city, and log your drive.</p>
-          </motion.div>
-        </div>
-      </section>
-
       <section className="py-12 px-4">
+        <div className="max-w-lg mx-auto mb-6 text-center">
+          <h1 className="text-2xl font-black text-gray-900 dark:text-white">Submit Your Drive</h1>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            Log how many you served, add a selfie, and pick your city.
+          </p>
+        </div>
         <motion.form
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
           onSubmit={handleSubmit}
+          noValidate
           className="max-w-lg mx-auto bg-white dark:bg-[#0f2818] rounded-3xl border border-gray-100 dark:border-green-900/30 p-8 shadow-xl space-y-6"
         >
+          {/* People served + Students taught */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
+                <Users className="w-4 h-4 text-[#1a6b3c] dark:text-[#4ade80]" /> People Served
+              </label>
+              <input
+                type="number"
+                min={0}
+                inputMode="numeric"
+                value={peopleServed}
+                onChange={(e) => setPeopleServed(e.target.value)}
+                onFocus={(e) => e.target.select()}
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className="text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
+                <GraduationCap className="w-4 h-4 text-[#1a6b3c] dark:text-[#4ade80]" /> Students Taught
+              </label>
+              <input
+                type="number"
+                min={0}
+                inputMode="numeric"
+                value={studentsTaught}
+                onChange={(e) => setStudentsTaught(e.target.value)}
+                onFocus={(e) => e.target.select()}
+                className={inputClass}
+              />
+            </div>
+          </div>
+          {!hasCount && (
+            <p className="-mt-3 text-xs text-gray-400">Enter at least one person served or student taught.</p>
+          )}
+
           {/* Photo upload */}
           <div>
-            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
+            <label className="text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
               <Camera className="w-4 h-4 text-[#1a6b3c] dark:text-[#4ade80]" /> Drive Selfie *
             </label>
-            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
-            {photo ? (
+            <input
+              ref={fileRef}
+              type="file"
+              accept={ALLOWED_SELFIE_TYPES.join(",")}
+              className="hidden"
+              onChange={handleFileChange}
+            />
+            {photoPreview ? (
               <div className="relative rounded-2xl overflow-hidden h-52">
-                <Image src={photo} alt="Preview" fill className="object-cover" sizes="(max-width: 640px) 100vw, 512px" />
+                <Image src={photoPreview} alt="Preview" fill className="object-cover" sizes="(max-width: 640px) 100vw, 512px" unoptimized />
                 <button
                   type="button"
-                  onClick={() => { setPhoto(null); if (fileRef.current) fileRef.current.value = ""; }}
+                  onClick={clearPhoto}
                   className="absolute top-2 right-2 w-7 h-7 bg-black/60 rounded-full flex items-center justify-center hover:bg-black/80 transition-colors"
                 >
                   <X className="w-4 h-4 text-white" />
@@ -117,41 +296,28 @@ export default function CheckInSubmitPage() {
 
           {/* City */}
           <div>
-            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
+            <label className="text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
               <MapPin className="w-4 h-4 text-[#1a6b3c] dark:text-[#4ade80]" /> City *
             </label>
-            <select
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              required
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-green-900/40 bg-white dark:bg-[#0a1a0f] text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#22c55e] focus:border-transparent transition-all"
-            >
-              <option value="">Select your city</option>
-              {CITIES.map((c) => (
-                <option key={c} value={c}>{c}</option>
+            <select value={cityId} onChange={(e) => setCityId(e.target.value)} required className={inputClass}>
+              <option value="">{cities.length ? "Select your city" : "Loading cities…"}</option>
+              {cities.map((c) => (
+                <option key={c.id} value={c.id}>{c.cityName}</option>
               ))}
             </select>
           </div>
 
-          {/* Notes */}
-          <div>
-            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
-              <FileText className="w-4 h-4 text-[#1a6b3c] dark:text-[#4ade80]" /> Notes <span className="text-gray-400 font-normal">(optional)</span>
-            </label>
-            <textarea
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              rows={3}
-              placeholder="How was your drive today? Any special moments?"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-green-900/40 bg-white dark:bg-[#0a1a0f] text-gray-900 dark:text-white text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#22c55e] focus:border-transparent transition-all resize-none"
-            />
-          </div>
+          {error && (
+            <p className="text-sm text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30 rounded-xl px-4 py-3">
+              {error}
+            </p>
+          )}
 
           <motion.button
             type="submit"
-            disabled={!photo || !city || loading}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            disabled={!canSubmit}
+            whileHover={{ scale: canSubmit ? 1.02 : 1 }}
+            whileTap={{ scale: canSubmit ? 0.98 : 1 }}
             className="w-full py-3.5 bg-gradient-to-r from-[#1a6b3c] to-[#166534] hover:from-[#22c55e] hover:to-[#16a34a] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2"
           >
             {loading ? (
