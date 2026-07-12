@@ -8,7 +8,7 @@ interface Props {
 }
 
 const STATS = [
-  { value: "18.3 Cr+", label: "Meals Served" },
+  { value: "187 M+", label: "Meals Served" },
   { value: "406", label: "Cities" },
   { value: "2,90,000+", label: "Robins Enlisted" },
 ];
