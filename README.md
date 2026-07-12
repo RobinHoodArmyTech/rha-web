@@ -174,7 +174,7 @@ npm install
 ```
 
 ### Set up the database
-1. Create a PostgreSQL database
+1. Create a MYSQL database
 2. Add `DATABASE_URL` to `.env` (see [Environment Variables](#environment-variables))
 3. Run migrations:
 ```bash
@@ -234,7 +234,7 @@ NEXT_PUBLIC_CHECKIN_DOMAIN=checkin.robinhoodarmy.com
 NEXT_PRIVATE_ADMIN_CONSOLE_DOMAIN=admin.robinhoodarmy.com
 
 # Database
-DATABASE_URL=postgres://user:password@localhost:5432/rha_dev
+DATABASE_URL=mysql://user:password@localhost:3306/rha_dev
 
 # JWT
 JWT_SECRET=your-secret-key

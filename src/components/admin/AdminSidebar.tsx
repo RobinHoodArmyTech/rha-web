@@ -14,6 +14,7 @@ type NavItem = { label: string; href: string; icon: React.ElementType; roles?: R
 const navItems: NavItem[] = [
   { label: "Dashboard", href: "/sites/admin", icon: LayoutDashboard },
   { label: "Cities", href: "/sites/admin/cities", icon: Building2, roles: ADMIN_ROLES },
+  { label: "Representatives", href: "/sites/admin/representatives", icon: UserPlus, roles: ADMIN_ROLES },
   // Visible to every role — the API scopes non-admins to their own city.
   { label: "Signups", href: "/sites/admin/signups", icon: UserPlus },
 ];
