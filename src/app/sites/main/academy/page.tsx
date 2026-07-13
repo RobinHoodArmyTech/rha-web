@@ -424,7 +424,7 @@ export default function AcademyPage() {
             className="rounded-3xl overflow-hidden shadow-xl shadow-green-900/10 border border-gray-100 dark:border-green-900/20"
           >
             <Image
-              src="/main/images/_drafts/rha-academy-map-2026.jpg"
+              src="/main/images/_drafts/rha-academy-map.jpg"
               alt="RHA Academy city map"
               width={1200}
               height={800}
