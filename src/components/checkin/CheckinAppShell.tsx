@@ -1,17 +1,22 @@
-"use client";
-
-import { useState } from "react";
+import type { RobinJwtPayload } from "@/lib/robinAuth";
 import CheckinNavbar from "./CheckinNavbar";
-import AuthModal from "@/components/main/auth/AuthModal";
 
-export default function CheckinAppShell({ children }: { children: React.ReactNode }) {
-  const [authOpen, setAuthOpen] = useState(false);
-
+/**
+ * Server shell for the check-in site. Receives the Robin session (or null) from
+ * the layout and hands it to the navbar, which renders login vs. profile/logout.
+ * Login is a redirect to Google (no modal), so no client state lives here.
+ */
+export default function CheckinAppShell({
+  robin,
+  children,
+}: {
+  robin: RobinJwtPayload | null;
+  children: React.ReactNode;
+}) {
   return (
     <>
-      <CheckinNavbar onLoginClick={() => setAuthOpen(true)} />
+      <CheckinNavbar robin={robin} />
       {children}
-      <AuthModal open={authOpen} onOpenChange={setAuthOpen} />
     </>
   );
 }

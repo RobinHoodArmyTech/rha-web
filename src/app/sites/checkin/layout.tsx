@@ -1,5 +1,7 @@
 import CheckinAppShell from "@/components/checkin/CheckinAppShell";
+import { getRobinSession } from "@/lib/robinAuth";
 
-export default function CheckinLayout({ children }: { children: React.ReactNode }) {
-  return <CheckinAppShell>{children}</CheckinAppShell>;
+export default async function CheckinLayout({ children }: { children: React.ReactNode }) {
+  const robin = await getRobinSession();
+  return <CheckinAppShell robin={robin}>{children}</CheckinAppShell>;
 }

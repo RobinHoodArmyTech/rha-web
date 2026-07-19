@@ -1,4 +1,4 @@
-import { withApiHandler } from "@/middleware/apiMiddlewares";
+import { withRobinAuth } from "@/middleware/apiMiddlewares";
 import { ApiResponse } from "@/core/apiResponse";
 import { PresignRequestSchema, MAX_SELFIE_BYTES } from "@/core/validators/checkinValidation";
 import { isLocalStorage, createPresignedUpload } from "@/core/storage";
@@ -12,7 +12,7 @@ import { isLocalStorage, createPresignedUpload } from "@/core/storage";
  *     the file DIRECTLY to S3 (policy enforces ≤10MB + image/*), then calls
  *     /api/v1/checkin with the returned photoKey. Bytes never touch our server.
  */
-export const POST = withApiHandler(async (request) => {
+export const POST = withRobinAuth(async (request) => {
   const { contentType } = PresignRequestSchema.parse(await request.json());
 
   if (isLocalStorage()) {
