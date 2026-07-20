@@ -2,9 +2,15 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { MapPin, ChevronDown, TrendingUp } from "lucide-react";
+import Link from "next/link";
+import { MapPin, ChevronDown, TrendingUp, ArrowRight } from "lucide-react";
 import type { CityCheckinCount } from "@/core/services/backend/checkin/checkinService";
 import { api } from "@/lib/http";
+
+/** Clean URL slug for a city page: "New Delhi" -> "new-delhi". */
+const citySlug = (name: string) =>
+  name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const cityHref = (name: string) => `/sites/checkin/${citySlug(name)}`;
 
 const barColors = [
   "from-[#22c55e] to-[#16a34a]",
@@ -85,33 +91,38 @@ export default function CheckInHighlights() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.3 + i * 0.07 }}
-                  className="flex items-center gap-4 group"
                 >
-                  {/* City name */}
-                  <div className="w-28 flex-shrink-0 text-right">
-                    <span className="text-xs font-bold text-[#1a6b3c] dark:text-[#4ade80] uppercase tracking-wide group-hover:text-[#22c55e] transition-colors">
-                      {item.cityName}
-                    </span>
-                  </div>
+                  <Link
+                    href={cityHref(item.cityName)}
+                    aria-label={`View check-ins for ${item.cityName}`}
+                    className="flex items-center gap-4 group rounded-lg -mx-2 px-2 py-1 hover:bg-black/[0.02] dark:hover:bg-white/[0.03] transition-colors"
+                  >
+                    {/* City name */}
+                    <div className="w-28 flex-shrink-0 text-right">
+                      <span className="text-xs font-bold text-[#1a6b3c] dark:text-[#4ade80] uppercase tracking-wide group-hover:text-[#22c55e] transition-colors">
+                        {item.cityName}
+                      </span>
+                    </div>
 
-                  {/* Bar */}
-                  <div className="flex-1 h-9 bg-gray-200 dark:bg-green-950/50 rounded-lg overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={inView ? { width: `${pct}%` } : { width: 0 }}
-                      transition={{ duration: 1, delay: 0.4 + i * 0.07, ease: "easeOut" }}
-                      className={`h-full bg-gradient-to-r ${barColors[i]} rounded-lg flex items-center justify-end pr-3 min-w-[3rem]`}
-                    >
-                      <span className="text-xs font-bold text-white/90">{item.checkins}</span>
-                    </motion.div>
-                  </div>
+                    {/* Bar */}
+                    <div className="flex-1 h-9 bg-gray-200 dark:bg-green-950/50 rounded-lg overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={inView ? { width: `${pct}%` } : { width: 0 }}
+                        transition={{ duration: 1, delay: 0.4 + i * 0.07, ease: "easeOut" }}
+                        className={`h-full bg-gradient-to-r ${barColors[i]} rounded-lg flex items-center justify-end pr-3 min-w-[3rem]`}
+                      >
+                        <span className="text-xs font-bold text-white/90">{item.checkins}</span>
+                      </motion.div>
+                    </div>
 
-                  {/* Rank */}
-                  <div className="w-7 flex-shrink-0">
-                    <span className="text-xs font-bold text-gray-400 dark:text-gray-600">
-                      #{i + 1}
-                    </span>
-                  </div>
+                    {/* Rank */}
+                    <div className="w-7 flex-shrink-0">
+                      <span className="text-xs font-bold text-gray-400 dark:text-gray-600">
+                        #{i + 1}
+                      </span>
+                    </div>
+                  </Link>
                 </motion.div>
               );
             })}
@@ -187,7 +198,14 @@ export default function CheckInHighlights() {
                     <TrendingUp className="w-4 h-4 text-green-400" />
                     <span className="text-3xl font-black text-white">{selected.checkins}</span>
                   </div>
-                  <p className="text-green-400/70 text-xs">Check-ins in 60 days</p>
+                  <p className="text-green-400/70 text-xs mb-3">Check-ins in 60 days</p>
+                  <Link
+                    href={cityHref(selected.cityName)}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#4ade80] hover:bg-[#22c55e] text-[#0a1a0f] text-xs font-bold rounded-full transition-colors"
+                  >
+                    View {selected.cityName} page
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </motion.div>
               )}
 

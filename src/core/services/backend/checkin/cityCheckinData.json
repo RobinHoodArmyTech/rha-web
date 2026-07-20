@@ -1,0 +1,121 @@
+{
+  "windowDays": 60,
+  "cities": {
+    "delhi": {
+      "cityId": 1,
+      "cityName": "Delhi",
+      "countryName": "India",
+      "uniqueRobins": 452,
+      "totalCheckins": 1720,
+      "recentCheckins": [
+        { "id": 101, "robinName": "Shagun A.", "photoSeed": "delhi-101", "hoursAgo": 1 },
+        { "id": 102, "robinName": "AYAN S.", "photoSeed": "delhi-102", "hoursAgo": 3 },
+        { "id": 103, "robinName": "Divi J.", "photoSeed": "delhi-103", "hoursAgo": 3 },
+        { "id": 104, "robinName": "Akshita", "photoSeed": "delhi-104", "hoursAgo": 5 },
+        { "id": 105, "robinName": "Mannat K.", "photoSeed": "delhi-105", "hoursAgo": 9 },
+        { "id": 106, "robinName": "Ojas N.", "photoSeed": "delhi-106", "hoursAgo": 9 },
+        { "id": 107, "robinName": "Manog J.", "photoSeed": "delhi-107", "hoursAgo": 9 },
+        { "id": 108, "robinName": "Akansha S.", "photoSeed": "delhi-108", "hoursAgo": 15 },
+        { "id": 109, "robinName": "Ankita K.", "photoSeed": "delhi-109", "hoursAgo": 15 },
+        { "id": 110, "robinName": "Chinmay P.", "photoSeed": "delhi-110", "hoursAgo": 16 },
+        { "id": 111, "robinName": "Simardeep S.", "photoSeed": "delhi-111", "hoursAgo": 17 },
+        { "id": 112, "robinName": "Rajat", "photoSeed": "delhi-112", "hoursAgo": 18 }
+      ],
+      "activeRobins": [
+        { "id": 201, "name": "Akash G.", "avatarSeed": "robin-akash", "badge": "ninja", "title": "Latest Ninja", "drives": 12 },
+        { "id": 202, "name": "Amit", "avatarSeed": "robin-amit", "badge": "most_active", "title": "Most Active", "drives": 96 },
+        { "id": 203, "name": "Kunal G.", "avatarSeed": "robin-kunalg", "badge": "gladiator", "title": "Latest Gladiator", "drives": 52 },
+        { "id": 204, "name": "Kunal", "avatarSeed": "robin-kunal", "badge": "most_active", "title": "Most Active", "drives": 88 },
+        { "id": 205, "name": "AYAN S.", "avatarSeed": "robin-ayan", "badge": "cadet", "title": "Latest Cadet", "drives": 1 },
+        { "id": 206, "name": "Radhika C.", "avatarSeed": "robin-radhika", "badge": "centurion", "title": "Latest Centurion", "drives": 104 }
+      ]
+    },
+    "mumbai": {
+      "cityId": 2,
+      "cityName": "Mumbai",
+      "countryName": "India",
+      "uniqueRobins": 388,
+      "totalCheckins": 1465,
+      "recentCheckins": [
+        { "id": 121, "robinName": "Rhea M.", "photoSeed": "mum-121", "hoursAgo": 2 },
+        { "id": 122, "robinName": "Kabir S.", "photoSeed": "mum-122", "hoursAgo": 4 },
+        { "id": 123, "robinName": "Ishaan D.", "photoSeed": "mum-123", "hoursAgo": 6 },
+        { "id": 124, "robinName": "Meera P.", "photoSeed": "mum-124", "hoursAgo": 7 },
+        { "id": 125, "robinName": "Aditya R.", "photoSeed": "mum-125", "hoursAgo": 10 },
+        { "id": 126, "robinName": "Sana K.", "photoSeed": "mum-126", "hoursAgo": 12 },
+        { "id": 127, "robinName": "Neel V.", "photoSeed": "mum-127", "hoursAgo": 13 },
+        { "id": 128, "robinName": "Tara J.", "photoSeed": "mum-128", "hoursAgo": 16 },
+        { "id": 129, "robinName": "Dev S.", "photoSeed": "mum-129", "hoursAgo": 19 },
+        { "id": 130, "robinName": "Anaya B.", "photoSeed": "mum-130", "hoursAgo": 21 },
+        { "id": 131, "robinName": "Yash T.", "photoSeed": "mum-131", "hoursAgo": 22 },
+        { "id": 132, "robinName": "Kiara N.", "photoSeed": "mum-132", "hoursAgo": 26 }
+      ],
+      "activeRobins": [
+        { "id": 221, "name": "Aryan K.", "avatarSeed": "robin-aryan", "badge": "ninja", "title": "Latest Ninja", "drives": 14 },
+        { "id": 222, "name": "Priya S.", "avatarSeed": "robin-priya", "badge": "most_active", "title": "Most Active", "drives": 134 },
+        { "id": 223, "name": "Rohan M.", "avatarSeed": "robin-rohan", "badge": "gladiator", "title": "Latest Gladiator", "drives": 57 },
+        { "id": 224, "name": "Sneha J.", "avatarSeed": "robin-sneha", "badge": "centurion", "title": "Latest Centurion", "drives": 118 },
+        { "id": 225, "name": "Farhan Q.", "avatarSeed": "robin-farhan", "badge": "cadet", "title": "Latest Cadet", "drives": 1 },
+        { "id": 226, "name": "Nisha R.", "avatarSeed": "robin-nisha", "badge": "ninja", "title": "Rising Ninja", "drives": 11 }
+      ]
+    },
+    "bengaluru": {
+      "cityId": 3,
+      "cityName": "Bengaluru",
+      "countryName": "India",
+      "uniqueRobins": 296,
+      "totalCheckins": 1042,
+      "recentCheckins": [
+        { "id": 141, "robinName": "Ananya H.", "photoSeed": "blr-141", "hoursAgo": 1 },
+        { "id": 142, "robinName": "Varun G.", "photoSeed": "blr-142", "hoursAgo": 3 },
+        { "id": 143, "robinName": "Deepa N.", "photoSeed": "blr-143", "hoursAgo": 5 },
+        { "id": 144, "robinName": "Arjun P.", "photoSeed": "blr-144", "hoursAgo": 8 },
+        { "id": 145, "robinName": "Lakshmi R.", "photoSeed": "blr-145", "hoursAgo": 11 },
+        { "id": 146, "robinName": "Nikhil S.", "photoSeed": "blr-146", "hoursAgo": 14 },
+        { "id": 147, "robinName": "Pooja M.", "photoSeed": "blr-147", "hoursAgo": 17 },
+        { "id": 148, "robinName": "Sathvik K.", "photoSeed": "blr-148", "hoursAgo": 20 },
+        { "id": 149, "robinName": "Ritika D.", "photoSeed": "blr-149", "hoursAgo": 23 },
+        { "id": 150, "robinName": "Manoj T.", "photoSeed": "blr-150", "hoursAgo": 28 },
+        { "id": 151, "robinName": "Shruti V.", "photoSeed": "blr-151", "hoursAgo": 31 },
+        { "id": 152, "robinName": "Gaurav B.", "photoSeed": "blr-152", "hoursAgo": 34 }
+      ],
+      "activeRobins": [
+        { "id": 241, "name": "Rahul D.", "avatarSeed": "robin-rahul", "badge": "ninja", "title": "Latest Ninja", "drives": 15 },
+        { "id": 242, "name": " Meghana S.", "avatarSeed": "robin-meghana", "badge": "most_active", "title": "Most Active", "drives": 108 },
+        { "id": 243, "name": "Karthik R.", "avatarSeed": "robin-karthik", "badge": "gladiator", "title": "Latest Gladiator", "drives": 61 },
+        { "id": 244, "name": "Divya N.", "avatarSeed": "robin-divya", "badge": "centurion", "title": "Latest Centurion", "drives": 101 },
+        { "id": 245, "name": "Suhas P.", "avatarSeed": "robin-suhas", "badge": "cadet", "title": "Latest Cadet", "drives": 1 },
+        { "id": 246, "name": "Ayesha K.", "avatarSeed": "robin-ayesha", "badge": "gladiator", "title": "Top Gladiator", "drives": 54 }
+      ]
+    }
+  },
+  "default": {
+    "cityId": 0,
+    "cityName": "City",
+    "countryName": "India",
+    "uniqueRobins": 128,
+    "totalCheckins": 402,
+    "recentCheckins": [
+      { "id": 901, "robinName": "Aarav S.", "photoSeed": "def-901", "hoursAgo": 2 },
+      { "id": 902, "robinName": "Diya K.", "photoSeed": "def-902", "hoursAgo": 4 },
+      { "id": 903, "robinName": "Vivaan P.", "photoSeed": "def-903", "hoursAgo": 6 },
+      { "id": 904, "robinName": "Anika R.", "photoSeed": "def-904", "hoursAgo": 9 },
+      { "id": 905, "robinName": "Reyansh M.", "photoSeed": "def-905", "hoursAgo": 12 },
+      { "id": 906, "robinName": "Saanvi D.", "photoSeed": "def-906", "hoursAgo": 15 },
+      { "id": 907, "robinName": "Aditya N.", "photoSeed": "def-907", "hoursAgo": 18 },
+      { "id": 908, "robinName": "Myra J.", "photoSeed": "def-908", "hoursAgo": 22 },
+      { "id": 909, "robinName": "Kabir T.", "photoSeed": "def-909", "hoursAgo": 26 },
+      { "id": 910, "robinName": "Ira V.", "photoSeed": "def-910", "hoursAgo": 30 },
+      { "id": 911, "robinName": "Arnav B.", "photoSeed": "def-911", "hoursAgo": 33 },
+      { "id": 912, "robinName": "Kyra S.", "photoSeed": "def-912", "hoursAgo": 40 }
+    ],
+    "activeRobins": [
+      { "id": 941, "name": "Rohit K.", "avatarSeed": "robin-rohit", "badge": "ninja", "title": "Latest Ninja", "drives": 13 },
+      { "id": 942, "name": "Sara M.", "avatarSeed": "robin-sara", "badge": "most_active", "title": "Most Active", "drives": 72 },
+      { "id": 943, "name": "Aman P.", "avatarSeed": "robin-aman", "badge": "gladiator", "title": "Latest Gladiator", "drives": 55 },
+      { "id": 944, "name": "Nidhi R.", "avatarSeed": "robin-nidhi", "badge": "centurion", "title": "Latest Centurion", "drives": 100 },
+      { "id": 945, "name": "Vikram S.", "avatarSeed": "robin-vikram", "badge": "cadet", "title": "Latest Cadet", "drives": 1 },
+      { "id": 946, "name": "Pooja T.", "avatarSeed": "robin-poojat", "badge": "ninja", "title": "Rising Ninja", "drives": 10 }
+    ]
+  }
+}
