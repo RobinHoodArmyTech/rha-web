@@ -1,7 +1,6 @@
 import type { NextRequest } from "next/server";
-import { withApiHandler } from "@/middleware/apiMiddlewares";
+import { withApiHandler, withRobinAuth } from "@/middleware/apiMiddlewares";
 import { ApiResponse, ApiError } from "@/core/apiResponse";
-import { getSession } from "@/lib/session";
 import {
   CreateCheckinSchema,
   CreateCheckinDirectSchema,
@@ -23,30 +22,27 @@ const CHECKIN_KEY_RE = /^checkins\/[a-f0-9-]+\.[a-z0-9]+$/i;
 
 /**
  * GET  /api/v1/checkin — recent check-ins (public feed).
- * POST /api/v1/checkin — submit a check-in (public for now). Two shapes:
+ * POST /api/v1/checkin — submit a check-in. Requires a Robin (volunteer) session
+ *   via `withRobinAuth`; the check-in is attributed to that Robin. Two shapes:
  *   • multipart/form-data (dev/local) — fields + a `selfie` file, proxied upload.
  *   • application/json     (prod/S3)   — fields + `photoKey` of a file already
  *     uploaded directly to S3 via a presigned POST (see /checkin/presign).
- *
- * Login-ready: attribution is best-effort today (attach the userId if a valid
- * session cookie happens to be present). When Robin logins ship, the only change
- * needed to *require* login is swapping `withApiHandler` → `withApiAuth` and
- * reading `request.session` instead of the optional getSession() below.
  */
 export const GET = withApiHandler(async () => {
   const data = await listRecentCheckins(12);
   return ApiResponse.success({ data });
 });
 
-export const POST = withApiHandler(async (request) => {
+export const POST = withRobinAuth(async (request) => {
+  const robinId = request.robin.robinId;
   const contentType = request.headers.get("content-type") ?? "";
   return contentType.includes("multipart/form-data")
-    ? handleProxyUpload(request)
-    : handleDirectUpload(request);
+    ? handleProxyUpload(request, robinId)
+    : handleDirectUpload(request, robinId);
 });
 
 /** dev/local: the file rides in the multipart body; we validate + store it. */
-async function handleProxyUpload(request: NextRequest) {
+async function handleProxyUpload(request: NextRequest, robinId: number) {
   // Hard gate: reject oversized requests up front, before buffering the whole
   // multipart body into memory. (Browsers always send Content-Length for uploads.)
   const contentLength = Number(request.headers.get("content-length") ?? 0);
@@ -78,11 +74,11 @@ async function handleProxyUpload(request: NextRequest) {
   const bytes = Buffer.from(await selfie.arrayBuffer());
   const photoUrl = await uploadCheckinSelfie(bytes, selfie.type);
 
-  return persist(fields, photoUrl);
+  return persist(fields, photoUrl, robinId);
 }
 
 /** prod/S3: the file was already uploaded via presigned POST; we verify + record it. */
-async function handleDirectUpload(request: NextRequest) {
+async function handleDirectUpload(request: NextRequest, robinId: number) {
   const data = CreateCheckinDirectSchema.parse(await request.json());
 
   if (!CHECKIN_KEY_RE.test(data.photoKey)) {
@@ -96,21 +92,21 @@ async function handleDirectUpload(request: NextRequest) {
   const cityName = await getCityNameById(data.cityId);
   if (!cityName) throw new ApiError(400, "Invalid city.");
 
-  return persist(data, publicUrlForKey(data.photoKey));
+  return persist(data, publicUrlForKey(data.photoKey), robinId);
 }
 
-/** Shared tail: attach optional attribution and insert the row. */
+/** Shared tail: attribute the check-in to the signed-in Robin and insert the row. */
 async function persist(
   fields: { cityId: number; peopleServed: number; studentsTaught: number },
   photoUrl: string,
+  robinId: number,
 ) {
-  const session = await getSession();
   const checkin = await createCheckin({
     cityId: fields.cityId,
     peopleServed: fields.peopleServed,
     studentsTaught: fields.studentsTaught,
     photoUrl,
-    userId: session?.userId ?? null,
+    robinId,
   });
   return ApiResponse.success({ data: checkin, message: "Check-in recorded." });
 }

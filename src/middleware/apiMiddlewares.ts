@@ -12,8 +12,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z, ZodError } from "zod";
 import { ApiError } from "@/core/apiResponse";
-import { AUTH_COOKIE, Role } from "@/core/config/constants";
+import { AUTH_COOKIE, ROBIN_AUTH_COOKIE, Role } from "@/core/config/constants";
 import { verifyToken, type JwtPayload } from "@/lib/jwt";
+import { verifyRobinToken, type RobinJwtPayload } from "@/lib/robinAuth";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -103,4 +104,39 @@ export function withApiRole(...roles: Role[]) {
       return handler(request, context);
     });
   };
+}
+
+// ---------------------------------------------------------------------------
+// withRobinAuth — Robin (volunteer) authentication, entirely separate from the
+// staff wrappers above: reads the ROBIN_AUTH_COOKIE and a Robin JWT. Used to
+// gate the check-in APIs.
+// ---------------------------------------------------------------------------
+
+export interface RobinAuthenticatedRequest extends NextRequest {
+  robin: RobinJwtPayload;
+}
+
+type RobinAuthenticatedHandler = (
+  request: RobinAuthenticatedRequest,
+  context?: RouteContext,
+) => Promise<NextResponse>;
+
+export function withRobinAuth(handler: RobinAuthenticatedHandler) {
+  return withApiHandler(async (request: NextRequest, context?: RouteContext) => {
+    const token = request.cookies.get(ROBIN_AUTH_COOKIE)?.value;
+    if (!token) {
+      throw new ApiError(401, "Unauthorized");
+    }
+
+    let robin: RobinJwtPayload;
+    try {
+      robin = await verifyRobinToken(token);
+    } catch {
+      throw new ApiError(401, "Invalid or expired token");
+    }
+
+    (request as RobinAuthenticatedRequest).robin = robin;
+
+    return handler(request as RobinAuthenticatedRequest, context);
+  });
 }

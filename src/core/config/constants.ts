@@ -4,7 +4,16 @@
  * This file is for static values that rarely change.
  */
 
+/** Staff (admin panel) session cookie — email/password login. */
 export const AUTH_COOKIE = "rha-auth-token";
+
+/**
+ * Robin (volunteer) session cookie — Google OAuth login on the check-in site.
+ * Separate from AUTH_COOKIE so a staff member can hold both sessions at once
+ * (admin panel in one tab, check-in in another). Robins are a wholly separate
+ * population from staff `users` — see the `robins` table.
+ */
+export const ROBIN_AUTH_COOKIE = "rha-robin-token";
 
 export enum Role {
   SysAdmin = "SysAdmin",
