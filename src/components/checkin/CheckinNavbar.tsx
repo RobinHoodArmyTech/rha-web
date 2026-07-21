@@ -2,14 +2,16 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Target, LogIn, User, Sun, Moon } from "lucide-react";
+import { Menu, X, Target, LogIn, LogOut, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { RobinJwtPayload } from "@/lib/robinAuth";
+import RobinUserMenu from "./RobinUserMenu";
 
 interface CheckinNavbarProps {
-  onLoginClick: () => void;
+  robin: RobinJwtPayload | null;
 }
 
 const navLinks = [
@@ -20,8 +22,9 @@ const navLinks = [
   { label: "My Profile", href: "/sites/checkin/profile" },
 ];
 
-export default function CheckinNavbar({ onLoginClick }: CheckinNavbarProps) {
+export default function CheckinNavbar({ robin }: CheckinNavbarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -29,6 +32,14 @@ export default function CheckinNavbar({ onLoginClick }: CheckinNavbarProps) {
     const frame = window.requestAnimationFrame(() => setMounted(true));
     return () => window.cancelAnimationFrame(frame);
   }, []);
+
+  async function handleLogout() {
+    await fetch("/api/v1/auth/robin/logout", { method: "POST" });
+    router.refresh();
+  }
+
+  // First name only, for a compact greeting in the navbar.
+  const firstName = robin?.fullName?.split(" ")[0] ?? "Robin";
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#155e3a] border-b border-green-800/50 shadow-lg">
@@ -88,15 +99,21 @@ export default function CheckinNavbar({ onLoginClick }: CheckinNavbarProps) {
               </motion.button>
             )}
 
-            <motion.button
-              onClick={onLoginClick}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              className="hidden lg:flex items-center gap-1.5 px-4 py-2 bg-white/15 hover:bg-white/25 text-white text-sm font-semibold rounded-lg transition-all"
-            >
-              <LogIn className="w-4 h-4" />
-              Login
-            </motion.button>
+            {robin ? (
+              <div className="hidden lg:block">
+                <RobinUserMenu robin={robin} />
+              </div>
+            ) : (
+              <motion.a
+                href="/api/v1/auth/google"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                className="hidden lg:flex items-center gap-1.5 px-4 py-2 bg-white/15 hover:bg-white/25 text-white text-sm font-semibold rounded-lg transition-all"
+              >
+                <LogIn className="w-4 h-4" />
+                Login
+              </motion.a>
+            )}
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -147,13 +164,24 @@ export default function CheckinNavbar({ onLoginClick }: CheckinNavbarProps) {
                 )
               )}
               <div className="flex gap-2 mt-2">
-                <button
-                  onClick={() => { setMobileOpen(false); onLoginClick(); }}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-white/15 hover:bg-white/25 text-white text-sm font-semibold rounded-lg transition-all"
-                >
-                  <User className="w-4 h-4" />
-                  Login
-                </button>
+                {robin ? (
+                  <button
+                    onClick={() => { setMobileOpen(false); handleLogout(); }}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-white/15 hover:bg-white/25 text-white text-sm font-semibold rounded-lg transition-all"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Logout ({firstName})
+                  </button>
+                ) : (
+                  <a
+                    href="/api/v1/auth/google"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-white/15 hover:bg-white/25 text-white text-sm font-semibold rounded-lg transition-all"
+                  >
+                    <LogIn className="w-4 h-4" />
+                    Login
+                  </a>
+                )}
                 {mounted && (
                   <button
                     onClick={() => setTheme(theme === "dark" ? "light" : "dark")}

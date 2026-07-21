@@ -13,6 +13,10 @@ import { ApiError } from "@/core/apiResponse";
  * public/ (served directly by Next.js); every other environment uploads to S3.
  * The object key is identical across drivers, so a file lives at the same
  * relative path locally (public/<key>) and in S3 (bucket/<key>).
+ *
+ * STORAGE_DRIVER overrides that default in either direction — set it to `s3` to
+ * exercise the real S3 / presigned direct-upload flow in dev, or `local` to force
+ * filesystem writes elsewhere. Unset falls back to the NODE_ENV rule above.
  */
 
 // ===========================================================================
@@ -61,6 +65,9 @@ function buildObjectKey(opts: UploadOptions): string {
  * there is no presigning — the client uploads through our API (proxied).
  */
 export function isLocalStorage(): boolean {
+  const driver = process.env.STORAGE_DRIVER?.toLowerCase();
+  if (driver === "s3") return false;
+  if (driver === "local") return true;
   return process.env.NODE_ENV === "development";
 }
 

@@ -14,9 +14,8 @@ export interface CheckinWithCity {
 
 export interface CheckinTotals {
   /**
-   * Distinct Robins (users) who checked in over the last `days`. Anonymous
-   * check-ins (null userId, pre-login) are not counted — so this reads 0 until
-   * Robin logins exist.
+   * Distinct Robins who checked in over the last `days`. Legacy anonymous
+   * check-ins (null robinId, pre-login) are not counted.
    */
   robins: number;
 }
@@ -32,8 +31,8 @@ export interface CreateCheckinInput {
   peopleServed: number;
   studentsTaught: number;
   photoUrl: string;
-  /** Null for public submissions; set once Robin logins exist. */
-  userId?: number | null;
+  /** The signed-in Robin this check-in is attributed to. */
+  robinId: number;
 }
 
 const SELECT_FIELDS = [
@@ -52,7 +51,7 @@ export async function createCheckin(input: CreateCheckinInput): Promise<CheckinW
     peopleServed: input.peopleServed,
     studentsTaught: input.studentsTaught,
     photoUrl: input.photoUrl,
-    userId: input.userId ?? null,
+    robinId: input.robinId,
   });
   return (await getCheckinById(id))!;
 }
@@ -100,11 +99,10 @@ export async function getCheckinCountsByCity(days = 60): Promise<CityCheckinCoun
 /** Rolling counters for the last `days` (default 7, includes today) — home page. */
 export async function getCheckinTotals(days = 7): Promise<CheckinTotals> {
   const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
-  // COUNT(DISTINCT userId) — ignores null (anonymous) check-ins, so reads 0
-  // until Robin logins populate userId.
+  // COUNT(DISTINCT robinId) — ignores null (legacy anonymous) check-ins.
   const row = await db("checkins")
     .where("createdAt", ">=", since)
-    .countDistinct({ robins: "userId" })
+    .countDistinct({ robins: "robinId" })
     .first();
   return { robins: Number((row as { robins?: number | string } | undefined)?.robins ?? 0) };
 }

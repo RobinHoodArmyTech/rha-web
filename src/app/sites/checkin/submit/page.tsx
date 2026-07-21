@@ -138,7 +138,13 @@ export default function CheckInSubmitPage() {
         Object.entries(plan.fields).forEach(([k, v]) => s3Form.append(k, v));
         s3Form.append("file", selfie);
         const upload = await fetch(plan.url, { method: "POST", body: s3Form });
-        if (!upload.ok) throw new Error("Upload failed. Please try again.");
+        if (!upload.ok) {
+          // S3 returns an XML body with a <Code> (AccessDenied, SignatureDoesNotMatch,
+          // EntityTooLarge, ...) — log it so failures are diagnosable.
+          const detail = await upload.text().catch(() => "");
+          console.error("S3 upload failed:", upload.status, detail);
+          throw new Error("Upload failed. Please try again.");
+        }
 
         // Record the check-in against the just-uploaded object.
         await api.post("/checkin", {
