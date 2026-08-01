@@ -4,8 +4,11 @@ import { useRef, useEffect, useState, type ElementType } from "react";
 import { motion, useInView } from "framer-motion";
 import { Users, Utensils, MapPin, Clock } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import type { CheckinWithCity, CheckinTotals } from "@/core/services/backend/checkin/checkinService";
 import { api } from "@/lib/http";
+import { citySlug } from "@/lib/citySlug";
+import { formatNumber } from "@/lib/format";
 
 // At most 12 — fills exactly 2 rows on desktop (lg:grid-cols-6).
 const MAX_RECENT = 12;
@@ -39,7 +42,7 @@ const STAT_META: StatCard[] = [
     sub: "Checked-In last week",
     color: "text-green-600 dark:text-green-400",
     bg: "bg-green-50 dark:bg-green-900/20",
-    value: (s) => (s ? s.robins.toLocaleString("en-IN") : "—"),
+    value: (s) => (s ? formatNumber(s.robins) : "—"),
   },
   {
     icon: Utensils,
@@ -148,10 +151,14 @@ export default function RecentCheckIns() {
                 </div>
                 {/* Caption — city + friendly time, always visible below the photo */}
                 <div className="mt-2 px-0.5">
-                  <div className="flex items-center gap-1 text-xs font-semibold text-gray-900 dark:text-white">
+                  <Link
+                    href={`/sites/checkin/${citySlug(c.cityName)}`}
+                    aria-label={`View check-ins in ${c.cityName}`}
+                    className="flex items-center gap-1 text-xs font-semibold text-gray-900 dark:text-white hover:text-[#16a34a] dark:hover:text-[#4ade80] transition-colors"
+                  >
                     <MapPin className="w-3 h-3 shrink-0 text-[#16a34a]" />
                     <span className="truncate">{c.cityName}</span>
-                  </div>
+                  </Link>
                   <div className="mt-0.5 flex items-center gap-1 text-[11px] text-gray-500 dark:text-gray-400">
                     <Clock className="w-2.5 h-2.5 shrink-0" />
                     {timeAgo(c.createdAt)}

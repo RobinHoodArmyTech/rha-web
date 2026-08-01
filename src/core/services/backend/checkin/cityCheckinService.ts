@@ -1,20 +1,21 @@
 /**
  * City check-in page data — powers /sites/checkin/{cityName}.
  *
- * DUMMY DATA (temporary): this reads from `cityCheckinData.json` so the page can
- * be built and demoed before the backend endpoints exist. The exported types are
- * the real API contract — when the DB-backed version lands, keep the return
- * shapes identical and only swap the body of `getCityCheckinPage` for real
- * queries (recent check-ins, distinct-robin counts, badge holders per city).
+ * A Robin's "drives" is their check-in count: every check-in records attending
+ * a drive, so counting check-ins per Robin is the drive tally leaderboards rank
+ * by. Stats use a rolling CHECKIN_WINDOW_DAYS window and ignore anonymous
+ * (null robinId) check-ins where a Robin identity is required.
  */
-import rawData from "./cityCheckinData.json";
+import { db } from "@/core/db";
+import { listCities } from "@/core/services/backend/city/cityService";
+import { getTopActiveRobins } from "@/core/services/backend/checkin/checkinService";
+import { type RobinBadge, badgeForDrives } from "@/lib/checkinBadges";
 
 // ---------------------------------------------------------------------------
 // API contract (stable) — what the client receives
 // ---------------------------------------------------------------------------
 
-/** Achievement badge a Robin can hold. `most_active` is a leaderboard title, the rest are drive milestones. */
-export type RobinBadge = "cadet" | "ninja" | "gladiator" | "centurion" | "most_active";
+export type { RobinBadge } from "@/lib/checkinBadges";
 
 export interface CityRecentCheckin {
   id: number;
@@ -47,196 +48,14 @@ export interface CityCheckinPage {
   activeRobins: CityActiveRobin[];
 }
 
-// ---------------------------------------------------------------------------
-// Dummy data shapes (JSON on disk)
-// ---------------------------------------------------------------------------
-
-interface RawCity {
-  cityId: number;
-  cityName: string;
-  countryName: string;
-  uniqueRobins: number;
-  totalCheckins: number;
-  recentCheckins: { id: number; robinName: string; photoSeed: string; hoursAgo: number }[];
-  activeRobins: { id: number; name: string; avatarSeed: string; badge: string; title: string; drives: number }[];
-}
-
-interface RawData {
-  windowDays: number;
-  cities: Record<string, RawCity>;
-  default: RawCity;
-}
-
-const data = rawData as RawData;
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-/** URL/lookup slug: lowercase, spaces & separators collapsed to single hyphens. */
-export function toCitySlug(cityName: string): string {
-  return decodeURIComponent(cityName)
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-/** "new delhi" -> "New Delhi" — presentable fallback name for unknown cities. */
-function titleCase(slug: string): string {
-  return slug
-    .split("-")
-    .filter(Boolean)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
-}
-
-const VALID_BADGES: RobinBadge[] = ["cadet", "ninja", "gladiator", "centurion", "most_active"];
-function toBadge(value: string): RobinBadge {
-  return (VALID_BADGES as string[]).includes(value) ? (value as RobinBadge) : "cadet";
-}
-
-// Deterministic, dependency-free placeholder imagery (picsum is already allowed
-// in next.config image domains). Swap for real photo/avatar URLs with the DB version.
-const photoUrl = (seed: string) => `https://picsum.photos/seed/${seed}/1200/1200`;
-const avatarUrl = (seed: string) => `https://picsum.photos/seed/${seed}/240/240`;
-
-type RawRecent = { id: number; robinName: string; photoSeed: string; hoursAgo: number };
-
-function mapRecent(list: RawRecent[], now: number): CityRecentCheckin[] {
-  return list.map((c) => ({
-    id: c.id,
-    robinName: c.robinName,
-    photoUrl: photoUrl(c.photoSeed),
-    createdAt: new Date(now - c.hoursAgo * 60 * 60 * 1000).toISOString(),
-  }));
-}
-
-function shape(raw: RawCity): CityCheckinPage {
-  const now = Date.now();
-  return {
-    cityId: raw.cityId,
-    cityName: raw.cityName,
-    countryName: raw.countryName,
-    uniqueRobins: raw.uniqueRobins,
-    totalCheckins: raw.totalCheckins,
-    windowDays: data.windowDays,
-    recentCheckins: mapRecent(raw.recentCheckins, now),
-    activeRobins: raw.activeRobins.map((r) => ({
-      id: r.id,
-      name: r.name.trim(),
-      imageUrl: avatarUrl(r.avatarSeed),
-      badge: toBadge(r.badge),
-      title: r.title,
-      drives: r.drives,
-    })),
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Service
-// ---------------------------------------------------------------------------
-
-/**
- * Resolve the check-in page payload for a city. Known cities come from the dummy
- * dataset; any other name falls back to a template so every city link resolves
- * to a populated page while the real data source is being wired up.
- */
-export function getCityCheckinPage(cityName: string): CityCheckinPage {
-  const slug = toCitySlug(cityName);
-  const known = data.cities[slug];
-  if (known) return shape(known);
-  return { ...shape(data.default), cityId: 0, cityName: titleCase(slug) || "City" };
-}
-
-/** Canonical display name for a city segment (known city's name, else title-cased). */
-export function resolveCityName(cityName: string): string {
-  const slug = toCitySlug(cityName);
-  return data.cities[slug]?.cityName ?? titleCase(slug) ?? "City";
-}
-
-// ---------------------------------------------------------------------------
-// Paginated check-in feed — powers /sites/checkin/{city}/checkins (infinite scroll)
-// ---------------------------------------------------------------------------
-
 /** One page of the city check-in feed. `nextCursor` is null when the list is exhausted. */
 export interface CityCheckinFeedPage {
   items: CityRecentCheckin[];
   /** Opaque cursor for the next page (pass back as `?cursor=`); null = no more. */
   nextCursor: string | null;
-  /** Total available in the window (for a header count / progress hint). */
+  /** Total check-ins in the city (for a header count / progress hint). */
   total: number;
 }
-
-export const CHECKIN_FEED_DEFAULT_LIMIT = 24;
-export const CHECKIN_FEED_MAX_LIMIT = 48;
-
-// Dummy-only: a name pool used to synthesize a realistic backlog beyond the 12
-// featured check-ins, so infinite scroll spans several pages during the demo.
-const FEED_NAME_POOL = [
-  "Yashashvi S.", "Deepak A.", "Amit K.", "Aadit G.", "Ishaan S.", "Aditi A.",
-  "Anisha K.", "Ayush C.", "Samardeep", "Arnav B.", "Shailesh J.", "Divesh J.",
-  "Preeti K.", "Vinit K.", "Jasroop S.", "Pomi S.", "Connor H.", "Anuj K.",
-  "Naina", "Shruti M.", "Shivani", "Aditya S.", "Deepali M.", "Aman B.",
-  "Samarth A.", "Aman R.", "Kamal H.", "Pooja M.", "Nidhi", "Dipti R.",
-  "Devender M.", "Akash G.", "Ramandeep K.", "Deepankar S.", "Rohit K.", "Abhishek D.",
-  "Daksh S.", "PALAK P.", "Prateeksha S.", "Sayan B.", "Tanisha K.", "Khushi T.",
-  "Keshav G.", "Sonu K.", "Prem S.", "Bhumika P.", "Gaurav G.", "Ashish",
-];
-
-/**
- * The full (dummy) check-in list for a city, newest first: the featured 12 up
- * front, then a synthesized backlog. Deterministic per city so paging is stable.
- */
-function buildFeed(raw: RawCity, slug: string, now: number): CityRecentCheckin[] {
-  const featured = mapRecent(raw.recentCheckins, now);
-  const lastHours = raw.recentCheckins.at(-1)?.hoursAgo ?? 18;
-  const backlog = mapRecent(
-    FEED_NAME_POOL.map((robinName, i) => ({
-      id: 100000 + raw.cityId * 1000 + i, // stable, collision-free per city
-      robinName,
-      photoSeed: `${slug}-feed-${i}`,
-      hoursAgo: lastHours + 2 + i * 2,
-    })),
-    now,
-  );
-  return [...featured, ...backlog];
-}
-
-/** Decode `?cursor=` (opaque offset today) into a non-negative integer offset. */
-function decodeCursor(cursor: string | null | undefined): number {
-  if (!cursor) return 0;
-  const n = Number(cursor);
-  return Number.isInteger(n) && n >= 0 ? n : 0;
-}
-
-/**
- * One page of a city's check-in feed. Cursor-based by contract: the client only
- * echoes back `nextCursor` and never constructs offsets itself, so the DB version
- * can switch to keyset pagination (createdAt,id) without any client change.
- */
-export function getCityCheckinFeed(
-  cityName: string,
-  opts: { cursor?: string | null; limit?: number } = {},
-): CityCheckinFeedPage {
-  const slug = toCitySlug(cityName);
-  const raw = data.cities[slug] ?? data.default;
-  const now = Date.now();
-
-  const all = buildFeed(raw, slug, now);
-  const limit = Math.min(Math.max(1, opts.limit ?? CHECKIN_FEED_DEFAULT_LIMIT), CHECKIN_FEED_MAX_LIMIT);
-  const offset = decodeCursor(opts.cursor);
-
-  const items = all.slice(offset, offset + limit);
-  const nextOffset = offset + items.length;
-  const nextCursor = nextOffset < all.length ? String(nextOffset) : null;
-
-  return { items, nextCursor, total: all.length };
-}
-
-// ---------------------------------------------------------------------------
-// Top active Robins — powers /sites/checkin/{city}/top-robins (leaderboard)
-// ---------------------------------------------------------------------------
 
 export interface CityTopRobin {
   rank: number;
@@ -245,7 +64,7 @@ export interface CityTopRobin {
   cityName: string;
   /** Null when the Robin has no photo — the UI renders an initial fallback. */
   imageUrl: string | null;
-  /** Drives checked in within the window; the leaderboard is sorted by this. */
+  /** Drives (check-ins) within the window; the leaderboard is sorted by this. */
   drives: number;
   /** Milestone badge implied by the drive count. */
   badge: RobinBadge;
@@ -259,60 +78,313 @@ export interface CityTopRobinsResult {
   robins: CityTopRobin[];
 }
 
+// ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
+
+/** Rolling window (days) the city stats and leaderboards are computed over. */
+export const CHECKIN_WINDOW_DAYS = 60;
+
+export const CHECKIN_FEED_DEFAULT_LIMIT = 24;
+export const CHECKIN_FEED_MAX_LIMIT = 48;
 export const TOP_ROBINS_DEFAULT_LIMIT = 100;
 
-/**
- * Milestone badge a Robin has earned from their drive count. Thresholds match
- * the hero badges on /sites/checkin (cadet 1 → ninja 10 → gladiator 50 → centurion 100).
- */
-export function badgeForDrives(drives: number): RobinBadge {
-  if (drives >= 100) return "centurion";
-  if (drives >= 50) return "gladiator";
-  if (drives >= 10) return "ninja";
-  return "cadet";
+/** How many recent check-ins the city overview features. */
+const CITY_RECENT_LIMIT = 12;
+/** How many featured "active Robin" cards the city overview shows. */
+const CITY_ACTIVE_ROBINS_LIMIT = 6;
+
+// ---------------------------------------------------------------------------
+// Field lists
+// ---------------------------------------------------------------------------
+
+const RECENT_CHECKIN_FIELDS = [
+  "checkins.id as id",
+  "robins.fullName as robinName",
+  "checkins.photoUrl as photoUrl",
+  "checkins.createdAt as createdAt",
+] as const;
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/** URL/lookup slug: lowercase, spaces & separators collapsed to single hyphens. */
+export function toCitySlug(cityName: string): string {
+  return cityName
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
-// Dummy-only name pool; repeats down the list are realistic for a leaderboard.
-const TOP_ROBIN_NAMES = [
-  "Amit", "Kunal", "Shubh", "Kavya", "Aashi", "Riya", "Anika", "Mannat", "Anil", "Urvi",
-  "Sanskriti", "Avni", "Preeti", "Deepak", "Aman", "Naina", "Shailesh", "Divya", "Kiran", "Shagun",
-  "Manas", "Ayush", "Jatin", "Rupesh", "Arsh", "Pranshi", "Vatsal", "Tejal", "Arvin", "Manish",
-  "Shreyan", "Sneha", "Aarav", "Viraj", "Adi", "Anshul", "Anuj", "Arnav", "Kamal", "Sparsh",
-  "Shubham", "Neil", "Ananya", "Dipti", "Suhaani", "Gaurav", "Keshav", "Rajni", "Rahul", "Shyam",
-  "Siya", "Chirag", "Sunita", "Aditya", "Akash", "Bhumika", "Prem", "Deepali", "Connor", "Kavita",
-  "Parvathi", "Prachi", "Saketh", "Sanjana", "Akshita", "Ankita", "Abid", "Syed", "Mehr", "Divi",
-  "Dilpreet", "Sahej", "Mehul", "Nikhil", "Ritesh", "Sushmita", "Vineet", "Vinit", "Abu", "Aadit",
-  "Aditi", "Anubhav", "Ranni", "Jass", "Ishaan", "Naman",
-];
+function titleCase(slug: string): string {
+  return slug
+    .split("-")
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
+/** Coerce a DB numeric/string result to a JS number. */
+const num = (v: unknown): number => Number((v as number | string | null) ?? 0);
+
+/** Null-safe photo URL — empty string becomes null. */
+const photoOrNull = (url: unknown): string | null => {
+  const s = typeof url === "string" ? url.trim() : "";
+  return s || null;
+};
+
+function windowStart(): Date {
+  return new Date(Date.now() - CHECKIN_WINDOW_DAYS * 24 * 60 * 60 * 1000);
+}
 
 /**
- * Top Robins for a city, ranked by drives (desc) over the window. Deterministic
- * so ranks are stable. Some Robins have no photo (imageUrl null) to exercise the
- * initial-fallback avatar the real data will need.
+ * Map a URL slug to a city row. Slugifies stored cityNames in JS — the cities
+ * table is a small reference set so a full load is negligible here.
  */
-export function getCityTopRobins(
+async function findCityBySlug(slug: string) {
+  const cities = await listCities();
+  return cities.find((c) => toCitySlug(c.cityName) === slug);
+}
+
+function mapRecentRow(r: {
+  id: number;
+  robinName: string | null;
+  photoUrl: string;
+  createdAt: Date | string;
+}): CityRecentCheckin {
+  return {
+    id: Number(r.id),
+    robinName: r.robinName?.trim() || "A Robin",
+    photoUrl: r.photoUrl,
+    createdAt: new Date(r.createdAt).toISOString(),
+  };
+}
+
+function activeRobinTitle(index: number, badge: RobinBadge): string {
+  if (index === 0) return "Most Active";
+  const labels: Record<RobinBadge, string> = {
+    centurion: "Centurion",
+    gladiator: "Gladiator",
+    ninja: "Ninja",
+    cadet: "Cadet",
+    most_active: "Most Active",
+  };
+  return labels[badge];
+}
+
+// ---------------------------------------------------------------------------
+// Cursor helpers (keyset over createdAt desc, id desc)
+// ---------------------------------------------------------------------------
+
+function encodeCursor(createdAt: Date | string, id: number): string {
+  return Buffer.from(`${new Date(createdAt).getTime()}.${id}`).toString("base64url");
+}
+
+function decodeCursor(cursor: string | null | undefined): { createdAt: Date; id: number } | null {
+  if (!cursor) return null;
+  try {
+    const [msStr, idStr] = Buffer.from(cursor, "base64url").toString("utf8").split(".");
+    const ms = Number(msStr);
+    const id = Number(idStr);
+    if (!Number.isFinite(ms) || !Number.isInteger(id) || id < 0) return null;
+    return { createdAt: new Date(ms), id };
+  } catch {
+    return null;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Service
+// ---------------------------------------------------------------------------
+
+/**
+ * Check-in overview for a city: headline counters (within CHECKIN_WINDOW_DAYS),
+ * the latest check-ins, and the most active Robins (with a photo) as feature
+ * cards. Unknown cities resolve to an empty, presentable shell.
+ */
+export async function getCityCheckinPage(cityName: string): Promise<CityCheckinPage> {
+  const slug = toCitySlug(cityName);
+  const city = await findCityBySlug(slug);
+
+  if (!city) {
+    return {
+      cityId: 0,
+      cityName: titleCase(slug) || "City",
+      countryName: "",
+      uniqueRobins: 0,
+      totalCheckins: 0,
+      windowDays: CHECKIN_WINDOW_DAYS,
+      recentCheckins: [],
+      activeRobins: [],
+    };
+  }
+
+  const since = windowStart();
+
+  const [counts, recentRows, topRobins] = await Promise.all([
+    db("checkins")
+      .where("cityId", city.id)
+      .andWhere("createdAt", ">=", since)
+      .countDistinct({ uniqueRobins: "robinId" })
+      .count({ totalCheckins: "id" })
+      .first(),
+
+    db("checkins")
+      .leftJoin("robins", "checkins.robinId", "robins.id")
+      .where("checkins.cityId", city.id)
+      .select(...RECENT_CHECKIN_FIELDS)
+      .orderBy("checkins.createdAt", "desc")
+      .orderBy("checkins.id", "desc")
+      .limit(CITY_RECENT_LIMIT),
+
+    getTopActiveRobins({ cityId: city.id, limit: CITY_ACTIVE_ROBINS_LIMIT, days: CHECKIN_WINDOW_DAYS }),
+  ]);
+
+  const activeRobins: CityActiveRobin[] = topRobins.map((r, i) => {
+    const badge = badgeForDrives(r.drives);
+    return {
+      id: r.id,
+      name: r.name,
+      imageUrl: r.imageUrl ?? "",
+      badge,
+      title: activeRobinTitle(i, badge),
+      drives: r.drives,
+    };
+  });
+
+  return {
+    cityId: city.id,
+    cityName: city.cityName,
+    countryName: city.countryName,
+    uniqueRobins: num((counts as { uniqueRobins?: number | string } | undefined)?.uniqueRobins),
+    totalCheckins: num((counts as { totalCheckins?: number | string } | undefined)?.totalCheckins),
+    windowDays: CHECKIN_WINDOW_DAYS,
+    recentCheckins: (
+      recentRows as Array<{
+        id: number;
+        robinName: string | null;
+        photoUrl: string;
+        createdAt: Date | string;
+      }>
+    ).map(mapRecentRow),
+    activeRobins,
+  };
+}
+
+/** Canonical display name for a city slug — used for page metadata. */
+export async function resolveCityName(cityName: string): Promise<string> {
+  const slug = toCitySlug(cityName);
+  const city = await findCityBySlug(slug);
+  return city?.cityName || titleCase(slug) || "City";
+}
+
+/**
+ * One page of a city's check-in feed (newest first). The client echoes back
+ * `nextCursor` opaquely, so the keyset (createdAt, id) stays an implementation
+ * detail and can change without any client update.
+ */
+export async function getCityCheckinFeed(
+  cityName: string,
+  opts: { cursor?: string | null; limit?: number } = {},
+): Promise<CityCheckinFeedPage> {
+  const city = await findCityBySlug(toCitySlug(cityName));
+  if (!city) return { items: [], nextCursor: null, total: 0 };
+
+  const limit = Math.min(
+    Math.max(1, opts.limit ?? CHECKIN_FEED_DEFAULT_LIMIT),
+    CHECKIN_FEED_MAX_LIMIT,
+  );
+  const after = decodeCursor(opts.cursor);
+
+  const feedQuery = db("checkins")
+    .leftJoin("robins", "checkins.robinId", "robins.id")
+    .where("checkins.cityId", city.id)
+    .select(...RECENT_CHECKIN_FIELDS)
+    .orderBy("checkins.createdAt", "desc")
+    .orderBy("checkins.id", "desc")
+    .limit(limit + 1); // fetch one extra to detect whether more pages exist
+
+  if (after) {
+    feedQuery.where(function () {
+      this.where("checkins.createdAt", "<", after.createdAt).orWhere(function () {
+        this.where("checkins.createdAt", "=", after.createdAt).andWhere(
+          "checkins.id",
+          "<",
+          after.id,
+        );
+      });
+    });
+  }
+
+  const [rows, totalRow] = await Promise.all([
+    feedQuery,
+    db("checkins").where("cityId", city.id).count({ total: "id" }).first(),
+  ]);
+
+  const hasMore = rows.length > limit;
+  const page = rows.slice(0, limit) as Array<{
+    id: number;
+    robinName: string | null;
+    photoUrl: string;
+    createdAt: Date | string;
+  }>;
+  const last = page.at(-1);
+  const nextCursor = hasMore && last ? encodeCursor(last.createdAt, Number(last.id)) : null;
+
+  return {
+    items: page.map(mapRecentRow),
+    nextCursor,
+    total: num((totalRow as { total?: number | string } | undefined)?.total),
+  };
+}
+
+/**
+ * Top Robins for a city ranked by drives (check-ins) within CHECKIN_WINDOW_DAYS.
+ * Anonymous check-ins (null robinId) are excluded by the inner join.
+ */
+export async function getCityTopRobins(
   cityName: string,
   limit: number = TOP_ROBINS_DEFAULT_LIMIT,
-): CityTopRobinsResult {
+): Promise<CityTopRobinsResult> {
   const slug = toCitySlug(cityName);
-  const raw = data.cities[slug] ?? data.default;
-  const displayName = data.cities[slug]?.cityName || titleCase(slug) || "City";
-  const n = Math.min(Math.max(1, limit), 100);
+  const city = await findCityBySlug(slug);
+  const displayName = city?.cityName || titleCase(slug) || "City";
 
-  const robins: CityTopRobin[] = Array.from({ length: n }, (_, i) => {
-    // Smooth descending curve with natural ties toward the tail; floor at 5.
-    const drives = Math.max(5, Math.round(54 * Math.pow(0.966, i)));
-    const hasPhoto = i % 10 < 7; // ~70% have a photo
+  if (!city) {
+    return { cityName: displayName, windowDays: CHECKIN_WINDOW_DAYS, total: 0, robins: [] };
+  }
+
+  const n = Math.min(Math.max(1, limit), TOP_ROBINS_DEFAULT_LIMIT);
+
+  const rows = await db("checkins")
+    .join("robins", "checkins.robinId", "robins.id")
+    .where("checkins.cityId", city.id)
+    .andWhere("checkins.createdAt", ">=", windowStart())
+    .select("robins.id as id", "robins.fullName as name", "robins.avatarUrl as imageUrl")
+    .count({ drives: "checkins.id" })
+    .groupBy("robins.id", "robins.fullName", "robins.avatarUrl")
+    .orderBy("drives", "desc")
+    .orderBy("robins.fullName", "asc")
+    .limit(n);
+
+  const robins: CityTopRobin[] = (
+    rows as Array<{ id: number; name: string; imageUrl: string | null; drives: number | string }>
+  ).map((r, i) => {
+    const drives = num(r.drives);
     return {
       rank: i + 1,
-      id: 200000 + raw.cityId * 1000 + i,
-      name: TOP_ROBIN_NAMES[i % TOP_ROBIN_NAMES.length],
+      id: Number(r.id),
+      name: r.name.trim(),
       cityName: displayName,
-      imageUrl: hasPhoto ? avatarUrl(`${slug}-robin-${i}`) : null,
+      imageUrl: photoOrNull(r.imageUrl),
       drives,
       badge: badgeForDrives(drives),
     };
   });
 
-  return { cityName: displayName, windowDays: data.windowDays, total: robins.length, robins };
+  return { cityName: displayName, windowDays: CHECKIN_WINDOW_DAYS, total: robins.length, robins };
 }
+
+export { badgeForDrives } from "@/lib/checkinBadges";
