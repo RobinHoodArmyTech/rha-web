@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
+import { formatNumber } from "@/lib/format";
 
 interface CityHeroProps {
   cityName: string;
@@ -12,7 +13,6 @@ interface CityHeroProps {
   windowDays: number;
 }
 
-const nf = new Intl.NumberFormat("en-IN");
 
 export default function CityHero({
   cityName,
@@ -59,7 +59,7 @@ export default function CityHero({
           >
             <div className="px-6 py-5 border-r border-gray-200 dark:border-green-900/40">
               <div className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white leading-none">
-                {nf.format(uniqueRobins)}{" "}
+                {formatNumber(uniqueRobins)}{" "}
                 <span className="text-base font-bold text-[#16a34a]">Robins</span>
               </div>
               <div className="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
@@ -68,7 +68,7 @@ export default function CityHero({
             </div>
             <div className="px-6 py-5">
               <div className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white leading-none">
-                {nf.format(totalCheckins)}
+                {formatNumber(totalCheckins)}
               </div>
               <div className="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
                 Total Check-Ins in {windowDays} days

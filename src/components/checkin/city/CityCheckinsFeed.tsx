@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, Loader2, RotateCw } from "lucide-react";
+import { formatNumber } from "@/lib/format";
 import { api } from "@/lib/http";
 import type { CityRecentCheckin, CityCheckinFeedPage } from "@/core/services/backend/checkin/cityCheckinService";
 import CheckinPhotoGrid from "./CheckinPhotoGrid";
@@ -100,7 +101,7 @@ export default function CityCheckinsFeed({
             <span className="text-[#1a6b3c] dark:text-[#4ade80]">{cityName}</span>
           </h1>
           <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
-            Showing {items.length} of {total.toLocaleString("en-IN")} check-ins
+            Showing {items.length} of {formatNumber(total)} check-ins
           </p>
         </div>
       </section>

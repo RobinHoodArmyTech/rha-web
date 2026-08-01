@@ -1,73 +1,27 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Shield, Compass, Medal, Swords, ArrowRight, Star } from "lucide-react";
-import Image from "next/image";
-
-const activeRobins = [
-  {
-    id: 1,
-    name: "Aryan Kapoor",
-    badge: "ninja",
-    title: "Latest Ninja",
-    location: "Mumbai",
-    imageUrl: "https://picsum.photos/seed/robin1/200/200",
-    drives: 10,
-    subtitle: "10 drives completed",
-  },
-  {
-    id: 2,
-    name: "Priya Sharma",
-    badge: "centurion",
-    title: "Most Active",
-    location: "Barabanki",
-    imageUrl: "https://picsum.photos/seed/robin2/200/200",
-    drives: 134,
-    subtitle: "Most Active in Barabanki",
-  },
-  {
-    id: 3,
-    name: "Vikram Singh",
-    badge: "centurion",
-    title: "Latest Centurion",
-    location: "Delhi",
-    imageUrl: "https://picsum.photos/seed/robin3/200/200",
-    drives: 100,
-    subtitle: "100 drives completed",
-  },
-  {
-    id: 4,
-    name: "Sneha Joshi",
-    badge: "gladiator",
-    title: "Top Gladiator",
-    location: "Pune",
-    imageUrl: "https://picsum.photos/seed/robin4/200/200",
-    drives: 57,
-    subtitle: "57 drives and counting",
-  },
-  {
-    id: 5,
-    name: "Rahul Dev",
-    badge: "ninja",
-    title: "Rising Star",
-    location: "Bangalore",
-    imageUrl: "https://picsum.photos/seed/robin5/200/200",
-    drives: 15,
-    subtitle: "15 drives completed",
-  },
-];
-
-const badgeConfig = {
-  cadet: { icon: Medal, color: "text-amber-400", bg: "bg-amber-400/20 border-amber-400/40" },
-  ninja: { icon: Compass, color: "text-teal-400", bg: "bg-teal-400/20 border-teal-400/40" },
-  gladiator: { icon: Swords, color: "text-orange-400", bg: "bg-orange-400/20 border-orange-400/40" },
-  centurion: { icon: Shield, color: "text-purple-400", bg: "bg-purple-400/20 border-purple-400/40" },
-};
+import { ArrowRight, Star } from "lucide-react";
+import type { TopActiveRobin } from "@/core/services/backend/checkin/checkinService";
+import { api } from "@/lib/http";
+import { badgeForDrives } from "@/lib/checkinBadges";
+import { ROBIN_BADGE_CONFIG, RobinBadgeMark } from "@/components/checkin/robinBadges";
+import RobinAvatar from "@/components/checkin/city/RobinAvatar";
 
 export default function ActiveRobins() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [robins, setRobins] = useState<TopActiveRobin[]>([]);
+
+  useEffect(() => {
+    api
+      .get<{ data: TopActiveRobin[] }>("/checkin/top-robins")
+      .then((res) => setRobins(res.data ?? []))
+      .catch((err) => console.error(err));
+  }, []);
+
+  if (robins.length === 0) return null;
 
   return (
     <section ref={ref} className="py-20 bg-white dark:bg-[#0a1a0f]">
@@ -91,10 +45,9 @@ export default function ActiveRobins() {
 
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-5">
-          {activeRobins.map((robin, i) => {
-            const badge = badgeConfig[robin.badge as keyof typeof badgeConfig];
-            const BadgeIcon = badge.icon;
-
+          {robins.map((robin, i) => {
+            const badge = badgeForDrives(robin.drives);
+            const badgeCfg = ROBIN_BADGE_CONFIG[badge];
             return (
               <motion.div
                 key={robin.id}
@@ -104,20 +57,13 @@ export default function ActiveRobins() {
                 whileHover={{ y: -6, scale: 1.02 }}
                 className="xl:col-span-1 bg-gray-50 dark:bg-[#0f2818] border border-gray-100 dark:border-green-900/30 rounded-2xl p-5 text-center group hover:border-[#22c55e]/40 hover:shadow-xl hover:shadow-green-500/10 transition-all duration-300"
               >
-                {/* Avatar */}
+                {/* Avatar + badge */}
                 <div className="relative mx-auto w-20 h-20 mb-4">
                   <div className="w-20 h-20 rounded-2xl overflow-hidden ring-2 ring-gray-200 dark:ring-green-900/40 group-hover:ring-[#22c55e]/50 transition-all">
-                    <Image
-                      src={robin.imageUrl}
-                      alt={robin.name}
-                      fill
-                      className="object-cover"
-                      sizes="80px"
-                    />
+                    <RobinAvatar name={robin.name} src={robin.imageUrl} size={80} className="rounded-2xl" />
                   </div>
-                  {/* Badge icon overlay */}
-                  <div className={`absolute -bottom-2 -right-2 w-7 h-7 rounded-lg border ${badge.bg} flex items-center justify-center shadow-sm`}>
-                    <BadgeIcon className={`w-3.5 h-3.5 ${badge.color}`} strokeWidth={2.5} />
+                  <div className="absolute -bottom-2 -right-2">
+                    <RobinBadgeMark badge={badge} size="sm" />
                   </div>
                 </div>
 
@@ -125,19 +71,17 @@ export default function ActiveRobins() {
                   {robin.name}
                 </h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 truncate">
-                  {robin.location}
+                  {robin.cityName}
                 </p>
 
-                {/* Badge pill */}
-                <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border ${badge.bg} mb-2`}>
-                  <BadgeIcon className={`w-3 h-3 ${badge.color}`} strokeWidth={2.5} />
-                  <span className={`text-[10px] font-bold uppercase tracking-wide ${badge.color}`}>
-                    {robin.badge}
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-gray-200 dark:border-green-900/30 mb-2">
+                  <span className={`text-[10px] font-bold uppercase tracking-wide ${badgeCfg.accent}`}>
+                    {badgeCfg.label}
                   </span>
                 </div>
 
                 <p className="text-[10px] text-gray-500 dark:text-gray-500 font-medium">
-                  {robin.subtitle}
+                  {robin.drives} drives completed
                 </p>
               </motion.div>
             );

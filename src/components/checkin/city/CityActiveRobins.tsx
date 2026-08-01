@@ -48,7 +48,6 @@ export default function CityActiveRobins({ robins, citySlug }: CityActiveRobinsP
                   src={robin.imageUrl}
                   alt={robin.name}
                   fill
-                  unoptimized
                   className="object-cover"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />

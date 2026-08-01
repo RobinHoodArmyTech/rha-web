@@ -1,7 +1,7 @@
 "use client";
 
 import { Medal, Compass, Swords, Shield, Trophy, type LucideIcon } from "lucide-react";
-import type { RobinBadge } from "@/core/services/backend/checkin/cityCheckinService";
+import type { RobinBadge } from "@/lib/checkinBadges";
 import { cn } from "@/lib/utils";
 
 /**

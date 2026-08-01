@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Heart, Utensils, BookOpen, Instagram } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { formatNumber } from '@/lib/format'
 
 // Counter component for animated numbers
 const AnimatedCounter = ({ target, suffix = '' }: { target: number; suffix?: string }) => {
@@ -64,7 +65,7 @@ const AnimatedCounter = ({ target, suffix = '' }: { target: number; suffix?: str
     return <span>{count}{suffix}</span>
   }
 
-  return <span>{count.toLocaleString()}{suffix}</span>
+  return <span>{formatNumber(count)}{suffix}</span>
 }
 
 // Data

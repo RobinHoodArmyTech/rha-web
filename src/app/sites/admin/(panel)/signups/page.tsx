@@ -11,6 +11,7 @@ import type { CityWithCountry } from "@/core/services/backend/city/cityService";
 import { ADMIN_ROLES } from "@/core/config/constants";
 import { useAdminSession } from "@/components/admin/AdminSessionProvider";
 import { api } from "@/lib/http";
+import { formatNumber } from "@/lib/format";
 import DataTable, { type Column } from "@/components/ui/DataTable";
 
 // Response shape returned by GET /api/v1/admin/signup.
@@ -217,7 +218,7 @@ export default function SignupsPage() {
       header: "Signups",
       align: "right",
       cellClassName: "font-semibold text-slate-900 dark:text-white",
-      render: (g) => g.count.toLocaleString("en-IN"),
+      render: (g) => formatNumber(g.count),
     },
   ];
 
@@ -234,7 +235,7 @@ export default function SignupsPage() {
 
       {/* Summary cards */}
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <StatCard icon={Users} label="Total Signups" value={stats ? stats.total.toLocaleString("en-IN") : "—"} />
+        <StatCard icon={Users} label="Total Signups" value={stats ? formatNumber(stats.total) : "—"} />
         {isAdmin && (
           <StatCard icon={Building2} label="Cities Represented" value={stats ? stats.cityCount : "—"} />
         )}

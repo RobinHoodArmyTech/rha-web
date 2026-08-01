@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, Search, X, Crown, Users, Activity } from "lucide-react";
 import type { CityTopRobin } from "@/core/services/backend/checkin/cityCheckinService";
 import { ROBIN_BADGE_CONFIG, RobinBadgeMark } from "@/components/checkin/robinBadges";
+import { formatNumber } from "@/lib/format";
 import RobinAvatar from "./RobinAvatar";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +18,6 @@ interface CityTopRobinsProps {
   robins: CityTopRobin[];
 }
 
-const nf = new Intl.NumberFormat("en-IN");
 
 // Medal treatment for the top three.
 const MEDALS: Record<number, { ring: string; disc: string; accent: string }> = {
@@ -76,7 +76,7 @@ export default function CityTopRobins({
                 Top Active Robins
               </h1>
               <p className="mt-3 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
-                Our top {nf.format(total)} Robins with the highest number of drives checked-in over the
+                Our top {formatNumber(total)} Robins with the highest number of drives checked-in over the
                 last {windowDays} days.
               </p>
 
@@ -164,8 +164,8 @@ function GlossyStats({ total, totalDrives }: { total: number; totalDrives: numbe
         <div className="absolute inset-0 bg-[radial-gradient(80%_130%_at_100%_0%,rgba(34,197,94,0.16),transparent)]" />
       </div>
       <div className="relative grid grid-cols-2 divide-x divide-gray-200/70 dark:divide-green-900/50">
-        <GlossCell icon={Users} label="Robins ranked" value={nf.format(total)} />
-        <GlossCell icon={Activity} label="Total drives" value={nf.format(totalDrives)} />
+        <GlossCell icon={Users} label="Robins ranked" value={formatNumber(total)} />
+        <GlossCell icon={Activity} label="Total drives" value={formatNumber(totalDrives)} />
       </div>
     </div>
   );

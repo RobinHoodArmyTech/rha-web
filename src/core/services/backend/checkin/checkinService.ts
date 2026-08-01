@@ -96,6 +96,64 @@ export async function getCheckinCountsByCity(days = 60): Promise<CityCheckinCoun
   );
 }
 
+export interface TopActiveRobin {
+  id: number;
+  name: string;
+  /** Avatar URL — null when the Robin has no photo; the UI renders an initial fallback. */
+  imageUrl: string | null;
+  cityName: string;
+  /** Check-in count within the window. */
+  drives: number;
+}
+
+const TOP_ACTIVE_ROBIN_FIELDS = [
+  "robins.id as id",
+  "robins.fullName as name",
+  "robins.avatarUrl as imageUrl",
+  "cities.cityName as cityName",
+] as const;
+
+/**
+ * Top active Robins ranked by check-ins over the last `days` window.
+ * Pass `cityId` to scope to one city; omit for a global ranking.
+ * Anonymous check-ins (null robinId) are excluded by the inner join.
+ */
+export async function getTopActiveRobins(opts: {
+  cityId?: number;
+  limit?: number;
+  days?: number;
+} = {}): Promise<TopActiveRobin[]> {
+  const { cityId, limit = 5, days = 60 } = opts;
+  const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+
+  const query = db("checkins")
+    .join("robins", "checkins.robinId", "robins.id")
+    .join("cities", "checkins.cityId", "cities.id")
+    .where("checkins.createdAt", ">=", since)
+    .select(...TOP_ACTIVE_ROBIN_FIELDS)
+    .count({ drives: "checkins.id" })
+    .groupBy("robins.id", "robins.fullName", "robins.avatarUrl", "cities.cityName")
+    .orderBy("drives", "desc")
+    .orderBy("robins.fullName", "asc")
+    .limit(limit);
+
+  if (cityId !== undefined) {
+    query.where("checkins.cityId", cityId);
+  }
+
+  const rows = await query;
+
+  return (
+    rows as Array<{ id: number; name: string; imageUrl: string | null; cityName: string; drives: number | string }>
+  ).map((r) => ({
+    id: Number(r.id),
+    name: r.name.trim(),
+    imageUrl: typeof r.imageUrl === "string" && r.imageUrl.trim() ? r.imageUrl.trim() : null,
+    cityName: r.cityName,
+    drives: Number(r.drives),
+  }));
+}
+
 /** Rolling counters for the last `days` (default 7, includes today) — home page. */
 export async function getCheckinTotals(days = 7): Promise<CheckinTotals> {
   const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000);

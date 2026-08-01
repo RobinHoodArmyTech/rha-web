@@ -6,10 +6,9 @@ import Link from "next/link";
 import { MapPin, ChevronDown, TrendingUp, ArrowRight } from "lucide-react";
 import type { CityCheckinCount } from "@/core/services/backend/checkin/checkinService";
 import { api } from "@/lib/http";
+import { citySlug } from "@/lib/citySlug";
+import { formatNumber } from "@/lib/format";
 
-/** Clean URL slug for a city page: "New Delhi" -> "new-delhi". */
-const citySlug = (name: string) =>
-  name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 const cityHref = (name: string) => `/sites/checkin/${citySlug(name)}`;
 
 const barColors = [
@@ -219,7 +218,7 @@ export default function CheckInHighlights() {
                 </div>
                 <div className="text-center">
                   <div className="text-lg font-black text-[#1a6b3c] dark:text-[#4ade80]">
-                    {loaded ? totalCheckins.toLocaleString("en-IN") : "—"}
+                    {loaded ? formatNumber(totalCheckins) : "—"}
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400">Total Check-Ins</div>
                 </div>
