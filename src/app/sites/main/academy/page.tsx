@@ -245,7 +245,7 @@ export default function AcademyPage() {
                     <BookOpen className="w-4 h-4 text-green-300" />
                   </div>
                   <p className="text-white/90 leading-relaxed text-[15px]">
-                    The Robin Hood Academy empowers <span className="text-green-300 font-semibold">7,328+ street children</span> with
+                    The Robin Hood Academy empowers <span className="text-green-300 font-semibold">12,000+ street children</span> with
                     basic primary education. Our Robins conduct regular weekend classes and excursions with a standardized curriculum to introduce and drive the spirit of learning.
                   </p>
                 </div>

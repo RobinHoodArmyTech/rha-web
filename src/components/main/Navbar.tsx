@@ -28,6 +28,7 @@ const navItems = [
   },
   { label: "Checkin", href: checkinHref },
   { label: "Academy", href: "/sites/main/academy" },
+  { label: "AI Learning Centre", href: "/sites/main/ai-learning-center" },
 ];
 
 export default function Navbar() {
