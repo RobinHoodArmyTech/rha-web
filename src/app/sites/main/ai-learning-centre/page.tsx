@@ -9,7 +9,7 @@ const COLORS = {
   textGray: '#4A4A4A',
 };
 
-const AILearningCenter = () => {
+const AILearningCentre = () => {
   return (
     <div className="min-h-screen" style={{ backgroundColor: COLORS.bg }}>
       <Head>
@@ -109,4 +109,4 @@ const NumberedRow = ({ num, title, text }: { num: string; title?: string; text: 
   </div>
 );
 
-export default AILearningCenter;
+export default AILearningCentre;
