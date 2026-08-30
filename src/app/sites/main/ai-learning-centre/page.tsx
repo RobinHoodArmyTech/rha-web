@@ -34,17 +34,54 @@ const AILearningCentre = () => {
           A blueprint for organisations to build AI Learning Centres - a step towards nation-building in the age of AI.
         </b></p>
 
-        <a
-          href="/documents/guides/Bharat_Learns_AI_Playbook.pdf"
-          download
-          className="inline-flex items-center gap-3 px-8 py-4 rounded text-white font-bold transition-transform hover:scale-105"
-          style={{ backgroundColor: COLORS.darkGreen }}
-        >
-          Download the playbook
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M7 13l5 5 5-5M12 6v12"/>
-          </svg>
-        </a>
+        <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+          <a
+            href="/documents/guides/Bharat_Learns_AI_Playbook.pdf"
+            download
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded text-white font-bold transition-transform hover:scale-105"
+            style={{ backgroundColor: COLORS.darkGreen }}
+          >
+            <span className="flex flex-col items-center leading-tight text-center">
+              <span>Download the playbook</span>
+            </span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M7 13l5 5 5-5M12 6v12"/>
+              <path d="M4 19.5h16" strokeWidth="1.75"/>
+            </svg>
+          </a>
+
+          <a
+            href="/documents/guides/ALC_Curriculum_Foundation_10-13.pdf"
+            download
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded text-white font-bold transition-transform hover:scale-105"
+            style={{ backgroundColor: COLORS.darkGreen }}
+          >
+            <span className="flex flex-col items-center leading-tight text-center">
+              <span>Foundation curriculum</span>
+              <span className="text-sm font-medium opacity-90">Age 10-13</span>
+            </span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M7 13l5 5 5-5M12 6v12"/>
+              <path d="M4 19.5h16" strokeWidth="1.75"/>
+            </svg>
+          </a>
+
+          <a
+            href="/documents/guides/ALC_Curriculum_Growth_14-17.pdf"
+            download
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded text-white font-bold transition-transform hover:scale-105"
+            style={{ backgroundColor: COLORS.darkGreen }}
+          >
+            <span className="flex flex-col items-center leading-tight text-center">
+              <span>Growth curriculum</span>
+              <span className="text-sm font-medium opacity-90">Age 14-17</span>
+            </span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M7 13l5 5 5-5M12 6v12"/>
+              <path d="M4 19.5h16" strokeWidth="1.75"/>
+            </svg>
+          </a>
+        </div>
       </section>
 
       {/* --- WHY SECTION --- */}
@@ -88,11 +125,16 @@ const AILearningCentre = () => {
         <a
           href="/documents/guides/Bharat_Learns_AI_Playbook.pdf"
           download
-          className="mx-auto inline-flex items-center gap-3 px-8 py-3 rounded text-white font-bold"
+          className="mx-auto inline-flex items-center justify-center gap-3 px-8 py-3 rounded text-white font-bold"
           style={{ backgroundColor: COLORS.darkGreen }}
         >
-          Download the playbook
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M7 13l5 5 5-5M12 6v12"/></svg>
+          <span className="flex flex-col items-center leading-tight text-center">
+            <span>Download the playbook</span>
+          </span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M7 13l5 5 5-5M12 6v12"/>
+            <path d="M4 19.5h16" strokeWidth="1.75"/>
+          </svg>
         </a>
       </section>
     </div>
