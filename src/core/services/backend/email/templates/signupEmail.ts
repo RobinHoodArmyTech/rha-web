@@ -1,4 +1,22 @@
-export function signupEmail() {
+interface SignupEmailLinks {
+  whatsappUrl?: string | null;
+}
+
+function safeLink(value?: string | null): string | null {
+  if (!value) return null;
+
+  try {
+    const url = new URL(value);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return null;
+    return url.href.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+  } catch {
+    return null;
+  }
+}
+
+export function signupEmail({ whatsappUrl }: SignupEmailLinks = {}) {
+  const whatsappLink = safeLink(whatsappUrl);
+
   return {
     subject: "Welcome to the Robin Hood Army family!",
     html: `
@@ -8,8 +26,9 @@ export function signupEmail() {
         <p><strong>Thanks for signing up :) A very warm welcome to the Robin Hood Army family. You can get started right away actually.</strong></p>
 
         <p>
-          <a href="#">Click here</a> to join your city WhatsApp group (where all the coordination happens) and<br/>
-          <a href="#">Click here</a> to join your city Facebook group (where you'll see all the amazing updates)
+          ${whatsappLink
+            ? `<a href="${whatsappLink}">Click here</a> to join your city WhatsApp group (where all the coordination happens)`
+            : "Your city WhatsApp group link is not available yet"}
         </p>
 
         <p>Oh and just before you do this, do take some time out to go through the following pillars of <strong>RHA</strong> :)</p>

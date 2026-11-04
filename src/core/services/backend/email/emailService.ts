@@ -1,6 +1,6 @@
-import { SendEmailCommand } from "@aws-sdk/client-ses";
-import { getSESClient } from "./ses";
+import { getEmailFromAddress, getSMTPTransport } from "./smtp";
 import { signupEmail } from "./templates/signupEmail";
+import { getCityById } from "@/core/services/backend/city/cityService";
 
 interface SendEmailOptions {
   to: string;
@@ -8,28 +8,39 @@ interface SendEmailOptions {
   html: string;
 }
 
-const FROM_EMAIL = process.env.SES_FROM_EMAIL ?? "info@robinhoodarmy.com";
-
 export async function sendEmail({ to, subject, html }: SendEmailOptions) {
-  const client = getSESClient();
-
-  const command = new SendEmailCommand({
-    Source: FROM_EMAIL,
-    Destination: {
-      ToAddresses: [to],
-    },
-    Message: {
-      Subject: { Data: subject },
-      Body: {
-        Html: { Data: html },
-      },
-    },
+  return getSMTPTransport().sendMail({
+    from: getEmailFromAddress(),
+    to,
+    subject,
+    html,
   });
-
-  return client.send(command);
 }
 
-export async function sendSignupEmail(email: string) {
-  const { subject, html } = signupEmail();
+export async function sendSignupEmail(email: string, cityId: number) {
+  const city = await getCityById(cityId);
+  const { subject, html } = signupEmail({
+    whatsappUrl: city?.foodCadetsLink,
+  });
   return sendEmail({ to: email, subject, html });
+}
+
+interface SendCsvEmailOptions {
+  to: string[];
+  subject: string;
+  text: string;
+  filename: string;
+  csv: string;
+}
+
+export async function sendCsvEmail({ to, subject, text, filename, csv }: SendCsvEmailOptions) {
+  const safeFilename = filename.replace(/[^a-zA-Z0-9._-]/g, "_");
+  return getSMTPTransport().sendMail({
+    from: getEmailFromAddress(),
+    to: "undisclosed-recipients:;",
+    bcc: to,
+    subject,
+    text,
+    attachments: [{ filename: safeFilename, content: csv, contentType: "text/csv; charset=utf-8" }],
+  });
 }
