@@ -166,7 +166,7 @@ NEXT_PRIVATE_ADMIN_CONSOLE_DOMAIN=admin.robinhoodarmy.com
 ### Prerequisites
 - Node.js 18+
 - npm
-- PostgreSQL
+- MySQL
 
 ### Install dependencies
 ```bash

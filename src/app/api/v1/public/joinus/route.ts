@@ -18,7 +18,7 @@ export const POST = withApiHandler(async (request) => {
 
   const signup = await createSignup(normalized);
 
-  sendSignupEmail(signup.email).catch((err) =>
+  sendSignupEmail(signup.email, signup.cityId).catch((err) =>
     console.error("Failed to send signup email:", err)
   );
 
