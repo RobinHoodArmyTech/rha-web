@@ -1,8 +1,14 @@
 import { db } from "@/core/db";
 import { sendCsvEmail } from "@/core/services/backend/email/emailService";
+import {
+  buildCsv as buildCsvFile,
+  getSummaryRecipient,
+  sendSummaryCsvChunks,
+} from "./signupJobSummary";
 
 const TIME_ZONE = "Asia/Kolkata";
 const MAX_RAW_EMAIL_BYTES = 9 * 1024 * 1024;
+const REPORT_HEADERS = ["Full Name", "Email", "Mobile Number", "City"];
 
 interface City {
   cityId: number;
@@ -14,6 +20,10 @@ interface SignupRow {
   fullName: string;
   email: string;
   mobileNumber: string;
+}
+
+interface SummarySignup extends SignupRow {
+  cityName: string;
 }
 
 interface Delivery {
@@ -84,20 +94,11 @@ function formatUtcForMysql(date: Date): string {
   return date.toISOString().slice(0, 19).replace("T", " ");
 }
 
-function csvCell(value: string | number | null): string {
-  let text = value == null ? "" : String(value);
-  if (/^[\t\r\n ]*[=+\-@]/.test(text)) text = `'${text}`;
-  return `"${text.replace(/"/g, '""')}"`;
-}
-
 function buildCsv(rows: SignupRow[], cityName: string): string {
-  const lines = [
-    ["Full Name", "Email", "Mobile Number", "City"].map(csvCell).join(","),
-    ...rows.map((row) =>
-      [row.fullName, row.email, row.mobileNumber, cityName].map(csvCell).join(","),
-    ),
-  ];
-  return `\uFEFF${lines.join("\r\n")}\r\n`;
+  return buildCsvFile(
+    REPORT_HEADERS,
+    rows.map((row) => [row.fullName, row.email, row.mobileNumber, cityName]),
+  );
 }
 
 function getValidRecipients(emails: Array<string | null>): string[] {
@@ -195,6 +196,24 @@ async function getCitySignups(cityId: number, startUtc: string, endUtc: string):
   });
 }
 
+async function getSummarySignups(startUtc: string, endUtc: string): Promise<SummarySignup[]> {
+  return db.transaction(async (trx) => {
+    await trx.raw("SET time_zone = '+00:00'");
+    return trx("signups")
+      .join("cities", "signups.cityId", "cities.id")
+      .where("signups.createdAt", ">=", startUtc)
+      .where("signups.createdAt", "<", endUtc)
+      .select(
+        "signups.fullName as fullName",
+        "signups.email as email",
+        "signups.mobileNumber as mobileNumber",
+        "cities.cityName as cityName",
+      )
+      .orderBy("cities.cityName", "asc")
+      .orderBy("signups.id", "asc") as Promise<SummarySignup[]>;
+  });
+}
+
 async function beginDelivery(cityId: number, period: ReportingPeriod): Promise<Delivery | null> {
   const existing = (await db("signup_report_deliveries")
     .where({ cityId, periodStart: period.start, periodEnd: period.end })
@@ -288,10 +307,19 @@ async function processCity(city: City, period: ReportingPeriod): Promise<boolean
 
 async function main(): Promise<void> {
   const period = getReportingPeriod(process.argv.slice(2));
+  const summaryRecipient = getSummaryRecipient();
+  const startUtc = formatUtcForMysql(period.startUtc);
+  const endUtc = formatUtcForMysql(period.endUtc);
   const cities = await getCitiesWithSignups(
-    formatUtcForMysql(period.startUtc),
-    formatUtcForMysql(period.endUtc),
+    startUtc,
+    endUtc,
   );
+  const summarySignups = await getSummarySignups(startUtc, endUtc);
+  const summaryText = [
+    `Attached is the signup summary for all cities.`,
+    `Reporting period: ${period.start} to ${period.end} (Asia/Kolkata).`,
+    `Total signups: ${summarySignups.length}.`,
+  ].join("\n");
   console.info(`Processing signup reports for ${period.start} to ${period.end} (Asia/Kolkata).`);
 
   let failed = false;
@@ -299,6 +327,21 @@ async function main(): Promise<void> {
     if (!(await processCity(city, period))) failed = true;
   }
   if (failed) throw new Error("One or more city signup reports failed; rerun the job to retry failed cities.");
+
+  await sendSummaryCsvChunks({
+    recipient: summaryRecipient,
+    subject: `Signup summary - all cities - ${period.start} to ${period.end}`,
+    text: summaryText,
+    filename: `signup-summary-${period.start}-to-${period.end}.csv`,
+    headers: REPORT_HEADERS,
+    rows: summarySignups.map((row) => [
+      row.fullName,
+      row.email,
+      row.mobileNumber,
+      row.cityName,
+    ]),
+  });
+  console.info(`Sent all-city signup summary with ${summarySignups.length} signup(s).`);
   console.info(`Finished processing ${cities.length} city report(s).`);
 }
 
